@@ -1,21 +1,23 @@
 import Navbar from "@/Components/Navbar";
 import Header from "@/Components/Header";
 import { Head } from "@inertiajs/react";
-import OnGoing from "@/Components/OnGoing";
+import Ongoing from "@/Components/Ongoing";
 import Upcoming from "@/Components/Upcoming";
 import Footer from "@/Components/Footer";
 
-const Home = () => {
+const Index = ({auth}) => {
+    let user;
+    console.log(auth ? user = auth.user : user = null);
     return (
         <>
             <Head title="Home" />
-            <Navbar />
+            <Navbar user={user} />
             <Header />
-            <OnGoing />
+            <Ongoing />
             <Upcoming />
             <Footer />
         </>
     )
 }
 
-export default Home;
+export default Index;

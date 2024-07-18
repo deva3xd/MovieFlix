@@ -5,9 +5,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Modal from "@/Components/Modal";
 import { Link } from "@inertiajs/react";
 
-const Upcoming = () => {
+const Ongoing = () => {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`;
+    const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`;
     const [list, setList] = useState([]);
 
     useEffect(() => {
@@ -24,8 +24,8 @@ const Upcoming = () => {
     };
 
     return (
-        <div className="bg-gray-200 px-10 py-7">
-            <h2 className="text-3xl text-black mb-2 font-bold">Upcoming</h2>
+        <div className="px-10 py-7 bg-custom-primary">
+            <h2 className="text-3xl text-white mb-2 font-bold">Ongoing</h2>
             <Swiper
                 spaceBetween={1}
                 slidesPerView={6}
@@ -68,4 +68,4 @@ const Upcoming = () => {
     )
 }
 
-export default Upcoming;
+export default Ongoing;
