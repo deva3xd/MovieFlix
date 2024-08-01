@@ -1,24 +1,14 @@
-import { useEffect } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, errors } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
     });
-
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
 
     const submit = (e) => {
         e.preventDefault();
@@ -30,7 +20,7 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className='text-black'>
                 <div className="text-black flex justify-center text-3xl font-bold">
                     <h1>Register</h1>
                 </div>
@@ -105,12 +95,12 @@ export default function Register() {
                 </div>
 
                 <div className="flex items-center justify-end mt-1">
-                    <Link
+                    <a
                         href={route('login')}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md"
                     >
                         Already registered? Login
-                    </Link>
+                    </a>
                 </div>
             </form>
         </GuestLayout>

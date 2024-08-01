@@ -2,8 +2,8 @@ import Banner from "@/images/banner.jpg";
 
 const Header = () => {
     return (
-        <div className="relative pt-16">
-            <img src={Banner} className="object-cover" />
+        <div className="relative">
+            <img src={Banner} className="object-cover h-96 w-full" />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent to-custom-primary">
                 <div className="flex items-center h-full">
                     <div className="px-8">

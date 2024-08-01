@@ -1,20 +1,13 @@
-import { useEffect } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
-export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, errors, reset } = useForm({
+export default function Login({ status }) {
+    const { data, setData, post, errors } = useForm({
         email: '',
         password: '',
         remember: false,
     });
-
-    useEffect(() => {
-        return () => {
-            reset('password');
-        };
-    }, []);
 
     const submit = (e) => {
         e.preventDefault();
@@ -28,7 +21,7 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className='text-black'>
                 <div className="text-black flex justify-center text-3xl font-bold">
                     <h1>Log in</h1>
                 </div>
@@ -71,22 +64,12 @@ export default function Login({ status, canResetPassword }) {
                 </div>
                 
                 <div className="flex justify-end mt-1">
-                    {canResetPassword && (
-                        <Link
-                        href={route('register')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md"
-                        >
-                            Don't have an account? Register
-                        </Link>
-                    )}
-                    {/* {canResetPassword && (
-                        <Link
-                        href={route('password.request')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )} */}
+                    <a
+                    href={route('register')}
+                    className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md"
+                    >
+                        Don't have an account? Register
+                    </a>
                 </div>
             </form>
         </GuestLayout>

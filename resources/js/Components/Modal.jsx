@@ -1,26 +1,57 @@
-import { useState } from "react";
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
-const Modal = () => {
-    // if (!handleModal) return null;
+export default function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
+    const close = () => {
+        if (closeable) {
+            onClose();
+        }
+    };
+
+    const maxWidthClass = {
+        sm: 'sm:max-w-sm',
+        md: 'sm:max-w-md',
+        lg: 'sm:max-w-lg',
+        xl: 'sm:max-w-xl',
+        '2xl': 'sm:max-w-2xl',
+    }[maxWidth];
 
     return (
-        <>
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
-            <button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button>
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Press ESC key or click the button below to close</p>
-                    <div className="modal-action">
-                    <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn">Close</button>
-                    </form>
-                    </div>
-                </div>
-            </dialog>
-        </>
-    )
-}
+        <Transition show={show} as={Fragment} leave="duration-200">
+            <Dialog
+                as="div"
+                id="modal"
+                className="fixed inset-0 flex overflow-y-auto px-4 py-6 sm:px-0 items-center z-50 transform transition-all"
+                onClose={close}
+            >
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="absolute inset-0 bg-gray-500/75" />
+                </Transition.Child>
 
-export default Modal;
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                    enterTo="opacity-100 translate-y-0 sm:scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                    leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                >
+                    <Dialog.Panel
+                        className={`mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
+                    >
+                        {children}
+                    </Dialog.Panel>
+                </Transition.Child>
+            </Dialog>
+        </Transition>
+    );
+}
