@@ -20,12 +20,12 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit} className='text-black'>
-                <div className="text-black flex justify-center text-3xl font-bold">
+            <form onSubmit={submit}>
+                <div className="text-white text-3xl font-bold">
                     <h1>Register</h1>
                 </div>
                 <div className="mt-4">
-                    <label className="input input-bordered flex items-center gap-2 bg-white">
+                    <label className="input input-bordered flex items-center gap-2 bg-white text-black">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -40,7 +40,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <label className="input input-bordered flex items-center gap-2 bg-white">
+                    <label className="input input-bordered flex items-center gap-2 bg-white text-black">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -57,7 +57,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <label className="input input-bordered flex items-center gap-2 bg-white">
+                    <label className="input input-bordered flex items-center gap-2 bg-white text-black">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -68,13 +68,13 @@ export default function Register() {
                                 d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                                 clipRule="evenodd" />
                         </svg>
-                        <input type="password" className="grow" placeholder="********" id="password" name="password" onChange={(e) => setData('password', e.target.value)} required />
+                        <input type="password" className="grow" placeholder="Password" id="password" name="password" onChange={(e) => setData('password', e.target.value)} required />
                     </label>
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <label className="input input-bordered flex items-center gap-2 bg-white">
+                    <label className="input input-bordered flex items-center gap-2 bg-white text-black">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16"
@@ -85,19 +85,19 @@ export default function Register() {
                                 d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
                                 clipRule="evenodd" />
                         </svg>
-                        <input type="password" className="grow" placeholder="********" id="password_confirmation" name="password_confirmation" onChange={(e) => setData('password_confirmation', e.target.value)} required />
+                        <input type="password" className="grow" placeholder="Confirm Password" id="password_confirmation" name="password_confirmation" onChange={(e) => setData('password_confirmation', e.target.value)} required />
                     </label>
                     <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
                 
                 <div className="flex items-center justify-center mt-4">
-                    <button className="btn btn-active w-full text-lg" type="submit">Submit</button>
+                    <button className="btn bg-blue-700 hover:bg-blue-800 w-full text-lg text-white" type="submit">Submit</button>
                 </div>
 
                 <div className="flex items-center justify-end mt-1">
                     <a
                         href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md"
+                        className="underline text-sm text-gray-200 hover:text-gray-400 rounded-md"
                     >
                         Already registered? Login
                     </a>
