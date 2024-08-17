@@ -1,21 +1,18 @@
-import axios from "axios";
 import 'swiper/css';
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from '@inertiajs/react';
+import { get } from "@/api/apiClient";
 
 const Upcoming = () => {
-    const apiKey = import.meta.env.VITE_API_KEY;
-    const baseURL = import.meta.env.VITE_BASEURL;
     const imgURL = import.meta.env.VITE_IMGURL;
-    const url = `${baseURL}/movie/upcoming?api_key=${apiKey}`;
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        axios.get(url)
+        get(`/upcoming`)
             .then(res => { setList(res.data.results) })
             .catch(err => console.log(err));
-    });
+    }, []);
 
     return (
         <div className="bg-gray-200 px-10 py-7">

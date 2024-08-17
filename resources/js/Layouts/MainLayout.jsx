@@ -9,11 +9,6 @@ export default function MainLayout({ children, title, user }) {
 			<Navbar user={user} />
 			<main className="pt-16">{children}</main>
 			<Footer />
-			{/* <div className="toast toast-start">
-				<div className="alert alert-info">
-					<span>New mail arrived.</span>
-				</div>
-			</div> */}
 		</div>
 	)
 }

@@ -10,10 +10,10 @@ const Header = () => {
                         <h1 className="text-5xl font-semibold">Welcome,</h1>
                         <p className="text-2xl">Best website to order cinema ticket</p>
                     </div>
-                    <div class="form-control w-2/5 ms-40">
-                        <input type="text" placeholder="Search Movie" class="bg-white text-black input input-bordered w-24 md:w-auto" />
+                    <div className="form-control w-2/5 ms-40">
+                        <input type="text" placeholder="Search Movie" className="bg-white text-black input input-bordered w-24 md:w-auto" />
                     </div>
-                    <button class="btn ms-2">Button</button>
+                    <button className="btn ms-2">Button</button>
                 </div>
             </div>
         </div>

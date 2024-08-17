@@ -1,21 +1,19 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from '@inertiajs/react';
+import { get } from "@/api/apiClient";
 import MainLayout from "@/Layouts/MainLayout";
 
 const Detail = ({ id, auth }) => {
     const user = auth ? auth.user : null;
 
-    const apiKey = import.meta.env.VITE_API_KEY;
-    const baseURL = import.meta.env.VITE_BASEURL;
     const imgURL = import.meta.env.VITE_IMGURL;
-    const url = `${baseURL}/movie/${id}?api_key=${apiKey}`;
     const [detail, setDetail] = useState([]);
 
     useEffect(() => {
-        axios.get(url)
+        get(`/${id}`)
             .then(res => { setDetail(res.data) })
             .catch(err => console.log(err));
-    });
+    }, []);
 
     const voteAverage = typeof detail.vote_average === 'number' ? detail.vote_average.toFixed(1) : 'N/A';
     const originalLanguage = typeof detail.original_language === 'string' ? detail.original_language : 'N/A';
@@ -35,12 +33,12 @@ const Detail = ({ id, auth }) => {
                                         alt="Poster"
                                     />
                                 </figure>
+                                <Link href={route('cart')} className="bg-white text-black rounded-sm font-bold px-4 py-1 text-lg ms-1 text-center mt-2">CART</Link>
                             </div>
                             <div className="w-full ps-4">
                                 <div className="flex items-center">
                                     <span className="bg-red-600 rounded-sm font-bold px-4 py-1 text-lg me-1">{voteAverage}</span>
                                     <span className="bg-blue-600 rounded-sm font-bold px-4 py-1 text-lg">{originalLanguage}</span>
-                                    <span className="bg-white text-black rounded-sm font-bold px-4 py-1 text-lg ms-1">Book Now</span>
                                 </div>
                                 <h3 className="font-bold text-5xl">{detail.title}</h3>
                                 <div className="text-base">

@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-const apiClient = (path, params = {}) => {
-    const apiKey = import.meta.env.VITE_API_KEY;
-    const url = `https://api.themoviedb.org/3/movie/${path}`;
-    return axios.get(url, {
-        params: {
-            api_key: apiKey,
-            ...params,
-        }
-    });
-};
+const apiKey = import.meta.env.VITE_API_KEY;
+const baseURL = import.meta.env.VITE_BASEURL;
+    
+const apiClient = axios.create({
+    baseURL: `${baseURL}`
+  });
 
-export default apiClient;
+export const get = (path) => {
+    const url = `${path}?api_key=${apiKey}`;
+    return apiClient.get(url);
+};

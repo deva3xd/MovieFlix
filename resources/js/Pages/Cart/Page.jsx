@@ -9,9 +9,9 @@ const Page = ({ auth }) => {
     function inc() {
         setCount(count + 1);
     }
-
+    
     function dec() {
-        setCount(count - 1);
+        setCount(count => Math.max(count - 1, 0));
     }
 
     return (
@@ -37,7 +37,7 @@ const Page = ({ auth }) => {
                         </div>
                     </div>
                     <div className='w-1/4 text-xl font-bold p-2 flex justify-center'>
-                        <button class="btn btn-error me-2 text-white">Delete</button>
+                        <button class="btn btn-error me-1 text-white">Delete</button>
                         <button class="btn btn-success text-white">Checkout</button>
                     </div>
                 </div>
