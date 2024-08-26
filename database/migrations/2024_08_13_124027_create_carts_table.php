@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
-            $table->integer('id_movie');
-            $table->string('movie_name');
+            $table->integer('user_id');
+            $table->integer('movie_id');
+            $table->integer('price');
             $table->integer('count');
-            $table->imteger('price');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking');
+        Schema::dropIfExists('carts');
     }
 };

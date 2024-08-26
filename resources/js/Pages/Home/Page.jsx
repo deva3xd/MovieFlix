@@ -3,11 +3,9 @@ import Header from "@/Components/Header";
 import Ongoing from "@/Components/Ongoing";
 import Upcoming from "@/Components/Upcoming";
 
-const Page = ({ auth, res }) => {
-    const user = auth ? auth.user : null;
-    console.log({res})
+const Page = ({ auth }) => {
     return (
-        <MainLayout title='Home' user={user}>
+        <MainLayout title='Home' user={auth.user}>
             <Header />
             <Ongoing />
             <Upcoming />

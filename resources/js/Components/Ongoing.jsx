@@ -31,14 +31,13 @@ const Ongoing = () => {
                   dynamicBullets: true,
                 }}
                 modules={[Pagination]}
-                onSlideChange={() => console.log('slide change')}
                 breakpoints= {{
                     640: {
                         slidesPerView: 2,
                         spaceBetween: 0,
                     },
                     768: {
-                        slidesPerView: 3,
+                        slidesPerView: 2,
                         spaceBetween: 0,
                     },
                     1024: {

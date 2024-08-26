@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Cart;
 
 class HomeController extends Controller
 {
@@ -11,9 +12,8 @@ class HomeController extends Controller
         return Inertia::render('Home/Page');
     }
 
-    public function detail($id) {
-        return Inertia::render('Home/Detail', [
-            'id' => $id
-        ]);
+    public function show($id) {
+        $items = Cart::where('user_id', auth()->user()->id)->get();
+        return Inertia::render('Home/Detail', ['id' => $id, 'items' => $items]);
     }
 }

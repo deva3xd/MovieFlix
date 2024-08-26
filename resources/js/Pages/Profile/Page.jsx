@@ -6,7 +6,6 @@ import DeleteUserForm from './Partials/DeleteUserForm';
 import InputError from '@/Components/InputError';
 
 export default function Page({ auth, mustVerifyEmail, status }) {
-    console.log(route('logout'))
     const userProfile = auth ? auth.user : null;
 
     const user = usePage().props.auth.user;

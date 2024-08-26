@@ -18,9 +18,22 @@ const Upcoming = () => {
         <div className="bg-gray-200 px-10 py-7">
             <h2 className="text-3xl text-black mb-2 font-bold">Upcoming</h2>
             <Swiper
-                spaceBetween={100}
+                spaceBetween={0}
                 slidesPerView={6}
-                onSlideChange={() => console.log('slide change')}
+                breakpoints= {{
+                    640: {
+                        slidesPerView: 3,
+                        spaceBetween: 0,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 0,
+                    },
+                    1024: {
+                        slidesPerView: 6,
+                        spaceBetween: 0,
+                    },
+                }}
             >
                 {list.map(list => {
                     return (

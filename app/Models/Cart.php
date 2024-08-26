@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Cart extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id_user',
-        'id_movie',
-        'movie_name',
-        'count',
+        'user_id',
+        'movie_id',
         'price',
+        'count',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
