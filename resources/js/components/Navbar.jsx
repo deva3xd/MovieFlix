@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
-import Profile from "@/images/profile.png";
-import Cart from "@/images/cart.png";
+import Profile from "@/assets/images/profile.png";
+import Cart from "@/assets/images/cart.png";
 
 const Navbar = () => {
     return (

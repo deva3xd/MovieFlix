@@ -1,4 +1,4 @@
-import Banner from "@/images/banner.png";
+import Banner from "@/assets/images/banner.png";
 
 const Header = () => {
     return (
@@ -11,7 +11,7 @@ const Header = () => {
                         <p className="text-2xl">Best website to order cinema ticket</p>
                     </div>
                     <div className="form-control w-2/5 ms-40">
-                        <input type="text" placeholder="Search Movie" className="bg-white text-black input input-bordered w-24 md:w-auto" />
+                        <input type="text" placeholder="Search Ongoing Movie" className="bg-white text-black input input-bordered w-24 md:w-auto" />
                     </div>
                     <button className="btn ms-2">Button</button>
                 </div>

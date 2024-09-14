@@ -1,5 +1,5 @@
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
+import GuestLayout from '@/layouts/GuestLayout';
+import InputError from '@/components/InputError';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function Login({ status }) {

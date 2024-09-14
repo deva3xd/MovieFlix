@@ -1,28 +1,28 @@
 import { useState } from "react";
-// import { router, useForm, usePage } from '@inertiajs/react';
-// import { toast } from 'sonner';
-import MainLayout from "@/Layouts/MainLayout";
-import Profile from "@/images/profile.png";
+import { router, useForm, usePage } from '@inertiajs/react';
+import { toast } from 'sonner';
+import MainLayout from "@/layouts/MainLayout";
+import Profile from "@/Images/profile.png";
 
 const Page = ({ auth, carts }) => {
     const [count, setCount] = useState(1);
-    // const { flash } = usePage().props;
-    // const { data } = useForm({
-    //     user_id: auth.user.id,
-    //     movie_id: 12,
-    //     price: 20000,
-    //     count: 12,
-    // });
+    const { flash } = usePage().props;
+    const { data } = useForm({
+        user_id: auth.user.id,
+        movie_id: 12,
+        price: 20000,
+        count: 12,
+    });
 
-    // const onSubmit = (e) => {
-    //     e.preventDefault();
+    const onSubmit = (e) => {
+        e.preventDefault();
 
-    //     router.post("/cart", data);
-    // };
+        router.post("/cart", data);
+    };
 
-    // if (flash.message) {
-    //     toast.success(flash.message);
-    // };
+    if (flash.message) {
+        toast.success(flash.message);
+    };
     return (
         <MainLayout title='Home' user={auth.user}>
             <div className="min-h-screen bg-white pt-4">
@@ -47,11 +47,11 @@ const Page = ({ auth, carts }) => {
                     </div>
                     <div className='w-1/4 text-xl font-bold p-2 flex justify-center'>
                         <button className="btn btn-error me-1 text-white">Delete</button>
-                        {/* <form onSubmit={onSubmit}>
+                        <form onSubmit={onSubmit}>
                             <button className="btn btn-success text-white">
                                 Checkout
                             </button>
-                        </form> */}
+                        </form>
                     </div>
                 </div>
             </div>

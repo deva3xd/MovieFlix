@@ -1,7 +1,7 @@
-import MainLayout from "@/Layouts/MainLayout";
-import Header from "@/Components/Header";
-import Ongoing from "@/Components/Ongoing";
-import Upcoming from "@/Components/Upcoming";
+import MainLayout from "@/layouts/MainLayout";
+import Header from "@/components/Header";
+import Ongoing from "@/components/Ongoing";
+import Upcoming from "@/components/Upcoming";
 
 const Page = ({ auth }) => {
     return (

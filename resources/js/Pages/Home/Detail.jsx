@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import { Link, Head, router, useForm, usePage } from '@inertiajs/react';
 import { get } from "@/api/apiClient";
 import { toast, Toaster } from 'sonner';
-import Footer from "@/Components/Footer";
-import Navbar from "@/Components/Navbar";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import Cast from "@/components/Cast";
+import Review from "@/components/Review";
 
 const Detail = ({ id, auth, items }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
     const [detail, setDetail] = useState([]);
+    const [cast, setCast] = useState(true);
     const voteAverage = typeof detail.vote_average === 'number' ? detail.vote_average.toFixed(1) : 'N/A';
     const originalLanguage = typeof detail.original_language === 'string' ? detail.original_language : 'N/A';
 
@@ -34,6 +37,9 @@ const Detail = ({ id, auth, items }) => {
     if (flash.message) {
         toast.success(flash.message);
     };
+
+    const item = items.length > 0;
+    console.log(items)
     return (
         <>
             <div className="container mx-auto">
@@ -55,7 +61,9 @@ const Detail = ({ id, auth, items }) => {
                                         </figure>
                                         <div className="flex gap-1">
                                             <form onSubmit={onSubmit}>
-                                                <button className="bg-white border border-white text-black rounded-sm font-bold px-3 py-1 text-md text-center mt-2 w-full disabled:bg-gray-500 disabled:border-gray-500">CART</button>
+                                                {!item && 
+                                                    <button className="bg-white border border-white text-black rounded-sm font-bold px-3 py-1 text-md text-center mt-2 w-full disabled:bg-gray-500 disabled:border-gray-500">CART</button>
+                                                }
                                             </form>
                                             <Link href='#' className="border border-white rounded-sm font-bold px-3 py-1 text-md text-center mt-2 w-full">CHECKOUT</Link>
                                         </div>
@@ -85,12 +93,13 @@ const Detail = ({ id, auth, items }) => {
                                 </div>
                                 <div className="flex w-full gap-64 px-32">
                                     <div className="font-bold border-b-2 border-white flex justify-center gap-80 pb-2 w-full bg-custom-primary text-2xl">
-                                        <p className="border-b-2 border-white">Cast</p>
-                                        <p>Review</p>
+                                        <button className={cast ? "border-b-2 border-white text-white" : ''} onClick={() => setCast(true)}>Cast</button>
+                                        <button className={!cast ? "border-b-2 border-white text-white" : ''} onClick={() => setCast(false)}>Review</button>
                                     </div>
                                 </div>
-                                <div className="bg-custom-primary">
-                                    test
+                                <div className="bg-custom-primary px-32 py-1">
+                                    <h5 className="text-white text-lg">More...</h5>
+                                    {cast ? <Cast id={id} /> : <Review id={id} />}
                                 </div>
                                 <Footer />
                             </div>
