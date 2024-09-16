@@ -1,13 +1,11 @@
-import MainLayout from "@/Layouts/MainLayout";
-import Header from "@/Components/Header";
-import Ongoing from "@/Components/Ongoing";
-import Upcoming from "@/Components/Upcoming";
+import MainLayout from "@/layouts/MainLayout";
+import Header from "@/components/Header";
+import Ongoing from "@/components/Ongoing";
+import Upcoming from "@/components/Upcoming";
 
-const Page = ({ auth, res }) => {
-    const user = auth ? auth.user : null;
-    console.log({res})
+const Page = ({ auth }) => {
     return (
-        <MainLayout title='Home' user={user}>
+        <MainLayout title='Home' user={auth.user}>
             <Header />
             <Ongoing />
             <Upcoming />

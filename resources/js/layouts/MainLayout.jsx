@@ -1,6 +1,7 @@
 import { Head } from "@inertiajs/react";
-import Navbar from "@/Components/Navbar";
-import Footer from "@/Components/Footer";
+import { Toaster } from "sonner";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function MainLayout({ children, title, user }) {	
 	return (
@@ -9,6 +10,7 @@ export default function MainLayout({ children, title, user }) {
 			<Navbar user={user} />
 			<main className="pt-16">{children}</main>
 			<Footer />
+			<Toaster />
 		</div>
 	)
 }

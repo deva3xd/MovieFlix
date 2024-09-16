@@ -1,12 +1,11 @@
 import { useForm, usePage } from '@inertiajs/react';
 import { useRef } from 'react';
 import { Toaster, toast } from 'sonner'
-import MainLayout from '@/Layouts/MainLayout';
-import DeleteUserForm from './Partials/DeleteUserForm';
-import InputError from '@/Components/InputError';
+import MainLayout from '@/layouts/MainLayout';
+import DeleteUserForm from './partials/DeleteUserForm';
+import InputError from '@/components/InputError';
 
 export default function Page({ auth, mustVerifyEmail, status }) {
-    console.log(route('logout'))
     const userProfile = auth ? auth.user : null;
 
     const user = usePage().props.auth.user;
