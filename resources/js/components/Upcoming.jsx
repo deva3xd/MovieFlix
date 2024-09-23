@@ -15,12 +15,12 @@ const Upcoming = () => {
     }, []);
 
     return (
-        <div className="bg-gray-200 px-10 py-7">
-            <h2 className="text-3xl text-black mb-2 font-bold">Upcoming</h2>
+        <div className="bg-gray-200 text-black px-10 py-7">
+            <h2 className="text-3xl mb-2 font-bold">Upcoming</h2>
             <Swiper
-                spaceBetween={0}
                 slidesPerView={6}
-                breakpoints= {{
+                spaceBetween={0}
+                breakpoints={{
                     640: {
                         slidesPerView: 3,
                         spaceBetween: 0,
@@ -35,17 +35,21 @@ const Upcoming = () => {
                     },
                 }}
             >
-                {list.map(list => {
-                    return (
-                        <SwiperSlide key={list.id}>
-                            <Link href={route('detail', {id: list.id})}>
-                                <div className="card w-44 bg-white shadow-xl rounded-none">
-                                    <figure><img src={`${imgURL}/w500/${list.poster_path}`} alt={list.title} /></figure>
-                                </div>
-                            </Link>
-                        </SwiperSlide>
-                    )
-                })}
+                {list.length == 0 ? (
+                    <p className="py-3 text-xl">No Movie Available</p>
+                ) : (
+                    list.map(list => {
+                        return (
+                            <SwiperSlide key={list.id}>
+                                <Link href={route('detail', { id: list.id, ongoing: false })}>
+                                    <div className="card w-44 bg-white shadow-xl rounded-none">
+                                        <figure><img src={`${imgURL}/w500/${list.poster_path}`} alt={list.title} /></figure>
+                                    </div>
+                                </Link>
+                            </SwiperSlide>
+                        )
+                    })
+                )}
             </Swiper>
         </div>
     )
