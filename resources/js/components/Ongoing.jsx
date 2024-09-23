@@ -17,8 +17,8 @@ const Ongoing = () => {
     }, []);
 
     return (
-        <div className="bg-custom-primary px-10 pt-7">
-            <h2 className="text-3xl text-white mb-2 font-bold">Ongoing</h2>
+        <div className="bg-custom-primary text-white px-10 py-7">
+            <h2 className="text-3xl mb-2 font-bold">Ongoing</h2>
             <Swiper
                 slidesPerView={1}
                 spaceBetween={0}
@@ -27,16 +27,12 @@ const Ongoing = () => {
                 fadeEffect='true'
                 grabCursor='true'
                 pagination={{
-                  clickable: true,
-                  dynamicBullets: true,
+                    clickable: true,
+                    dynamicBullets: true,
                 }}
                 modules={[Pagination]}
-                breakpoints= {{
+                breakpoints={{
                     640: {
-                        slidesPerView: 2,
-                        spaceBetween: 0,
-                    },
-                    768: {
                         slidesPerView: 2,
                         spaceBetween: 0,
                     },
@@ -46,17 +42,22 @@ const Ongoing = () => {
                     },
                 }}
             >
-                {list.map(list => {
-                    return (
-                        <SwiperSlide key={list.id}>
-                            <Link href={route('detail', {id: list.id})}>
-                                <div className="card w-60 bg-white shadow-xl rounded-none mb-9">
-                                    <figure><img src={`${imgURL}/w500/${list.poster_path}`} alt={list.title} /></figure>
-                                </div>
-                            </Link>
-                        </SwiperSlide>
-                    )
-                })}
+                {list.length == 0 ? (
+                    <p className="py-3 text-xl">No Movie Available</p>
+                ) : (
+                    list.map(list => {
+                        return (
+                            <SwiperSlide key={list.id}>
+                                <Link href={route('detail', { id: list.id, ongoing: true })}>
+                                    <div className="card w-60 bg-white shadow-xl rounded-none mb-9">
+                                        <figure><img src={`${imgURL}/w500/${list.poster_path}`} alt={list.title} /></figure>
+                                    </div>
+                                </Link>
+                            </SwiperSlide>
+                        )
+                    })
+
+                )}
             </Swiper>
         </div>
     )

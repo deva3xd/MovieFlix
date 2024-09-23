@@ -14,25 +14,36 @@ const Cast = ({ id }) => {
     const limitList = list.slice(0, 4);
 
     return (
-        <div className="bg-gray-300">
-            <div className="flex flex-wrap p-1">
-                {limitList.map((list) => (
-                    <div className="w-1/2 flex my-1">
-                        <div className="avatar">
-                            <div className="w-32 rounded">
-                                <img src={`${imgURL}/w500/${list.profile_path}`} alt="Profile" />
-                            </div>
-                        </div>
-                        <div className="flex items-center mx-3">
-                            <div className="text-black">
-                                <h5 className="text-2xl font-bold">{list.name}</h5>
-                                <p className="font-extralight">{list.character}</p>
-                            </div>
+        <>
+
+            {
+                list.length == 0 ? (
+                    <div class="flex rounded-lg">
+                        <div class="py-1 text-xl font-medium leading-none text-center text-white rounded-full animate-pulse">
+                            loading...
                         </div>
                     </div>
-                ))}
-            </div>
-        </div>
+                ) : (
+                    limitList.map((list) => (
+                        <div className="bg-gray-300 w-1/2 border-2 border-custom-tertiary">
+                            <div className="flex" key={list.id}>
+                                <div className="avatar">
+                                    <div className="w-32 rounded">
+                                        <img src={`${imgURL}/w500/${list.profile_path}`} alt="Profile" />
+                                    </div>
+                                </div>
+                                <div className="flex items-center mx-2">
+                                    <div className="text-black">
+                                        <h5 className="text-2xl font-bold">{list.name}</h5>
+                                        <p className="font-extralight">{list.character}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                )
+            }
+        </>
     )
 }
 

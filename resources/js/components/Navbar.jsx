@@ -4,12 +4,12 @@ import Cart from "@/assets/images/cart.png";
 
 const Navbar = () => {
     return (
-        <div className="navbar bg-custom-primary px-8 py-3 fixed z-50 text-white container">
+        <div className="navbar bg-custom-primary bg-opacity-30 backdrop-blur-md px-8 py-3 text-white fixed container z-50 text-xl">
             <div className="flex-1">
-                <Link href="#" className="text-xl p-0 font-extrabold">CINETIX</Link>
+                <Link href="#" className="p-0 font-extrabold">CINETIX</Link>
             </div>
             <div className="flex-1 justify-center">
-                <Link href={route('home')} className="font-bold me-5 hover:text-gray-500">Home</Link>
+                <Link href={route('home')} className="font-bold hover:text-gray-500">Home</Link>
             </div>
             <div className="flex-1 justify-end">
                 <Link href={route('cart')}>

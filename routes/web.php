@@ -11,8 +11,8 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/', '/home');
     // home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/home/movie-detail/id={id}', [HomeController::class, 'show'])->name('detail');
-    Route::post('/home/movie-detail/id={id}', [CartController::class, 'store']);
+    Route::get('/home/movie-detail/id={id}/ongoing={ongoing}', [HomeController::class, 'show'])->name('detail');
+    Route::post('/home/movie-detail/id={id}', [CartController::class, 'store'])->name('cart.store');
 
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 
     // cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    // Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('/cart/id={id}', [CartController::class, 'destroy'])->name('cart.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -8,7 +8,7 @@ export default function MainLayout({ children, title, user }) {
 		<div className="container mx-auto">
 			<Head title={title} />
 			<Navbar user={user} />
-			<main className="pt-16">{children}</main>
+			<main className="pt-[73px]">{children}</main>
 			<Footer />
 			<Toaster />
 		</div>
