@@ -1,20 +1,11 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from '@inertiajs/react';
 import { Pagination } from 'swiper/modules';
-import { get } from "@/api/apiClient";
 
-const Ongoing = () => {
+const Ongoing = ({ data }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
-    const [list, setList] = useState([]);
-
-    useEffect(() => {
-        get(`/now_playing`)
-            .then(res => { setList(res.data.results) })
-            .catch(err => console.log(err));
-    }, []);
 
     return (
         <div className="bg-custom-primary text-white px-10 py-7">
@@ -42,15 +33,15 @@ const Ongoing = () => {
                     },
                 }}
             >
-                {list.length == 0 ? (
+                {data.length == 0 ? (
                     <p className="py-3 text-xl">No Movie Available</p>
                 ) : (
-                    list.map(list => {
+                    data.map(data => {
                         return (
-                            <SwiperSlide key={list.id}>
-                                <Link href={route('detail', { id: list.id, ongoing: true })}>
+                            <SwiperSlide key={data.id}>
+                                <Link href={route('detail', { id: data.id, ongoing: true })}>
                                     <div className="card w-60 bg-white shadow-xl rounded-none mb-9">
-                                        <figure><img src={`${imgURL}/w500/${list.poster_path}`} alt={list.title} /></figure>
+                                        <figure><img src={`${imgURL}/w500/${data.poster_path}`} alt={data.title} /></figure>
                                     </div>
                                 </Link>
                             </SwiperSlide>

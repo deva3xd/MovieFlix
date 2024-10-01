@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { useForm, usePage, router } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { toast } from 'sonner';
 import { get } from "@/api/apiClient";
 import MainLayout from "@/layouts/MainLayout";
+import DeleteModal from "@/components/DeleteModal";
 
 const Page = ({ auth, carts }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
     const [list, setList] = useState([]);
     const { delete: destroy } = useForm();
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,12 +22,6 @@ const Page = ({ auth, carts }) => {
         };
         fetchData()
     }, []);
-
-    // const onSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     router.post("/cart", data);
-    // };
 
     if (flash.message) {
         toast.success(flash.message);
@@ -40,9 +37,27 @@ const Page = ({ auth, carts }) => {
     };
 
     const onSubmit = (e, id) => {
-        e.preventDefault();
-        destroy(route("cart.destroy", id));
+        // const confirmed = window.confirm("Are you sure you want to delete this item?");
+        // if(confirmed) {
+        //     e.preventDefault();
+        //     destroy(route("cart.destroy", id));
+        // }
     }
+
+    const openModal = (itemId) => {
+        setItemToDelete(itemId);
+        setModalOpen(true);
+    };
+    
+    const confirmDelete = () => {
+        console.log(itemToDelete)
+        if (itemToDelete) {
+            destroy(route("cart.destroy", itemToDelete));
+            window.location.reload(); // Memaksa refresh halaman
+            setModalOpen(false);
+            setItemToDelete(null);
+        }
+    };
 
     return (
         <MainLayout title="Home" user={auth.user}>
@@ -94,15 +109,20 @@ const Page = ({ auth, carts }) => {
                                 </div>
                             </div>
                             <div className="w-1/4 text-xl font-bold p-2 flex justify-center">
-                            <form onSubmit={(e) => onSubmit(e, item.id)}>
-                                <button className="btn btn-error me-1 text-white">Delete</button>
-                            </form>
-                            <button className="btn btn-success text-white" onClick={onSubmit}>Checkout</button>
+                                <button className="btn btn-error me-1 text-white" onClick={() => openModal(item.id)}>Delete</button>
+                                <form onSubmit={(e) => onSubmit(e, item.id)}>
+                                </form>
+                                <button className="btn btn-success text-white" onClick={onSubmit}>Checkout</button>
                             </div>
                         </div>
                     ))
                 )}
             </div>
+            <DeleteModal
+                isOpen={isModalOpen}
+                onClose={() => setModalOpen(false)}
+                onConfirm={confirmDelete}
+            />
         </MainLayout>
     )
 }
