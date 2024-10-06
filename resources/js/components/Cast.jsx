@@ -15,18 +15,17 @@ const Cast = ({ id }) => {
 
     return (
         <>
-
             {
                 list.length == 0 ? (
-                    <div class="flex rounded-lg">
-                        <div class="py-1 text-xl font-medium leading-none text-center text-white rounded-full animate-pulse">
+                    <div className="flex rounded-lg">
+                        <div className="py-1 text-xl font-medium leading-none text-center text-white rounded-full animate-pulse">
                             loading...
                         </div>
                     </div>
                 ) : (
                     limitList.map((list) => (
-                        <div className="bg-gray-300 w-1/2 border-2 border-custom-tertiary">
-                            <div className="flex" key={list.id}>
+                        <div className="bg-gray-300 w-1/2 border-2" key={list.id}>
+                            <div className="flex">
                                 <div className="avatar">
                                     <div className="w-32 rounded">
                                         <img src={`${imgURL}/w500/${list.profile_path}`} alt="Profile" />

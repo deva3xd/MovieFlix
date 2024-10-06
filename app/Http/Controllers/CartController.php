@@ -23,7 +23,7 @@ class CartController extends Controller
         ]);
 
         Cart::create($data);
-        return back()->with('message', 'data added');
+        return back()->with('message', 'Data Added');
     }
 
     public function destroy($id) {

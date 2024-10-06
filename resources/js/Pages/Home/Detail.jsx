@@ -1,25 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, Head, router, useForm, usePage } from '@inertiajs/react';
-import { get } from "@/api/apiClient";
 import { toast, Toaster } from 'sonner';
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Cast from "@/components/Cast";
 import Review from "@/components/Review";
 
-const Detail = ({ id, auth, items, ongoing }) => {
+const Detail = ({ auth, id, items, ongoing, detail }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
-    const [detail, setDetail] = useState([]);
     const [cast, setCast] = useState(true);
     const voteAverage = typeof detail.vote_average === 'number' ? detail.vote_average.toFixed(1) : 'N/A';
     const originalLanguage = typeof detail.original_language === 'string' ? detail.original_language : 'N/A';
-
-    useEffect(() => {
-        get(`/${id}`)
-            .then(res => { setDetail(res.data) })
-            .catch(err => console.log(err));
-    }, []);
 
     const { data } = useForm({
         user_id: auth.user.id,
@@ -27,16 +19,27 @@ const Detail = ({ id, auth, items, ongoing }) => {
         price: 20000,
         count: 1,
     });
-
+    
+    const [isLoading, setIsLoading] = useState(false);
     const onSubmit = (e) => {
         e.preventDefault();
+
+        if (isLoading) return;
+        setIsLoading(true);
+
+        setTimeout(() => {
+            console.log('Button Clicked!');
+            setIsLoading(false);
+        }, 2000);
 
         router.post("/home/movie-detail/id={id}", data);
     };
 
-    if (flash.message) {
-        toast.success(flash.message);
-    };
+    useEffect(() => {
+        if (flash.message) {
+            toast.success(flash.message);
+        }
+    }, [flash.message]);
 
     const item = items.length > 0;
 
@@ -63,7 +66,7 @@ const Detail = ({ id, auth, items, ongoing }) => {
                                             <>
                                                 <form onSubmit={onSubmit}>
                                                     {!item &&
-                                                        <button className="bg-white border border-white text-custom-primary rounded-sm font-bold px-3 py-1 text-md text-center">CART</button>
+                                                        <button className="bg-white border border-white text-custom-primary rounded-sm font-bold px-3 py-1 text-md text-center" disabled={isLoading}>CART</button>
                                                     }
                                                 </form>
                                                 <Link href='#' className="border border-white rounded-sm font-bold px-3 py-1 text-md text-center w-full">CHECKOUT</Link>
@@ -100,7 +103,7 @@ const Detail = ({ id, auth, items, ongoing }) => {
                                     <button className={!cast ? "border-b-2 border-white text-white" : ''} onClick={() => setCast(false)}>Review</button>
                                 </div>
                             </div>
-                            <div className="bg-custom-primary flex flex-wrap px-32 py-1 h-[17rem]">
+                            <div className="bg-custom-primary flex flex-wrap justify-center items-center px-32 py-1 h-[17rem]">
                                 {cast ? <Cast id={id} /> : <Review id={id} />}
                             </div>
                             <Footer />

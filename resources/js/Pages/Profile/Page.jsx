@@ -56,7 +56,7 @@ export default function Page({ auth, mustVerifyEmail, status }) {
 
     return (
         <MainLayout title="Profile" user={userProfile}>
-            <div className="pt-4 px-1 bg-white">
+            <div className="pt-1 px-1 bg-white">
                 <div className='bg-custom-primary text-white text-xl font-bold p-6'>PROFILE</div>
                 <div className="flex gap-1">
                     <div className='bg-custom-primary text-white text-xl font-bold p-6 mt-1 w-1/2'>

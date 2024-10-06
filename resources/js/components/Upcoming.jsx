@@ -1,18 +1,9 @@
 import 'swiper/css';
-import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from '@inertiajs/react';
-import { get } from "@/api/apiClient";
 
-const Upcoming = () => {
+const Upcoming = ({ data }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
-    const [list, setList] = useState([]);
-
-    useEffect(() => {
-        get(`/upcoming`)
-            .then(res => { setList(res.data.results) })
-            .catch(err => console.log(err));
-    }, []);
 
     return (
         <div className="bg-gray-200 text-black px-10 py-7">
@@ -35,15 +26,15 @@ const Upcoming = () => {
                     },
                 }}
             >
-                {list.length == 0 ? (
+                {data.length == 0 ? (
                     <p className="py-3 text-xl">No Movie Available</p>
                 ) : (
-                    list.map(list => {
+                    data.map(data => {
                         return (
-                            <SwiperSlide key={list.id}>
-                                <Link href={route('detail', { id: list.id, ongoing: false })}>
+                            <SwiperSlide key={data.id}>
+                                <Link href={route('detail', { id: data.id, ongoing: false })}>
                                     <div className="card w-44 bg-white shadow-xl rounded-none">
-                                        <figure><img src={`${imgURL}/w500/${list.poster_path}`} alt={list.title} /></figure>
+                                        <figure><img src={`${imgURL}/w500/${data.poster_path}`} alt={data.title} /></figure>
                                     </div>
                                 </Link>
                             </SwiperSlide>
