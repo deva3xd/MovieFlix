@@ -47,7 +47,6 @@ const Ongoing = ({ data }) => {
                             </SwiperSlide>
                         )
                     })
-
                 )}
             </Swiper>
         </div>

@@ -6,7 +6,7 @@ const Cast = ({ id }) => {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        get(`/${id}/credits`)
+        get(`movie/${id}/credits`)
             .then(res => { setList(res.data.cast) })
             .catch(err => console.log(err));
     }, []);

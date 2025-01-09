@@ -6,7 +6,7 @@ const Review = ({ id }) => {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        get(`/${id}/reviews`)
+        get(`movie/${id}/reviews`)
             .then(res => { setList(res.data.results) })
             .catch(err => console.log(err));
     }, []);

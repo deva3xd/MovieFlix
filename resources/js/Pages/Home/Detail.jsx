@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, Head, router, useForm, usePage } from '@inertiajs/react';
+import {  Head, router, useForm, usePage } from '@inertiajs/react';
 import { toast, Toaster } from 'sonner';
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -21,6 +21,7 @@ const Detail = ({ auth, id, items, ongoing, detail }) => {
     });
     
     const [isLoading, setIsLoading] = useState(false);
+    console.log('success');
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -32,7 +33,7 @@ const Detail = ({ auth, id, items, ongoing, detail }) => {
             setIsLoading(false);
         }, 2000);
 
-        router.post("/home/movie-detail/id={id}", data);
+        router.post("/home/detail/id={id}", data);
     };
 
     useEffect(() => {
@@ -61,15 +62,15 @@ const Detail = ({ auth, id, items, ongoing, detail }) => {
                                             alt="Poster"
                                         />
                                     </figure>
-                                    <div className="flex gap-1 my-2">
+                                    <div className="flex my-2 justify-center">
                                         {ongoing == 'true' && (
                                             <>
                                                 <form onSubmit={onSubmit}>
                                                     {!item &&
-                                                        <button className="bg-white border border-white text-custom-primary rounded-sm font-bold px-3 py-1 text-md text-center" disabled={isLoading}>CART</button>
+                                                        <button className="border bg-white border-white text-custom-primary rounded-sm font-bold px-3 py-1 text-md text-center me-1" disabled={isLoading}>CART</button>
                                                     }
+                                                        <button className="border border-white rounded-sm font-bold px-3 py-1 text-md text-center">CHECKOUT</button>
                                                 </form>
-                                                <Link href='#' className="border border-white rounded-sm font-bold px-3 py-1 text-md text-center w-full">CHECKOUT</Link>
                                             </>
                                         )}
                                     </div>
@@ -97,7 +98,7 @@ const Detail = ({ auth, id, items, ongoing, detail }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex w-full gap-64 px-32">
+                            <div className="flex w-full gap-64">
                                 <div className="font-bold flex justify-center gap-80 w-full bg-custom-primary text-2xl">
                                     <button className={cast ? "border-b-2 border-white text-white" : ''} onClick={() => setCast(true)}>Cast</button>
                                     <button className={!cast ? "border-b-2 border-white text-white" : ''} onClick={() => setCast(false)}>Review</button>

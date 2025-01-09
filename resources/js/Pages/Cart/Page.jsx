@@ -32,17 +32,9 @@ const Page = ({ auth, carts }) => {
     const setCount = (id, newCount) => {
         setCounts((prevCounts) => ({
             ...prevCounts,
-            [id]: Math.max(newCount, 1), // Ensure the count doesn't go below 1
+            [id]: Math.max(newCount, 1), // ensure the count doesn't go below 1
         }));
     };
-
-    const onSubmit = (e, id) => {
-        // const confirmed = window.confirm("Are you sure you want to delete this item?");
-        // if(confirmed) {
-        //     e.preventDefault();
-        //     destroy(route("cart.destroy", id));
-        // }
-    }
 
     const openModal = (itemId) => {
         setItemToDelete(itemId);
@@ -53,7 +45,7 @@ const Page = ({ auth, carts }) => {
         console.log(itemToDelete)
         if (itemToDelete) {
             destroy(route("cart.destroy", itemToDelete));
-            window.location.reload(); // Memaksa refresh halaman
+            window.location.reload(); 
             setModalOpen(false);
             setItemToDelete(null);
         }
@@ -94,14 +86,14 @@ const Page = ({ auth, carts }) => {
                             <div className="w-1/4 text-xl font-bold p-2 flex justify-center">
                                 <div className="flex">
                                     <button
-                                        onClick={() => setCount(item.id, (counts[item.id] || 1) - 1)} // Fallback to 1 if undefined
+                                        onClick={() => setCount(item.id, (counts[item.id] || 1) - 1)} // fallback to 1 if undefined
                                         className="px-2 py-1 border border-black"
                                     >
                                         -
                                     </button>
                                     <p className="px-4 py-1 border border-black">{counts[item.id] || 1}</p>
                                     <button
-                                        onClick={() => setCount(item.id, (counts[item.id] || 1) + 1)} // Fallback to 1 if undefined
+                                        onClick={() => setCount(item.id, (counts[item.id] || 1) + 1)} // fallback to 1 if undefined
                                         className="px-2 py-1 border border-black"
                                     >
                                         +
@@ -110,9 +102,9 @@ const Page = ({ auth, carts }) => {
                             </div>
                             <div className="w-1/4 text-xl font-bold p-2 flex justify-center">
                                 <button className="btn btn-error me-1 text-white" onClick={() => openModal(item.id)}>Delete</button>
-                                <form onSubmit={(e) => onSubmit(e, item.id)}>
+                                {/* <form onSubmit={(e) => onSubmit(e, item.id)}>
                                 </form>
-                                <button className="btn btn-success text-white" onClick={onSubmit}>Checkout</button>
+                                <button className="btn btn-success text-white" onClick={onSubmit}>Checkout</button> */}
                             </div>
                         </div>
                     ))

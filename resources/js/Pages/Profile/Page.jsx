@@ -20,7 +20,7 @@ export default function Page({ auth, mustVerifyEmail, status }) {
         password_confirmation: '',
     });
 
-    const submit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         patch(route('profile.update'));
         
@@ -63,7 +63,7 @@ export default function Page({ auth, mustVerifyEmail, status }) {
                         <h3 className='text-lg'>Profile Information</h3>
                         <p className='text-sm'>Update your account's profile information and email address.</p>
                         <Toaster richColors />
-                        <form onSubmit={submit}>
+                        <form onSubmit={handleSubmit}>
                             <label className="form-control w-full max-w-xs mt-5">
                                 <div className="label p-0">
                                     <span className="label-text">Name</span>
