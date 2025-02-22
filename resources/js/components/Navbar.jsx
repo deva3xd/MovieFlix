@@ -4,7 +4,7 @@ import Cart from "@/assets/images/cart.png";
 
 const Navbar = () => {
     return (
-        <div className="navbar bg-custom-primary bg-opacity-30 backdrop-blur-md px-8 py-3 text-white fixed container z-50 text-xl">
+        <div className="navbar bg-custom-primary bg-opacity-30 backdrop-blur-md px-8 py-3 text-white fixed 2xl:container z-50 text-xl">
             <div className="flex-1">
                 <Link href="#" className="p-0 font-extrabold">CINETIX</Link>
             </div>

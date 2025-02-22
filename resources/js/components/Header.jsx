@@ -48,20 +48,20 @@ const Header = () => {
         <div className="relative text-white">
             <img src={Banner} className="object-cover h-96 w-full" />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent to-custom-primary">
-                <div className="flex px-8 items-center h-full justify-between">
-                    <div className="w-1/2">
-                        <h1 className="text-5xl font-semibold">Welcome,</h1>
-                        <p className="text-2xl">
+                <div className="flex flex-col sm:flex-row px-8 items-center h-full justify-center sm:justify-between">
+                    <div className="w-full sm:w-1/2">
+                        <h1 className="text-2xl sm:text-5xl font-semibold">Welcome,</h1>
+                        <p className="text-lg sm:text-2xl">
                             Best website to order cinema ticket
                         </p>
                     </div>
-                    <div className="w-2/5 relative">
+                    <div className="w-full sm:w-2/5 relative">
                         <input
                             type="text"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Search Movie"
-                            className="bg-white text-black border border-gray-300 rounded-md w-full px-4 py-3 focus:outline-none"
+                            className="bg-white text-black border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none"
                         />
 
                         {isLoading && (
