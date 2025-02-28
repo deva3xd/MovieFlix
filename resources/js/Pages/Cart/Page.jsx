@@ -102,9 +102,9 @@ const Page = ({ auth, carts }) => {
                             </div>
                             <div className="w-1/4 text-xl font-bold p-2 flex justify-center">
                                 <button className="btn btn-error me-1 text-white" onClick={() => openModal(item.id)}>Delete</button>
-                                {/* <form onSubmit={(e) => onSubmit(e, item.id)}>
+                                <form onSubmit={(e) => onSubmit(e, item.id)}>
                                 </form>
-                                <button className="btn btn-success text-white" onClick={onSubmit}>Checkout</button> */}
+                                <button className="btn btn-success text-white" onClick={onSubmit}>Checkout</button>
                             </div>
                         </div>
                     ))
