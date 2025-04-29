@@ -18,6 +18,9 @@ class MovieResource extends JsonResource
             "id" => $this['id'],
             "title" => $this['title'],
             "poster_path" => $this['poster_path'],
+            "backdrop_path" => $this['backdrop_path'],
+            "overview" => $this['overview'],
+            "release_date" => $this['release_date']
         ];
     }
 }

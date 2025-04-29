@@ -51,15 +51,15 @@ const Detail = ({ auth, id, items, ongoing, detail }) => {
     const item = items.length > 0;
 
     return (
-        <div className="2xl:container mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
             <Toaster />
             <Head title="Detail" />
             <Navbar user={auth.user} />
-            <div className="pt-[73px]">
+            <div className="pt-[64px]">
                 <div className="relative">
                     <img
                         src={`${imgURL}/w1280/${detail.backdrop_path}`}
-                        className="w-full h-full object-cover"
+                        className="w-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-custom-primary via-transparent to-transparent">
                         <div className="flex text-white px-3 sm:px-32 pt-56 pb-3 sm:pt-72">

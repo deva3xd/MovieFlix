@@ -1,22 +1,22 @@
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Link } from '@inertiajs/react';
-import { Pagination } from 'swiper/modules';
+import "swiper/css";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "@inertiajs/react";
+import { Pagination } from "swiper/modules";
 
 const Ongoing = ({ data }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
 
     return (
-        <div className="bg-custom-primary text-white px-10 py-7">
-            <h2 className="text-xl sm:text-3xl mb-2 font-bold">Ongoing</h2>
+        <div className="bg-custom-primary text-white px-8 py-5">
+            <h2 className="text-xl sm:text-3xl mb-4 font-medium">Ongoing</h2>
             <Swiper
-                slidesPerView= {2}
+                slidesPerView={2}
                 spaceBetween={0}
-                loop='true'
-                centeredSlides='true'
-                fadeEffect='true'
-                grabCursor='true'
+                loop="true"
+                centeredSlides="true"
+                fadeEffect="true"
+                grabCursor="true"
                 pagination={{
                     clickable: true,
                     dynamicBullets: true,
@@ -25,33 +25,54 @@ const Ongoing = ({ data }) => {
                 breakpoints={{
                     640: {
                         slidesPerView: 2,
-                      },
-                      768: {
+                    },
+                    768: {
                         slidesPerView: 3,
-                      },
-                      1024: {
-                        slidesPerView: 4,
-                      },
+                    },
+                    1024: {
+                        slidesPerView: 5,
+                    },
                 }}
             >
                 {data.length == 0 ? (
-                    <p className="py-3 text-lg sm:text-xl">No Movie Available</p>
+                    <p className="py-3 text-lg sm:text-xl">
+                        No Movie Available
+                    </p>
                 ) : (
-                    data.map(data => {
+                    data.map((item) => {
+                        const year = new Date(item.release_date).getFullYear();
+
                         return (
-                            <SwiperSlide key={data.id}>
-                                <Link href={route('detail', { id: data.id, ongoing: true })}>
-                                    <div className="card w-48 sm:w-60 bg-white shadow-xl rounded-none mb-9">
-                                        <figure><img src={`${imgURL}/w500/${data.poster_path}`} alt={data.title} /></figure>
+                            <SwiperSlide key={item.id}>
+                                <Link
+                                    href={route("detail", {
+                                        id: item.id,
+                                        ongoing: true,
+                                    })}
+                                >
+                                    <div className="card w-48 sm:w-60 rounded-lg mb-5">
+                                        <figure>
+                                            <img
+                                                src={`${imgURL}/w500/${item.poster_path}`}
+                                                alt={item.title}
+                                                className="rounded-lg"
+                                            />
+                                        </figure>
+                                        <div className="flex flex-col my-1">
+                                            <p className="font-medium">
+                                                {item.title}
+                                            </p>
+                                            <p className="font-light text-gray-500">{year}</p>
+                                        </div>
                                     </div>
                                 </Link>
                             </SwiperSlide>
-                        )
+                        );
                     })
                 )}
             </Swiper>
         </div>
-    )
-}
+    );
+};
 
 export default Ongoing;
