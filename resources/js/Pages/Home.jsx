@@ -2,17 +2,17 @@ import MainLayout from "@/layouts/MainLayout";
 import Header from "@/components/Header";
 import Ongoing from "@/components/Ongoing";
 import Upcoming from "@/components/Upcoming";
-import Genre from "@/components/Genre";
+import GenreList from "@/components/GenreList";
 
-const Page = ({ auth, upcoming, ongoing }) => {
+const Home = ({  upcoming, ongoing, genres }) => {
     return (
-        <MainLayout title='Home' user={auth.user}>
+        <MainLayout title='Home'>
             <Header data={ongoing} />
             <Ongoing data={ongoing} />
             <Upcoming data={upcoming} />
-            <Genre />
+            <GenreList data={genres} />
         </MainLayout>
     )
 }
 
-export default Page;
+export default Home;

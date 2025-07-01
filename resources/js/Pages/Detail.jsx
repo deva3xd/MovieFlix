@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
 import { router, useForm, usePage } from "@inertiajs/react";
 import { toast, Toaster } from "sonner";
-// import Cast from "@/components/Cast";
-// import Review from "@/components/Review";
 import MainLayout from "@/layouts/MainLayout";
 
-const Detail = ({ auth, id, items, status, detail }) => {
-    const [cast, setCast] = useState(true);
+const Detail = ({ auth, id, items, status, detail, credits }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
     const voteAverage =
@@ -37,7 +34,7 @@ const Detail = ({ auth, id, items, status, detail }) => {
             console.log("Button Clicked!");
             setIsLoading(false);
         }, 2000);
-        router.post("/home/detail/{status}/{id}", data);
+        router.post("/home/{status}/{id}", data);
     };
 
     useEffect(() => {
@@ -106,7 +103,7 @@ const Detail = ({ auth, id, items, status, detail }) => {
                                 Genre: 
                                 {detail.genres &&
                                     detail.genres.map(
-                                        (genre) => <span className="bg-white px-2 ms-1 rounded-sm text-black font-semibold">{genre.name}</span>
+                                        (genre, index) => <span key={index} className="bg-white px-2 ms-1 rounded-sm text-black font-semibold">{genre.name}</span>
                                     )}
                             </div>
                         </div>
@@ -118,38 +115,16 @@ const Detail = ({ auth, id, items, status, detail }) => {
                                 {detail.overview}
                             </p>
                         </div>
+                        <div className="my-5 w-3/4">
+                            <h3 className="text-lg sm:text-2xl font-bold">
+                                Cast
+                            </h3>
+                            <p className="text-justify font-light text-xs sm:text-base">
+                                    {credits.cast.map((credit) => credit.name)}
+                            </p>
+                        </div>
                     </div>
                 </div>
-                {/* <div className="font-bold flex justify-center w-full text-base sm:text-xl mt-4">
-                    <div className="w-1/2 flex justify-center">
-                        <button
-                            className={
-                                cast
-                                    ? "border-b-2 border-white text-white"
-                                    : "text-gray-400"
-                            }
-                            onClick={() => setCast(true)}
-                        >
-                            Cast
-                        </button>
-                    </div>
-                    <div className="w-1/2 flex justify-center">
-                        <button
-                            className={
-                                !cast
-                                    ? "border-b-2 border-white text-white"
-                                    : "text-gray-400"
-                            }
-                            onClick={() => setCast(false)}
-                        >
-                            Review
-                        </button>
-                    </div>
-                </div>
-
-                <div className="flex-grow bg-custom-primary flex flex-wrap justify-center items-center px-2 sm:px-10 py-1">
-                    {cast ? <Cast id={id} /> : <Review id={id} />}
-                </div> */}
             </div>
         </MainLayout>
     );

@@ -1,106 +1,69 @@
 import React from "react";
+import { Link } from "@inertiajs/react";
 
-const Genre = () => {
+const Genre = ({ data }) => {
     return (
         <div className="bg-custom-primary text-white px-8 py-5">
-            <h2 className="text-xl sm:text-3xl mb-4 font-medium">Genres</h2>
-            <div className="flex gap-4">
-                <div className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4">
-                    <svg
-                        width="48px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+            <div className="mb-4 flex items-center">
+                <h2 className="text-xl sm:text-3xl font-medium">Genres</h2>
+                <div className="ms-2 hover:underline dropdown dropdown-start">
+                    <div tabIndex="0" role="button">
+                        <svg
+                            width="15px"
+                            viewBox="0 0 1024 1024"
+                            className="icon"
+                            version="1.1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="#000000"
+                        >
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                            <g
+                                id="SVGRepo_tracerCarrier"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            ></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z"
+                                    fill="#ffffff"
+                                ></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div
+                        tabIndex="0"
+                        className="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-tl-none rounded-box bg-custom-primary border border-custom-secondary w-[50rem]"
                     >
-                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                        <g
-                            id="SVGRepo_tracerCarrier"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        ></g>
-                        <g id="SVGRepo_iconCarrier">
-                            {" "}
-                            <rect
-                                width="18"
-                                height="18"
-                                rx="3"
-                                transform="matrix(1.39071e-07 1 1 -1.39071e-07 3 3)"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></rect>{" "}
-                            <line
-                                x1="7"
-                                y1="4"
-                                x2="7"
-                                y2="20"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></line>{" "}
-                            <line
-                                x1="6"
-                                y1="8"
-                                x2="3"
-                                y2="8"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></line>{" "}
-                            <line
-                                x1="21"
-                                y1="8"
-                                x2="18"
-                                y2="8"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></line>{" "}
-                            <line
-                                x1="6"
-                                y1="16"
-                                x2="3"
-                                y2="16"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></line>{" "}
-                            <line
-                                x1="21"
-                                y1="16"
-                                x2="18"
-                                y2="16"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></line>{" "}
-                            <line
-                                x1="17"
-                                y1="4"
-                                x2="17"
-                                y2="20"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            ></line>{" "}
-                            <path
-                                d="M21 12L3 12"
-                                stroke="#ffffff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                            ></path>{" "}
-                        </g>
-                    </svg>
-                    Action
+                        <div className="flex flex-wrap mx-2">
+                            {data.map((item) => {
+                                return (
+                                    <Link
+                                        key={item.id}
+                                        className="w-1/6 hover:underline my-1"
+                                        href={route("genre", {
+                                            id: item.id,
+                                        })}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
-                <div className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4">
+            </div>
+            <div className="flex gap-4">
+                <Link
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4 hover:bg-opacity-70"
+                    href={route("genre", { id: 28 })}
+                >
+                    <svg width="48px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="var(--ci-primary-color, #ffffff)" d="M136,488H495.985V24H16V488H136ZM408,56h55.985V96H408Zm0,72h55.985v40H408Zm0,72h55.985v40H408Zm0,72h55.985v40H408Zm0,72h55.985v40H408Zm0,72h55.985v40H408ZM136,200V56H375.985V240H136Zm0,216V272H375.985V456H136ZM48,56h56V96H48Zm0,72h56v40H48Zm0,72h56v40H48Zm0,72h56v40H48Zm0,72h56v40H48Zm0,72h56v40H48Z" className="ci-primary"></path> </g></svg>
+                    Action
+                </Link>
+                <Link
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4 hover:bg-opacity-70"
+                    href={route("genre", { id: 10749 })}
+                >
                     <svg
                         fill="#ffffff"
                         width="48px"
@@ -118,8 +81,11 @@ const Genre = () => {
                         </g>
                     </svg>
                     Romance
-                </div>
-                <div className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4">
+                </Link>
+                <Link
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4 hover:bg-opacity-70"
+                    href={route("genre", { id: 27 })}
+                >
                     <svg
                         width="48px"
                         viewBox="0 0 16 16"
@@ -143,8 +109,11 @@ const Genre = () => {
                         </g>
                     </svg>
                     Horror
-                </div>
-                <div className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4">
+                </Link>
+                <Link
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-6 w-1/4 hover:bg-opacity-70"
+                    href={route("genre", { id: 878 })}
+                >
                     <svg
                         width="48px"
                         viewBox="0 0 24 24"
@@ -176,7 +145,7 @@ const Genre = () => {
                         </g>
                     </svg>
                     Sci-Fi
-                </div>
+                </Link>
             </div>
         </div>
     );

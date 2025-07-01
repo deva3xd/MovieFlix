@@ -34,7 +34,7 @@ const Upcoming = ({ data }) => {
                                 <Link
                                     href={route("detail", {
                                         id: item.id,
-                                        ongoing: false,
+                                        status: "upcoming",
                                     })}
                                 >
                                     <div className="card w-32 sm:w-44 shadow-xl rounded-lg">

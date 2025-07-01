@@ -13,8 +13,6 @@ const Ongoing = ({ data }) => {
             <Swiper
                 slidesPerView={2}
                 spaceBetween={0}
-                loop="true"
-                centeredSlides="true"
                 fadeEffect="true"
                 grabCursor="true"
                 pagination={{
@@ -47,7 +45,7 @@ const Ongoing = ({ data }) => {
                                 <Link
                                     href={route("detail", {
                                         id: item.id,
-                                        ongoing: true,
+                                        status: "ongoing",
                                     })}
                                 >
                                     <div className="card w-48 sm:w-60 rounded-lg mb-5">

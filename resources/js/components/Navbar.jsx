@@ -11,7 +11,7 @@ const Navbar = () => {
                     </Link>
                     <Link
                         href={route("home")}
-                        className="font-light hover:text-gray-300 text-md pb-1"
+                        className="font-light hover:opacity-70 text-md pb-1"
                     >
                         Home
                     </Link>
@@ -37,7 +37,7 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex="0"
-                            className="menu menu-sm dropdown-content z-[1] p-2 shadow bg-base-100 rounded-tr-none rounded-box w-52"
+                            className="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-tr-none rounded-box w-52 bg-black border border-custom-primary"
                         >
                             <li>
                                 <Link href={route("profile.edit")}>

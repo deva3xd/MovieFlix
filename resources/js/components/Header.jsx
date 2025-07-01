@@ -1,11 +1,11 @@
 import "swiper/css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Header = ({ data }) => {
-    const [query, setQuery] = useState("");
-    const [results, setResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const query = useRef("");
+    const result = useRef([]);
+    const loading = useRef(false);
     const [debounceTimeout, setDebounceTimeout] = useState(null);
     const imgURL = import.meta.env.VITE_IMGURL;
 
@@ -21,7 +21,7 @@ const Header = ({ data }) => {
         }
 
         const timeoutId = setTimeout(async () => {
-            setIsLoading(true);
+            loading.current = true;
             try {
                 const response = await axios.get(BASE_URL, {
                     params: {
@@ -31,11 +31,11 @@ const Header = ({ data }) => {
                         page: 1,
                     },
                 });
-                setResults(response.data.results);
+                result.current = response.data.results;
             } catch (error) {
                 console.error("Error fetching movies:", error);
             } finally {
-                setIsLoading(false);
+                loading.current = false;
             }
         }, 500);
 
@@ -51,7 +51,7 @@ const Header = ({ data }) => {
             {data.map((item) => (
                 <SwiperSlide key={item.id}>
                     <img
-                        src={`${imgURL}/w1280/${item.backdrop_path}`}
+                        src={`${imgURL}/original/${item.backdrop_path}`}
                         className="object-cover h-[33rem] w-full"
                     />
                     <div className="absolute inset-0 bg-gradient-to-l from-transparent to-custom-primary">

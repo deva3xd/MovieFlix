@@ -5,7 +5,7 @@ import { get } from "@/api/apiClient";
 import MainLayout from "@/layouts/MainLayout";
 import DeleteModal from "@/components/DeleteModal";
 
-const Page = ({ auth, carts }) => {
+const Cart = ({ auth, carts }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
     const [list, setList] = useState([]);
@@ -166,4 +166,4 @@ const Page = ({ auth, carts }) => {
     );
 };
 
-export default Page;
+export default Cart;
