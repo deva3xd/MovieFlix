@@ -10,10 +10,16 @@ const Navbar = () => {
                         MovieFlix
                     </Link>
                     <Link
-                        href={route("home")}
-                        className="font-light hover:opacity-70 text-md pb-1"
+                        href={route("movie")}
+                        className="font-light hover:opacity-70 text-md pb-1 me-4"
                     >
-                        Home
+                        Movies
+                    </Link>
+                    <Link
+                        href={route("movie")}
+                        className="font-light hover:opacity-70 text-md pb-1 me-4"
+                    >
+                        TV
                     </Link>
                 </div>
                 <div className="flex-1 justify-end">

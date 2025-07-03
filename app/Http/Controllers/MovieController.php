@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Http\Resources\MovieResource;
 
-class HomeController extends Controller
+class MovieController extends Controller
 {
     public function index(Request $request)
     {
