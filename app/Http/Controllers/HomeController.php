@@ -36,15 +36,14 @@ class HomeController extends Controller
         return Inertia::render('Detail', ['id' => $id, 'items' => $items, 'status' => $status, 'detail' => $detail, 'credits' => $credits]);
     }
 
-    public function genre(Request $request, $genre)
+    public function genre( $genre)
     {
         $key = env('API_KEY');
         $url = env('API_URL');
-        $ongoingURL = Http::get("{$url}/movie/now_playing?api_key={$key}");
 
-        $ongoing = MovieResource::collection($ongoingURL->json()['results'])->toArray($request);
+        $movies = Http::get("{$url}/discover/movie?api_key={$key}&with_genres={$genre}")->json()['results'];
 
-        return Inertia::render("Genre", ['ongoing' => $ongoing]);
+        return Inertia::render("Genre", ['movies' => $movies]);
     }
 
     public function search(Request $request) {
