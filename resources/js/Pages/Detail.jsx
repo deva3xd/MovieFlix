@@ -115,7 +115,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                 {detail.overview}
                             </p>
                         </div>
-                        <div className="my-5 w-3/4">
+                        <div className="my-5 w-3/4 border-t border-white">
                             <h3 className="text-lg sm:text-2xl font-bold">
                                 Cast
                             </h3>
