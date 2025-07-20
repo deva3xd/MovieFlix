@@ -12,7 +12,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/movie/{id}', [MovieController::class, 'search'])->name('search');
     Route::get('/movie/genre/{genre}', [MovieController::class, 'genre'])->name('genre');
     Route::get('/movie/{status}/{id}', [MovieController::class, 'show'])->name('detail');
-    // Route::post('/home/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
+    Route::post('/movie/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
 
     // cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');

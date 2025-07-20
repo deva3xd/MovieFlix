@@ -34,7 +34,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
             console.log("Button Clicked!");
             setIsLoading(false);
         }, 2000);
-        router.post("/home/{status}/{id}", data);
+        router.post("/movie/{status}/{id}", data);
     };
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                             />
                         </figure>
                         <div className="flex flex-col my-2">
-                            {status == "ongoing" && (
+                            {status == "ongoing" ? (
                                 <form onSubmit={onSubmit}>
                                     {!item && (
                                         <button
@@ -77,9 +77,13 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                         </button>
                                     )}
                                     <button className="border bg-custom-primary border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full hover:bg-opacity-80">
-                                        ORDER
+                                        Checkout
                                     </button>
                                 </form>
+                            ) : (
+                                <div className="border bg-custom-primary border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full" disabled>
+                                       Not Available
+                                </div>
                             )}
                         </div>
                     </div>
