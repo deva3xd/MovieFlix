@@ -127,7 +127,7 @@ const Cart = ({ auth, carts, cartCount }) => {
                         <p className="font-bold text-lg underline">Order Summary</p>
                         <p className="text-lg">Items : 1</p>
                         <p className="text-lg">Total : Rp. 25.000</p>
-                        <button className="bg-green-500 py-1 w-full text-white hover:bg-green-600 rounded-sm">Checkout</button>
+                        <button className="bg-custom-primary py-1 w-full text-white hover:bg-opacity-95 rounded-sm">Checkout</button>
                     </div>
                 </div>
             </div>
