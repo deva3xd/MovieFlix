@@ -11,7 +11,8 @@ class CartController extends Controller
 {
     public function index() {
         $carts = Cart::where('user_id', Auth::id())->get();
-        return Inertia::render('Cart', ['carts' => $carts]);
+        $cartCount = Cart::where('user_id', Auth::id())->count();
+        return Inertia::render('Cart', ['carts' => $carts, 'cartCount' => $cartCount]);
     }
 
     public function store(Request $request) {

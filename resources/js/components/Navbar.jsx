@@ -52,7 +52,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <Link href={route("cart")}>
-                                    Wishlist
+                                    Cart
                                 </Link>
                             </li>
                             <li>
