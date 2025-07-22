@@ -57,14 +57,14 @@ const Cart = ({ auth, carts, cartCount }) => {
         <MainLayout title="Home" user={auth.user}>
             <div className="min-h-screen bg-custom-primary pb-2 px-8 flex gap-1 text-white">
                 <div className="w-4/6">
-                    <h2 className="py-2 font-bold text-2xl">Shopping Cart</h2>
+                    <h2 className="py-3 font-bold text-2xl">Shopping Cart</h2>
                     {list.length == 0 ? (
-                        <div className="bg-custom-secondary flex items-center justify-center mx-6 py-3 border-t-2 border-custom-secondary">
-                            <p className="font-bold text-xl">No Data Available</p>
+                        <div className="bg-custom-secondary p-2">
+                            <p className="font-semibold text-xl text-center">No Data Available</p>
                         </div>
                     ) : (
                         list.map((item) => (
-                            <div className="bg-custom-secondary rounded-sm p-1 mt-1" key={item.id}>
+                            <div className="bg-custom-secondary rounded-sm p-2" key={item.id}>
                                 <div className="flex">
                                     <img
                                         src={`${imgURL}/w500/${item.poster_path}`}
@@ -86,11 +86,11 @@ const Cart = ({ auth, carts, cartCount }) => {
                                                             (counts[item.id] || 1) - 1
                                                         )
                                                     } // fallback to 1 if undefined
-                                                    className="py-1 hover:underline"
+                                                    className="px-2 border border-white"
                                                 >
                                                     -
                                                 </button>
-                                                <p className="px-4 py-1">
+                                                <p className="px-3 underline">
                                                     {counts[item.id] || 1}
                                                 </p>
                                                 <button
@@ -100,7 +100,7 @@ const Cart = ({ auth, carts, cartCount }) => {
                                                             (counts[item.id] || 1) + 1
                                                         )
                                                     } // fallback to 1 if undefined
-                                                    className="py-1 hover:underline"
+                                                    className="px-2 border border-white"
                                                 >
                                                     +
                                                 </button>
@@ -122,12 +122,12 @@ const Cart = ({ auth, carts, cartCount }) => {
                     )}
                 </div>
                 <div className="w-2/6">
-                    <p className="py-2 font-light text-2xl">{cartCount} items</p>
-                    <div className="bg-custom-secondary rounded-sm mt-1 p-2">
+                    <p className="py-3 font-light text-2xl">{cartCount} items</p>
+                    <div className="bg-custom-secondary rounded-sm p-2">
                         <p className="font-bold text-lg underline">Order Summary</p>
                         <p className="text-lg">Items : 1</p>
                         <p className="text-lg">Total : Rp. 25.000</p>
-                        <button className="bg-white py-1 w-full text-custom-secondary hover:bg-opacity-95 rounded-sm font-semibold">Checkout</button>
+                        <button className="bg-white py-1 w-full text-custom-secondary hover:bg-opacity-90 rounded-sm font-semibold">Checkout</button>
                     </div>
                 </div>
             </div>
