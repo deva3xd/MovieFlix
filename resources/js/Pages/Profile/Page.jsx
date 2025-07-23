@@ -1,11 +1,15 @@
 import { useForm, usePage } from '@inertiajs/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Toaster, toast } from 'sonner'
 import MainLayout from '@/layouts/MainLayout';
-import DeleteUserForm from './partials/DeleteUserForm';
+import DeleteUserForm from './partials/DeleteUser';
 import InputError from '@/components/InputError';
+import Profile from "@/assets/images/profile.png";
+import UpdateProfileInformation from './partials/UpdateProfileInformation';
+import UpdatePassword from './partials/UpdatePassword';
 
 export default function Page({ auth, mustVerifyEmail, status }) {
+    const [active, setActive] = useState(true);
     const userProfile = auth ? auth.user : null;
 
     const user = usePage().props.auth.user;
@@ -23,14 +27,14 @@ export default function Page({ auth, mustVerifyEmail, status }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         patch(route('profile.update'));
-        
+
         const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Profile' }), 1000));
         toast.promise(promise, {
-        loading: 'Loading...',
-        success: (data) => {
-            return `${data.name} has been added`;
-        },
-        error: 'Error',
+            loading: 'Loading...',
+            success: (data) => {
+                return `${data.name} has been added`;
+            },
+            error: 'Error',
         });
     };
 
@@ -56,10 +60,32 @@ export default function Page({ auth, mustVerifyEmail, status }) {
 
     return (
         <MainLayout title="Profile" user={userProfile}>
-            <div className="pt-1 px-1 bg-white">
-                <div className='bg-custom-primary text-white text-xl font-bold p-6'>PROFILE</div>
+            <div className="px-28 py-8 flex gap-2 text-white bg-custom-primary">
+                <div className="w-2/6 bg-custom-secondary rounded-md p-4 h-52">
+                    <div className='flex items-center gap-2'>
+                        <img
+                            alt="Tailwind CSS Navbar component"
+                            src={Profile}
+                            className='w-14 rounded-full'
+                        />
+                        <div className='w-1/2'>
+                            <p className='font-semibold text-lg'>test</p>
+                        </div>
+                    </div>
+                    <div className='flex flex-col'>
+                        <button onClick={() => setActive(true)} className={`text-base rounded-md px-2 py-1 text-start mt-4 ${active && 'bg-white bg-opacity-5'}`}>Profile Information</button>
+                        <button onClick={() => setActive(false)} className={`text-base rounded-md px-2 py-1 text-start  ${!active && 'bg-white bg-opacity-5'}`}>Change Password</button>
+                        <button className='text-base rounded-md px-2 py-1 text-start'>Delete Account</button>
+                    </div>
+                </div>
+                <div className="w-4/6 bg-custom-secondary rounded-md p-4">
+                    {active ? <UpdateProfileInformation /> : <UpdatePassword />}
+                </div>
+            </div>
+            {/* <div className="pt-1 px-1 bg-custom-primary">
+                <div className='bg-custom-secondary text-white text-xl font-bold p-6'>PROFILE</div>
                 <div className="flex gap-1">
-                    <div className='bg-custom-primary text-white text-xl font-bold p-6 mt-1 w-1/2'>
+                    <div className='bg-custom-secondary text-white text-xl font-bold p-6 mt-1 w-1/2'>
                         <h3 className='text-lg'>Profile Information</h3>
                         <p className='text-sm'>Update your account's profile information and email address.</p>
                         <Toaster richColors />
@@ -103,7 +129,7 @@ export default function Page({ auth, mustVerifyEmail, status }) {
                         </form>
                     </div>
 
-                    <div className='bg-custom-primary text-white text-xl font-bold p-6 mt-1 w-1/2'>
+                    <div className='bg-custom-secondary text-white text-xl font-bold p-6 mt-1 w-1/2'>
                         <h3 className='text-lg'>Update Password</h3>
                         <p className='text-sm'>Ensure your account is using a long, random password to stay secure/</p>
                         <form onSubmit={updatePassword}>
@@ -133,10 +159,10 @@ export default function Page({ auth, mustVerifyEmail, status }) {
                     </div>
                 </div>
 
-                <div className="bg-custom-primary text-white text-xl font-bold p-6 mt-1">
+                <div className="bg-custom-secondary text-white text-xl font-bold p-6 mt-1">
                     <DeleteUserForm className="max-w-xl" />
                 </div>
-            </div>
+            </div> */}
         </MainLayout>
     );
 }

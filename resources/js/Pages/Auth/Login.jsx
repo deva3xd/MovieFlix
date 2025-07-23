@@ -18,7 +18,6 @@ export default function Login({ status }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
-
             <div className="mt-4 w-3/4 sm:w-1/4">
                 <div className="text-white text-3xl font-bold text-center">
                     {status && (
