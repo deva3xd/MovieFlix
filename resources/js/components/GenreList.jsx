@@ -32,14 +32,14 @@ const Genre = ({ data }) => {
                     </div>
                     <div
                         tabIndex="0"
-                        className="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-tl-none rounded-box bg-custom-primary border border-custom-secondary w-[15rem] md:w-[50rem] "
+                        className="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-tl-none rounded-box bg-custom-primary border border-custom-secondary w-[16rem] md:w-[50rem] "
                     >
                         <div className="flex flex-wrap mx-2">
                             {data.map((item) => {
                                 return (
                                     <Link
                                         key={item.id}
-                                        className="w-1/6 hover:underline my-1"
+                                        className="w-1/2 sm:w-1/6 hover:underline my-1"
                                         href={route("genre", {
                                             id: item.id,
                                         })}
@@ -57,7 +57,7 @@ const Genre = ({ data }) => {
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
                     href={route("genre", { id: 28 })}
                 >
-                    <div className="w-8 sm:w-12">
+                    <div className="w-6 sm:w-12">
                         <svg
                             viewBox="0 0 512 512"
                             xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@ const Genre = ({ data }) => {
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
                     href={route("genre", { id: 10749 })}
                 >
-                    <div className="w-8 sm:w-12">
+                    <div className="w-6 sm:w-12">
                         <svg
                             fill="#ffffff"
                             viewBox="0 0 24 24"
@@ -101,7 +101,7 @@ const Genre = ({ data }) => {
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
                     href={route("genre", { id: 27 })}
                 >
-                    <div className="w-8 sm:w-12">
+                    <div className="w-6 sm:w-12">
                         <svg
                             viewBox="0 0 16 16"
                             fill="none"
@@ -132,7 +132,7 @@ const Genre = ({ data }) => {
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
                     href={route("genre", { id: 878 })}
                 >
-                    <div className="w-8 sm:w-12">
+                    <div className="w-6 sm:w-12">
                         <svg
                             viewBox="0 0 24 24"
                             fill="none"
