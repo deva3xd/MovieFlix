@@ -33,7 +33,7 @@ const Ongoing = ({ data }) => {
                 }}
             >
                 {data.length == 0 ? (
-                    <p className="py-3 text-lg sm:text-xl">
+                    <p className="py-3 text-lg sm:text-xl text-center">
                         No Movie Available
                     </p>
                 ) : (
@@ -48,19 +48,19 @@ const Ongoing = ({ data }) => {
                                         status: "ongoing",
                                     })}
                                 >
-                                    <div className="card w-48 sm:w-60 rounded-lg mb-5">
+                                    <div className="card w-44 sm:w-60 rounded-sm mb-5">
                                         <figure>
                                             <img
                                                 src={`${imgURL}/w500/${item.poster_path}`}
                                                 alt={item.title}
-                                                className="rounded-lg"
+                                                className="rounded-sm"
                                             />
                                         </figure>
                                         <div className="flex flex-col my-1">
-                                            <p className="font-medium">
+                                            <p className="font-medium text-sm sm:text-base">
                                                 {item.title}
                                             </p>
-                                            <p className="font-light text-gray-500">{year}</p>
+                                            <p className="font-light text-gray-500 text-xs sm:text-sm">{year}</p>
                                         </div>
                                     </div>
                                 </Link>

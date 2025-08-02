@@ -13,7 +13,7 @@ const Upcoming = ({ data }) => {
                 spaceBetween={0}
                 breakpoints={{
                     640: {
-                        slidesPerView: 4,
+                        slidesPerView: 3,
                     },
                     768: {
                         slidesPerView: 5,
@@ -24,7 +24,7 @@ const Upcoming = ({ data }) => {
                 }}
             >
                 {data.length == 0 ? (
-                    <p className="py-3 text-lg sm:text-xl">
+                    <p className="py-3 text-lg sm:text-xl text-center">
                         No Movie Available
                     </p>
                 ) : (
@@ -37,12 +37,12 @@ const Upcoming = ({ data }) => {
                                         status: "upcoming",
                                     })}
                                 >
-                                    <div className="card w-32 sm:w-44 shadow-xl rounded-lg">
+                                    <div className="card w-[115px] sm:w-44 shadow-xl rounded-sm">
                                         <figure>
                                             <img
                                                 src={`${imgURL}/w500/${item.poster_path}`}
                                                 alt={item.title}
-                                                className="rounded-lg"
+                                                className="rounded-sm"
                                             />
                                         </figure>
                                     </div>

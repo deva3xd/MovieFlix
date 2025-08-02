@@ -3,7 +3,7 @@ import Profile from "@/assets/images/profile.png";
 
 const Navbar = () => {
     return (
-        <div className="bg-black text-white fixed top-0 left-0 w-screen z-50 px-8">
+        <div className="bg-black text-white fixed top-0 left-0 w-screen sm:w-full z-50 px-8">
             <div className="navbar max-w-screen-2xl mx-auto px-0">
                 <div className="flex-1">
                     <Link href="#" className="p-0 font-extrabold me-4 text-xl">
