@@ -18,68 +18,70 @@ export default function Login({ status }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
-            <div className="mt-4 w-3/4 sm:w-1/4">
-                <div className="text-white text-3xl font-bold text-center">
-                    {status && (
-                        <div className="mb-4 font-medium text-sm text-green-600">
-                            {status}
+            <div className="flex flex-row h-screen w-screen">
+                <div className="w-96 bg-custom-primary"></div>
+                <div className="flex flex-col justify-center items-center w-full px-64 bg-white text-black">
+                    <div className="w-[28rem]">
+                        {status && (
+                            <div className="mb-4 font-medium text-sm text-green-600">
+                                {status}
+                            </div>
+                        )}
+                        <h1 className="font-bold text-4xl underline">Login</h1>
+                        <form onSubmit={submit}>
+                            <div className="mt-4">
+                                <label className="input border-0 border-b border-b-gray-400 flex items-center text-black bg-transparent rounded-none px-0 focus-within:shadow-none focus-within:outline-none focus-within:border-b-black">
+                                    <input
+                                        type="email"
+                                        placeholder="Email"
+                                        id="email"
+                                        onChange={(e) =>
+                                            setData("email", e.target.value)
+                                        }
+                                        className="w-full"
+                                        required
+                                    />
+                                </label>
+                                <InputError message={errors.email} className="mt-2" />
+                            </div>
+                            <div className="mt-4">
+                                <label className="input border-0 border-b border-b-gray-400 flex items-center text-black bg-transparent rounded-none px-0 focus-within:shadow-none focus-within:outline-none focus-within:border-b-black">
+                                    <input
+                                        type="password"
+                                        placeholder="Password"
+                                        id="password"
+                                        onChange={(e) =>
+                                            setData("password", e.target.value)
+                                        }
+                                        className="w-full"
+                                        required
+                                    />
+                                </label>
+                                <InputError
+                                    message={errors.password}
+                                    className="mt-2"
+                                />
+                            </div>
+                            <a href="" className="flex justify-end mt-2 text-sm text-gray-950 hover:underline">Forgot your password?</a>
+                            <div className="flex items-center justify-center mt-2">
+                                <button
+                                    className="btn bg-black hover:bg-gray-950 w-full text-lg text-white"
+                                    type="submit"
+                                >
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                        <div className="mt-4">
+                            <p className="text-sm text-gray-950 rounded-md">
+                                Don't have an account?
+                                <a href={route("register")} className="hover:underline ms-1">
+                                    Register
+                                </a>
+                            </p>
                         </div>
-                    )}
-                    <h1>Log in</h1>
+                    </div>
                 </div>
-                <form onSubmit={submit}>
-                    <div className="mt-4">
-                        <label className="input input-bordered flex items-center text-white">
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                id="email"
-                                onChange={(e) =>
-                                    setData("email", e.target.value)
-                                }
-                                className="w-full"
-                                required
-                            />
-                        </label>
-                        <InputError message={errors.email} className="mt-2" />
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="input input-bordered flex items-center text-white">
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                id="password"
-                                onChange={(e) =>
-                                    setData("password", e.target.value)
-                                }
-                                className="w-full"
-                                required
-                            />
-                        </label>
-                        <InputError
-                            message={errors.password}
-                            className="mt-2"
-                        />
-                    </div>
-                    <a href="" className="flex justify-end mt-4 text-sm">Forgot your password?</a>
-                    <div className="flex items-center justify-center mt-4">
-                        <button
-                            className="btn bg-white hover:bg-gray-200 w-full text-lg text-black"
-                            type="submit"
-                        >
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div className="text-center mb-4">
-                <a
-                    href={route("register")}
-                    className="underline text-sm text-gray-200 hover:text-gray-400 rounded-md"
-                >
-                    Don't have an account? Register
-                </a>
             </div>
         </GuestLayout>
     );
