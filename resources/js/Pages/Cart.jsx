@@ -1,34 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm, usePage } from "@inertiajs/react";
 import { toast } from "sonner";
-import { get } from "@/api/apiClient";
 import MainLayout from "@/layouts/MainLayout";
 import DeleteModal from "@/components/DeleteModal";
+import { Trash, Trash2 } from "lucide-react";
 
 const Cart = ({ auth, carts, cartCount }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
-    const [list, setList] = useState([]);
     const { delete: destroy } = useForm();
     const [isModalOpen, setModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const req = carts.map((cart) => get(`/movie/${cart.movie_id}`));
-            const res = await Promise.all(req); // wait until everything done
-            const data = res.map((res) => res.data);
-            setList(data);
-        };
-        fetchData();
-    }, []);
 
     if (flash.message) {
         toast.success(flash.message);
     }
 
     const [counts, setCounts] = useState(() =>
-        list.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {})
+        carts.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {})
     );
 
     const setCount = (id, newCount) => {
@@ -38,10 +27,10 @@ const Cart = ({ auth, carts, cartCount }) => {
         }));
     };
 
-    // const openModal = (itemId) => {
-    //     setItemToDelete(itemId);
-    //     setModalOpen(true);
-    // };
+    const openModal = (itemId) => {
+        setItemToDelete(itemId);
+        setModalOpen(true);
+    };
 
     const confirmDelete = () => {
         console.log(itemToDelete);
@@ -58,13 +47,13 @@ const Cart = ({ auth, carts, cartCount }) => {
             <div className="min-h-screen bg-custom-primary pb-2 px-8 flex gap-1 text-white">
                 <div className="w-4/6">
                     <h2 className="py-3 font-bold text-2xl">Shopping Cart</h2>
-                    {list.length == 0 ? (
+                    {carts.length == 0 ? (
                         <div className="bg-custom-secondary p-2">
                             <p className="font-semibold text-xl text-center">No Data Available</p>
                         </div>
                     ) : (
-                        list.map((item) => (
-                            <div className="bg-custom-secondary rounded-sm p-2" key={item.id}>
+                        carts.map((item) => (
+                            <div className="bg-custom-secondary rounded-sm p-2 mb-1" key={item.id}>
                                 <div className="flex">
                                     <img
                                         src={`${imgURL}/w500/${item.poster_path}`}
@@ -107,12 +96,12 @@ const Cart = ({ auth, carts, cartCount }) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex-1 flex flex-col justify-end items-end">
-                                        <p class="font-semibold text-lg">Rp. 25.000</p>
+                                    <div className="flex-1 flex flex-col justify-end items-end">
+                                        <p className="font-semibold text-lg">Rp. 25.000</p>
                                         <div className="flex gap-1">
                                             <input type="checkbox" className="checkbox checkbox-info bg-custom-primary border-white hover:border-white" /> 
-                                            <button class="text-sm text-red-500">
-                                                <svg height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M14 10V17M10 10V17" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"></path> </g></svg>
+                                            <button className="text-sm text-red-500">
+                                               <Trash2 color="#ffffff" />
                                             </button>
                                         </div>
                                     </div>
