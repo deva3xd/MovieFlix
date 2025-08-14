@@ -22,7 +22,7 @@ class MovieController extends Controller
         $upcoming = MovieResource::collection($upcomingURL->json()['results'])->toArray($request);
         $ongoing = MovieResource::collection($ongoingURL->json()['results'])->toArray($request);
 
-        return Inertia::render('Home', ['upcoming' => $upcoming, 'ongoing' => $ongoing, 'genres' => $genres]);
+        return Inertia::render('Home', ['upcoming' => $upcoming, 'ongoing' => $ongoing, 'genres' => $genres, 'url' => $url, 'apiKey' => $key]);
     }
 
     public function show($status, $id)

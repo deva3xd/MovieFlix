@@ -4,13 +4,13 @@ import Ongoing from "@/components/Ongoing";
 import Upcoming from "@/components/Upcoming";
 import GenreList from "@/components/GenreList";
 
-const Home = ({  upcoming, ongoing, genres }) => {
+const Home = ({  upcoming, ongoing, genres, url, apiKey }) => {
     return (
         <MainLayout title='Home'>
-            <Header data={ongoing} />
-            <Ongoing data={ongoing} />
-            <Upcoming data={upcoming} />
-            <GenreList data={genres} />
+            <Header items={ongoing} url={url} apiKey={apiKey} />
+            <Ongoing items={ongoing} />
+            <Upcoming items={upcoming} />
+            <GenreList items={genres} />
         </MainLayout>
     )
 }
