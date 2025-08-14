@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "@inertiajs/react";
 import { ChevronDown, Film, Ghost, Heart, Rocket } from "lucide-react";
 
-const Genre = ({ data }) => {
+const Genre = ({ items }) => {
     return (
         <div className="bg-custom-primary text-white px-8 py-5">
             <div className="mb-4 flex items-center">
@@ -16,7 +16,7 @@ const Genre = ({ data }) => {
                         className="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-tl-none rounded-box bg-custom-primary border border-custom-secondary w-[16rem] md:w-[50rem] "
                     >
                         <div className="flex flex-wrap mx-2">
-                            {data.map((item) => {
+                            {items.map((item) => {
                                 return (
                                     <Link
                                         key={item.id}

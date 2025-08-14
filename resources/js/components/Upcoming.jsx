@@ -2,7 +2,7 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "@inertiajs/react";
 
-const Upcoming = ({ data }) => {
+const Upcoming = ({ items }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
 
     return (
@@ -23,12 +23,12 @@ const Upcoming = ({ data }) => {
                     },
                 }}
             >
-                {data.length == 0 ? (
+                {items.length == 0 ? (
                     <p className="py-3 text-lg sm:text-xl text-center">
                         No Movie Available
                     </p>
                 ) : (
-                    data.map((item) => {
+                    items.map((item) => {
                         return (
                             <SwiperSlide key={item.id}>
                                 <Link

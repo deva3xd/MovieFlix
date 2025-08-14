@@ -23,7 +23,6 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
     });
 
     const [isLoading, setIsLoading] = useState(false);
-    console.log("success");
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -31,7 +30,6 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
         setIsLoading(true);
 
         setTimeout(() => {
-            console.log("Button Clicked!");
             setIsLoading(false);
         }, 2000);
         router.post("/movie/{status}/{id}", data);
@@ -42,8 +40,6 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
             toast.success(flash.message);
         }
     }, [flash.message]);
-
-    const item = items.length > 0;
 
     return (
         <MainLayout  title='Home'>
@@ -68,7 +64,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                         <div className="flex flex-col my-2">
                             {status == "ongoing" ? (
                                 <form onSubmit={onSubmit}>
-                                    {!item && (
+                                    {items.length < 1 && (
                                         <button
                                             className="border bg-white border-white text-custom-primary rounded-sm font-bold px-2 py-1 text-center me-1 text-xs sm:text-base w-full hover:bg-opacity-80"
                                             disabled={isLoading}

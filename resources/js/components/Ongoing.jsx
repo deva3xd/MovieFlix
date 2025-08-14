@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "@inertiajs/react";
 import { Pagination } from "swiper/modules";
 
-const Ongoing = ({ data }) => {
+const Ongoing = ({ items }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
 
     return (
@@ -32,12 +32,12 @@ const Ongoing = ({ data }) => {
                     },
                 }}
             >
-                {data.length == 0 ? (
+                {items.length == 0 ? (
                     <p className="py-3 text-lg sm:text-xl text-center">
                         No Movie Available
                     </p>
                 ) : (
-                    data.map((item) => {
+                    items.map((item) => {
                         const year = new Date(item.release_date).getFullYear();
 
                         return (

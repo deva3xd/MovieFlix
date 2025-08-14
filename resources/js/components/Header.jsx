@@ -3,20 +3,31 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Play, Plus } from "lucide-react";
 
-const Header = ({ data }) => {
+const Header = ({ items, url, apiKey }) => {
     const [expanded, setExpanded] = useState(false);
     const imgURL = import.meta.env.VITE_IMGURL;
 
-    const handleTrailer = (id) => {
-        // const videoTMDB = `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=${KEY}`;
+const handleTrailer = async (id) => {
+    try {
+        const res = await fetch(
+            `${url}/movie/${id}/videos?language=en-US&api_key=${apiKey}`
+        );
+        const data = await res.json();
 
-        // const videoURL = `https://www.youtube.com/watch?v=`
-        // window.open(videoURL)
+        if (data.results && data.results.length > 0) {
+            const trailer = data.results.find(v => v.type === "Trailer");
+            const trailerKey = trailer ? trailer.key : data.results[0].key;
+
+            window.open(`https://www.youtube.com/watch?v=${trailerKey}`);
+        }
+    } catch (err) {
+        console.error(err);
     }
+};
 
     return (
         <Swiper loop="true" className="mySwiper">
-            {data.map((item) => (
+            {items.map((item) => (
                 <SwiperSlide key={item.id}>
                     <img
                         src={`${imgURL}/original/${item.backdrop_path}`}
@@ -35,10 +46,12 @@ const Header = ({ data }) => {
                                         <Play size={20} fill="true" />
                                         Trailer
                                     </button>
-                                    <button className="flex items-center gap-1 bg-custom-secondary text-white px-4 py-2 rounded-md font-medium">
-                                        <Plus size={20} />
-                                        Add to Cart
-                                    </button>
+                                    <form>
+                                        <button className="flex items-center gap-1 bg-custom-secondary text-white px-4 py-2 rounded-md font-medium">
+                                            <Plus size={20} />
+                                            Add to Cart
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
