@@ -3,7 +3,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { toast } from "sonner";
 import MainLayout from "@/layouts/MainLayout";
 import DeleteModal from "@/components/DeleteModal";
-import { Trash, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 const Cart = ({ auth, carts, cartCount }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
@@ -33,10 +33,8 @@ const Cart = ({ auth, carts, cartCount }) => {
     };
 
     const confirmDelete = () => {
-        console.log(itemToDelete);
         if (itemToDelete) {
             destroy(route("cart.destroy", itemToDelete));
-            window.location.reload();
             setModalOpen(false);
             setItemToDelete(null);
         }
@@ -100,7 +98,7 @@ const Cart = ({ auth, carts, cartCount }) => {
                                         <p className="font-semibold text-lg">Rp. 25.000</p>
                                         <div className="flex gap-1">
                                             <input type="checkbox" className="checkbox checkbox-info bg-custom-primary border-white hover:border-white" /> 
-                                            <button className="text-sm text-red-500">
+                                            <button onClick={() => openModal(item.id)} className="text-sm text-red-500">
                                                <Trash2 color="#ffffff" />
                                             </button>
                                         </div>

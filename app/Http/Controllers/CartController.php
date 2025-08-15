@@ -33,7 +33,8 @@ class CartController extends Controller
     }
 
     public function destroy($id) {
-        $cart = Cart::where('movie_id', $id)->delete();
+        $cart = Cart::where('movie_id', $id);
+        $cart->delete();
         
         return redirect()->route('cart')->with('success', 'Delete Data');
     }
