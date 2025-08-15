@@ -11,6 +11,9 @@ const Cart = ({ auth, carts, cartCount }) => {
     const { delete: destroy } = useForm();
     const [isModalOpen, setModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
+    const [selectId, setSelectId] = useState([]);
+
+    const selectCount = selectId.length;
 
     if (flash.message) {
         toast.success(flash.message);
@@ -39,6 +42,15 @@ const Cart = ({ auth, carts, cartCount }) => {
             setItemToDelete(null);
         }
     };
+
+    const handleCheckboxChange = (event) => {
+        const checkedId = event.target.value;
+        if (event.target.checked) {
+            setSelectId([...selectId, checkedId])
+        } else {
+            setSelectId(selectId.filter(id => id !== checkedId))
+        }
+    }
 
     return (
         <MainLayout title="Home" user={auth.user}>
@@ -97,9 +109,9 @@ const Cart = ({ auth, carts, cartCount }) => {
                                     <div className="flex-1 flex flex-col justify-end items-end">
                                         <p className="font-semibold text-lg">Rp. 25.000</p>
                                         <div className="flex gap-1">
-                                            <input type="checkbox" className="checkbox checkbox-info bg-custom-primary border-white hover:border-white" /> 
+                                            <input type="checkbox" className="checkbox checkbox-info bg-custom-primary border-white hover:border-white" value={item.id} onChange={(event) => handleCheckboxChange(event)} />
                                             <button onClick={() => openModal(item.id)} className="text-sm text-red-500">
-                                               <Trash2 color="#ffffff" />
+                                                <Trash2 color="#ffffff" />
                                             </button>
                                         </div>
                                     </div>
@@ -112,7 +124,7 @@ const Cart = ({ auth, carts, cartCount }) => {
                     <p className="py-3 font-light text-2xl">{cartCount} items</p>
                     <div className="bg-custom-secondary rounded-sm p-2">
                         <p className="font-bold text-lg underline">Order Summary</p>
-                        <p className="text-lg">Items : 1</p>
+                        <p className="text-lg">Items : {selectCount}</p>
                         <p className="text-lg">Total : Rp. 25.000</p>
                         <button className="bg-white py-1 w-full text-custom-secondary hover:bg-opacity-90 rounded-sm font-semibold">Checkout</button>
                     </div>
