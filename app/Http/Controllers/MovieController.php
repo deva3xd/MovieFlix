@@ -15,6 +15,7 @@ class MovieController extends Controller
     {
         $key = env('API_KEY');
         $url = env('API_URL');
+        $carts = Cart::all();
         $upcomingURL = Http::get("{$url}/movie/upcoming?api_key={$key}");
         $ongoingURL = Http::get("{$url}/movie/now_playing?api_key={$key}");
         $genres = Http::get("{$url}/genre/movie/list?api_key={$key}")->json()['genres'];
@@ -22,7 +23,7 @@ class MovieController extends Controller
         $upcoming = MovieResource::collection($upcomingURL->json()['results'])->toArray($request);
         $ongoing = MovieResource::collection($ongoingURL->json()['results'])->toArray($request);
 
-        return Inertia::render('Home', ['upcoming' => $upcoming, 'ongoing' => $ongoing, 'genres' => $genres, 'url' => $url, 'apiKey' => $key]);
+        return Inertia::render('Home', ['upcoming' => $upcoming, 'ongoing' => $ongoing, 'genres' => $genres, 'url' => $url, 'apiKey' => $key, 'carts' => $carts]);
     }
 
     public function show($status, $id)
