@@ -9,9 +9,9 @@ Route::middleware('auth')->group(function () {
     // movie
     Route::redirect('/', '/movie');
     Route::get('/movie', [MovieController::class, 'index'])->name('movie');
-    Route::get('/movie/{id}', [MovieController::class, 'search'])->name('search');
-    Route::get('/movie/genre/{genre}', [MovieController::class, 'genre'])->name('genre');
-    Route::get('/movie/{status}/{id}', [MovieController::class, 'show'])->name('detail');
+    Route::get('/movie/{query}', [MovieController::class, 'search'])->name('movie.search');
+    Route::get('/movie/genre/{genre}', [MovieController::class, 'genre'])->name('movie.genre');
+    Route::get('/movie/{status}/{id}', [MovieController::class, 'show'])->name('movie.detail');
     Route::post('/movie/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
 
     // cart
