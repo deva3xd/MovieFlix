@@ -17,7 +17,7 @@ export default function Index({ auth }) {
                 <div className="w-2/6 bg-custom-secondary rounded-md p-4 h-52">
                     <div className='flex items-center gap-2'>
                         <img
-                            alt="Tailwind CSS Navbar component"
+                            alt="Profile Image"
                             src={Profile}
                             className='w-14 rounded-full'
                         />
