@@ -37,7 +37,7 @@ class MovieController extends Controller
         return Inertia::render('Detail', ['id' => $id, 'items' => $items, 'status' => $status, 'detail' => $detail, 'credits' => $credits]);
     }
 
-    public function genre( $genre)
+    public function genre($genre)
     {
         $key = env('API_KEY');
         $url = env('API_URL');
@@ -47,12 +47,9 @@ class MovieController extends Controller
         return Inertia::render("Genre", ['movies' => $movies]);
     }
 
-    public function search(Request $request) {
-        $query = $request->input('query');
-        $response = Http::get("https://api.themoviedb.org/3/search/movie", [
-            'api_key' => env('TMDB_API_KEY'),
-            'query' => $query,
-        ]);
+    public function search($query) {
+        $key = env('API_KEY');
+        $response = Http::get("https://api.themoviedb.org/3/search/movie?query={$query}&api_key={$key}");
         return response()->json($response->json()['results']);
     }
 }
