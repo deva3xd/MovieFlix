@@ -43,7 +43,7 @@ const Ongoing = ({ items }) => {
                         return (
                             <SwiperSlide key={item.id}>
                                 <Link
-                                    href={route("detail", {
+                                    href={route("movie.detail", {
                                         id: item.id,
                                         status: "ongoing",
                                     })}

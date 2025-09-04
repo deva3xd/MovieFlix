@@ -68,6 +68,7 @@ const Cart = ({ auth, carts, cartCount }) => {
                                     <img
                                         src={`${imgURL}/w500/${item.poster_path}`}
                                         className="h-32"
+                                        alt="Poster Image"
                                     />
                                     <div className="px-2">
                                         <div className="flex flex-col justify-between h-full">

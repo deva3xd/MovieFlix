@@ -42,13 +42,14 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
     }, [flash.message]);
 
     return (
-        <MainLayout  title='Home'>
+        <MainLayout title='Home'>
             <Toaster />
             <div className="bg-custom-primary">
                 <div className="relative">
                     <img
                         src={`${imgURL}/original/${detail.backdrop_path}`}
                         className="w-full object-cover max-h-[80vh]"
+                        alt="Backdrop Image"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-custom-primary to-transparent"></div>
                 </div>
@@ -58,7 +59,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                         <figure>
                             <img
                                 src={`${imgURL}/w500/${detail.poster_path}`}
-                                alt="Poster"
+                                alt={detail.title}
                             />
                         </figure>
                         <div className="flex flex-col my-2">
@@ -78,7 +79,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                 </form>
                             ) : (
                                 <div className="border bg-custom-primary border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full" disabled>
-                                       Not Available
+                                    Not Available
                                 </div>
                             )}
                         </div>
@@ -100,7 +101,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                 Release: {detail.release_date},
                             </div>
                             <div className="flex items-center">
-                                Genre: 
+                                Genre:
                                 {detail.genres &&
                                     detail.genres.map(
                                         (genre, index) => <span key={index} className="bg-white px-2 ms-1 rounded-sm text-black font-semibold">{genre.name}</span>
@@ -120,7 +121,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                 Cast
                             </h3>
                             <p className="text-justify font-light text-xs sm:text-base">
-                                    {credits.cast.map((credit) => credit.name)}
+                                {credits.cast.map((credit) => credit.name)}
                             </p>
                         </div>
                     </div>

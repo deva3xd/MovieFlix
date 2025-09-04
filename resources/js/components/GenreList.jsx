@@ -13,7 +13,7 @@ const Genre = ({ items }) => {
                     </div>
                     <div
                         tabIndex="0"
-                        className="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-tl-none rounded-box bg-custom-primary border border-custom-secondary w-[16rem] md:w-[50rem] "
+                        className="menu menu-sm dropdown-content z-[1] p-2 shadow rounded-tl-none rounded-md bg-custom-primary border border-custom-secondary w-[16rem] md:w-[50rem] "
                     >
                         <div className="flex flex-wrap mx-2">
                             {items.map((item) => {
@@ -21,7 +21,7 @@ const Genre = ({ items }) => {
                                     <Link
                                         key={item.id}
                                         className="w-1/2 sm:w-1/6 hover:underline my-1"
-                                        href={route("genre", {
+                                        href={route("movie.genre", {
                                             id: item.id,
                                         })}
                                     >
@@ -36,7 +36,7 @@ const Genre = ({ items }) => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 <Link
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
-                    href={route("genre", { id: 28 })}
+                    href={route("movie.genre", { id: 28 })}
                 >
                     <div className="w-6 sm:w-12 flex justify-center">
                         <Film size={45} />
@@ -47,7 +47,7 @@ const Genre = ({ items }) => {
                 </Link>
                 <Link
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
-                    href={route("genre", { id: 10749 })}
+                    href={route("movie.genre", { id: 10749 })}
                 >
                     <div className="w-6 sm:w-12 flex justify-center">
                         <Heart size={45} />
@@ -58,7 +58,7 @@ const Genre = ({ items }) => {
                 </Link>
                 <Link
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
-                    href={route("genre", { id: 27 })}
+                    href={route("movie.genre", { id: 27 })}
                 >
                     <div className="w-6 sm:w-12 flex justify-center">
                        <Ghost size={45} />
@@ -69,7 +69,7 @@ const Genre = ({ items }) => {
                 </Link>
                 <Link
                     className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
-                    href={route("genre", { id: 878 })}
+                    href={route("movie.genre", { id: 878 })}
                 >
                     <div className="w-6 sm:w-12 flex justify-center">
                        <Rocket size={45} />

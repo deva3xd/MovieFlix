@@ -12,7 +12,7 @@ const Genre = ({ movies }) => {
 
                     return (
                         <Link
-                            href={route("detail", {
+                            href={route("movie.detail", {
                                 id: movie.id,
                                 status: "ongoing",
                             })}
