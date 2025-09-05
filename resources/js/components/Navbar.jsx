@@ -51,7 +51,7 @@ const Navbar = () => {
                             onFocus={() => setShowList(true)}
                             onBlur={() => setTimeout(() => setShowList(false), 100)}
                             placeholder="Search Movie"
-                            className="input input-sm rounded-full focus:outline-none bg-custom-primary"
+                            className="input input-sm rounded-md focus:outline-none bg-custom-primary"
                         />
                     </form>
                     {showList && result.length > 0 && (
