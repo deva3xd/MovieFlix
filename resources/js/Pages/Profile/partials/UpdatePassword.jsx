@@ -43,71 +43,64 @@ export default function UpdatePassword() {
             <div className='flex justify-between'>
                 <h3 className='font-bold text-2xl'>Change Password</h3>
                 <button className="btn bg-custom-primary hover:bg-opacity-90 text-white" onClick={() => setEdit(edit => !edit)}>
-                    {!edit ? (
-                        <>
-                            <Pencil size={15} />
-                        </>
-                    ) : (
-                        <>
-                            <X size={15} />
-                        </>
-                    )}
+                    {!edit ? <Pencil size={15} /> : <X size={15} />}
                 </button>
             </div>
             <form onSubmit={updatePassword} >
                 <fieldset className="fieldset">
-                    <legend className="fieldset-legend" htmlFor="current_password" value="Current Password">Current Password</legend>
-                    <input 
-                        className="input w-full focus:outline-none" 
+                    <legend className="fieldset-legend" htmlFor="current_password">Current Password</legend>
+                    <input
+                        type="password"
+                        className="input w-full focus:outline-none"
                         placeholder="current password"
                         id="current_password"
                         ref={currentPasswordInput}
                         value={data.current_password}
                         onChange={(e) => setData('current_password', e.target.value)}
-                        type="password"
-                        autoComplete="current-password" 
+                        autoComplete="current-password"
                         required
+                        disabled={!edit}
                     />
                     <InputError message={errors.current_password} className="mt-1" />
                 </fieldset>
                 <fieldset className="fieldset mt-3">
-                    <legend className="fieldset-legend" htmlFor="password" value="New Password">New Password</legend>
-                    <input 
-                        className="input w-full focus:outline-none" 
+                    <legend className="fieldset-legend" htmlFor="password">New Password</legend>
+                    <input
+                        type="password"
+                        className="input w-full focus:outline-none"
                         placeholder="new password"
-                         id="password"
+                        id="password"
                         ref={passwordInput}
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
-                        type="password"
                         autoComplete="new-password"
                         required
-                     />
-                     <InputError message={errors.password} className="mt-1" />
+                        disabled={!edit}
+                    />
+                    <InputError message={errors.password} className="mt-1" />
                     <p className="mt-1 text-sm text-gray-600">
                         Ensure your account is using a long, random password to stay secure.
                     </p>
                 </fieldset>
                 <fieldset className="fieldset mt-3">
-                    <legend className="fieldset-legend" htmlFor="password_confirmation" value="Confirm Password" >Confirm Password</legend>
-                    <input 
-                        className="input w-full focus:outline-none" 
-                        placeholder="confirm password" 
+                    <legend className="fieldset-legend" htmlFor="password_confirmation">Confirm Password</legend>
+                    <input
+                        type="password"
+                        className="input w-full focus:outline-none"
+                        placeholder="confirm password"
                         id="password_confirmation"
                         value={data.password_confirmation}
                         onChange={(e) => setData('password_confirmation', e.target.value)}
-                        type="password"
                         autoComplete="new-password"
                         required
+                        disabled={!edit}
                     />
                     <InputError message={errors.password_confirmation} className="mt-1" />
                 </fieldset>
-                {edit && (
-                <button className="btn bg-white hover:bg-gray-200 text-black disabled:text-white mt-3 disabled:bg-opacity-95" disabled={processing}>
-                   <Save color='#000000' size={18} />
-                   Save
-                </button>
-                )}
+                    <button className="btn bg-white hover:bg-gray-200 text-black mt-3 disabled:bg-[#1c2228] disabled:text-white" disabled={!edit || processing}>
+                        <Save size={18} />
+                        Save
+                    </button>
             </form>
         </>
     );
