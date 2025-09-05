@@ -4,7 +4,8 @@ import { Head, useForm } from "@inertiajs/react";
 
 export default function Register() {
     const { data, setData, post, errors } = useForm({
-        name: "",
+        first_name: "",
+        last_name: "",
         email: "",
         password: "",
         password_confirmation: "",
@@ -25,21 +26,37 @@ export default function Register() {
                     <div className="w-[28rem]">
                         <h1 className="font-bold text-4xl underline">Register</h1>
                         <form onSubmit={submit}>
-                            <div className="mt-4">
-                                <label className="input border-0 border-b border-b-gray-400 flex items-center text-black bg-transparent rounded-none px-0 focus-within:shadow-none focus-within:outline-none focus-within:border-b-black">
-                                    <input
-                                        type="text"
-                                        className="grow w-full"
-                                        placeholder="Name"
-                                        id="name"
-                                        name="name"
-                                        onChange={(e) =>
-                                            setData("name", e.target.value)
-                                        }
-                                        required
-                                    />
-                                </label>
-                                <InputError message={errors.name} className="mt-2" />
+                            <div className="flex gap-2">
+                                <div className="mt-4">
+                                    <label className="input border-0 border-b border-b-gray-400 flex items-center text-black bg-transparent rounded-none px-0 focus-within:shadow-none focus-within:outline-none focus-within:border-b-black">
+                                        <input
+                                            type="text"
+                                            className="grow w-full"
+                                            placeholder="First Name"
+                                            id="first_name"
+                                            name="first_name"
+                                            value={data.first_name}
+                                            onChange={(e) => setData("first_name", e.target.value)}
+                                            required
+                                        />
+                                    </label>
+                                    <InputError message={errors.first_name} className="mt-2" />
+                                </div>
+                                <div className="mt-4">
+                                    <label className="input border-0 border-b border-b-gray-400 flex items-center text-black bg-transparent rounded-none px-0 focus-within:shadow-none focus-within:outline-none focus-within:border-b-black">
+                                        <input
+                                            type="text"
+                                            className="grow w-full"
+                                            placeholder="Last Name"
+                                            id="last_name"
+                                            name="last_name"
+                                            value={data.last_name}
+                                            onChange={(e) => setData("last_name", e.target.value)}
+                                            required
+                                        />
+                                    </label>
+                                    <InputError message={errors.last_name} className="mt-2" />
+                                </div>
                             </div>
 
                             <div className="mt-4">
@@ -49,9 +66,8 @@ export default function Register() {
                                         placeholder="Email"
                                         id="email"
                                         name="email"
-                                        onChange={(e) =>
-                                            setData("email", e.target.value)
-                                        }
+                                        value={data.email}
+                                        onChange={(e) => setData("email", e.target.value)}
                                         className="w-full"
                                         required
                                     />
@@ -67,16 +83,12 @@ export default function Register() {
                                         placeholder="Password"
                                         id="password"
                                         name="password"
-                                        onChange={(e) =>
-                                            setData("password", e.target.value)
-                                        }
+                                        value={data.password}
+                                        onChange={(e) => setData("password", e.target.value)}
                                         required
                                     />
                                 </label>
-                                <InputError
-                                    message={errors.password}
-                                    className="mt-2"
-                                />
+                                <InputError message={errors.password} className="mt-2" />
                             </div>
 
                             <div className="mt-4">
@@ -87,19 +99,12 @@ export default function Register() {
                                         placeholder="Confirm Password"
                                         id="password_confirmation"
                                         name="password_confirmation"
-                                        onChange={(e) =>
-                                            setData(
-                                                "password_confirmation",
-                                                e.target.value
-                                            )
-                                        }
+                                        value={data.password_confirmation}
+                                        onChange={(e) => setData("password_confirmation", e.target.value)}
                                         required
                                     />
                                 </label>
-                                <InputError
-                                    message={errors.password_confirmation}
-                                    className="mt-2"
-                                />
+                                <InputError message={errors.password_confirmation} className="mt-2" />
                             </div>
 
                             <div className="flex items-center justify-center mt-4">
@@ -107,7 +112,7 @@ export default function Register() {
                                     className="btn bg-black hover:bg-gray-950 w-full text-lg text-white"
                                     type="submit"
                                 >
-                                    Submit
+                                    Register
                                 </button>
                             </div>
                         </form>

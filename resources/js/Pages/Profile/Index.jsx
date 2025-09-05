@@ -22,7 +22,8 @@ export default function Index({ auth }) {
                             className='w-14 rounded-full'
                         />
                         <div className='w-1/2'>
-                            <p className='font-semibold text-lg'>test</p>
+                            <p className='font-semibold text-lg capitalize'>Hello, {auth.user.first_name}</p>
+                            <p className='font-light text-sm'>{auth.user.email}</p>
                         </div>
                     </div>
                     <div className='flex flex-col'>
