@@ -6,7 +6,6 @@ export default function Login({ status }) {
     const { data, setData, post, errors } = useForm({
         email: "",
         password: "",
-        remember: false,
     });
 
     const submit = (e) => {
@@ -33,12 +32,11 @@ export default function Login({ status }) {
                                 <label className="input border-0 border-b border-b-gray-400 flex items-center text-black bg-transparent rounded-none px-0 focus-within:shadow-none focus-within:outline-none focus-within:border-b-black">
                                     <input
                                         type="email"
+                                        className="w-full"
                                         placeholder="Email"
                                         id="email"
-                                        onChange={(e) =>
-                                            setData("email", e.target.value)
-                                        }
-                                        className="w-full"
+                                        value={data.email}
+                                        onChange={(e) => setData("email", e.target.value)}
                                         required
                                     />
                                 </label>
@@ -48,22 +46,17 @@ export default function Login({ status }) {
                                 <label className="input border-0 border-b border-b-gray-400 flex items-center text-black bg-transparent rounded-none px-0 focus-within:shadow-none focus-within:outline-none focus-within:border-b-black">
                                     <input
                                         type="password"
+                                        className="w-full"
                                         placeholder="Password"
                                         id="password"
-                                        onChange={(e) =>
-                                            setData("password", e.target.value)
-                                        }
-                                        className="w-full"
+                                        value={data.password}
+                                        onChange={(e) => setData("password", e.target.value)}
                                         required
                                     />
                                 </label>
-                                <InputError
-                                    message={errors.password}
-                                    className="mt-2"
-                                />
+                                <InputError message={errors.password} className="mt-2" />
                             </div>
-                            <a href="" className="flex justify-end mt-2 text-sm text-gray-950 hover:underline">Forgot your password?</a>
-                            <div className="flex items-center justify-center mt-2">
+                            <div className="flex items-center justify-center mt-4">
                                 <button
                                     className="btn bg-black hover:bg-gray-950 w-full text-lg text-white"
                                     type="submit"
