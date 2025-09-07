@@ -4,9 +4,9 @@ import Ongoing from "@/components/Ongoing";
 import Upcoming from "@/components/Upcoming";
 import GenreList from "@/components/GenreList";
 
-const Home = ({  upcoming, ongoing, genres, url, apiKey, carts }) => {
+const Movie = ({  upcoming, ongoing, genres, url, apiKey, carts }) => {
     return (
-        <MainLayout title='Home'>
+        <MainLayout title='Movie'>
             <Header items={ongoing} url={url} apiKey={apiKey} carts={carts} />
             <Ongoing items={ongoing} />
             <Upcoming items={upcoming} />
@@ -15,4 +15,4 @@ const Home = ({  upcoming, ongoing, genres, url, apiKey, carts }) => {
     )
 }
 
-export default Home;
+export default Movie;
