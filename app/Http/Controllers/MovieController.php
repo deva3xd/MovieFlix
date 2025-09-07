@@ -7,7 +7,8 @@ use Inertia\Inertia;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use App\Http\Resources\MovieResource;
+use App\Http\Resources\MovieListResource;
+use App\Http\Resources\MovieDetailResource;
 
 class MovieController extends Controller
 {
@@ -15,22 +16,22 @@ class MovieController extends Controller
     {
         $key = env('API_KEY');
         $url = env('API_URL');
-        $carts = Cart::all();
+        $carts = Cart::where('user_id', Auth::id())->get();
         $upcomingURL = Http::get("{$url}/movie/upcoming?api_key={$key}");
         $ongoingURL = Http::get("{$url}/movie/now_playing?api_key={$key}");
+        $upcoming = MovieListResource::collection($upcomingURL->json()['results'])->toArray($request);
+        $ongoing = MovieListResource::collection($ongoingURL->json()['results'])->toArray($request);
         $genres = Http::get("{$url}/genre/movie/list?api_key={$key}")->json()['genres'];
 
-        $upcoming = MovieResource::collection($upcomingURL->json()['results'])->toArray($request);
-        $ongoing = MovieResource::collection($ongoingURL->json()['results'])->toArray($request);
-
-        return Inertia::render('Home', ['upcoming' => $upcoming, 'ongoing' => $ongoing, 'genres' => $genres, 'url' => $url, 'apiKey' => $key, 'carts' => $carts]);
+        return Inertia::render('Movie', ['upcoming' => $upcoming, 'ongoing' => $ongoing, 'genres' => $genres, 'url' => $url, 'apiKey' => $key, 'carts' => $carts]);
     }
 
     public function show($status, $id)
     {
         $key = env('API_KEY');
         $url = env('API_URL');
-        $detail = Http::get("{$url}/movie/{$id}?api_key={$key}")->json();
+        $detailURL = Http::get("{$url}/movie/{$id}?api_key={$key}");
+        $detail = new MovieDetailResource($detailURL->json());
         $items = Cart::where('user_id', Auth::id())->where('movie_id', $id)->get();
         $credits = Http::get("{$url}/movie/{$id}/credits?api_key={$key}")->json();
 
@@ -41,7 +42,6 @@ class MovieController extends Controller
     {
         $key = env('API_KEY');
         $url = env('API_URL');
-
         $movies = Http::get("{$url}/discover/movie?api_key={$key}&with_genres={$genre}")->json()['results'];
 
         return Inertia::render("Genre", ['movies' => $movies]);
@@ -50,6 +50,7 @@ class MovieController extends Controller
     public function search($query) {
         $key = env('API_KEY');
         $response = Http::get("https://api.themoviedb.org/3/search/movie?query={$query}&api_key={$key}");
+
         return response()->json($response->json()['results']);
     }
 }

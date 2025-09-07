@@ -102,10 +102,9 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                             </div>
                             <div className="flex items-center">
                                 Genre:
-                                {detail.genres &&
-                                    detail.genres.map(
-                                        (genre, index) => <span key={index} className="bg-white px-2 ms-1 rounded-sm text-black font-semibold">{genre.name}</span>
-                                    )}
+                                { detail.genres.map( (genre) => 
+                                    <span key={genre.id} className="bg-white px-2 ms-1 rounded-sm text-black font-semibold">{genre.name}</span>
+                                )}
                             </div>
                         </div>
                         <div className="mt-5">

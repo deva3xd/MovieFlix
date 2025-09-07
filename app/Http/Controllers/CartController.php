@@ -15,8 +15,9 @@ class CartController extends Controller
         $url = env('API_URL');
         $carts = Cart::where('user_id', Auth::id())->pluck('movie_id')->map(function ($movieId) use ($url, $key) {
             return Http::get("{$url}/movie/{$movieId}?api_key={$key}")->json();
-         });;
+         });
         $cartCount = Cart::where('user_id', Auth::id())->count();
+        
         return Inertia::render('Cart', ['carts' => $carts, 'cartCount' => $cartCount]);
     }
 
@@ -27,8 +28,8 @@ class CartController extends Controller
             'price' => ["required", "integer"],
             'count' => ["required", "integer"],
         ]);
-
         Cart::create($data);
+
         return back()->with('message', 'Data Added');
     }
 
