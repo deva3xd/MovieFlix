@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
-import Profile from "@/assets/images/profile.png";
+import ProfilePicture from "@/assets/images/profile.png";
 
 const Navbar = () => {
     const [query, setQuery] = useState("");
@@ -49,7 +49,7 @@ const Navbar = () => {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             onFocus={() => setShowList(true)}
-                            onBlur={() => setTimeout(() => setShowList(false), 100)}
+                            onBlur={() => setTimeout(() => setShowList(false), 200)}
                             placeholder="Search Movie"
                             className="input input-sm rounded-md focus:outline-none bg-custom-primary"
                         />
@@ -63,10 +63,7 @@ const Navbar = () => {
                                         key={item.id}
                                         className="pb-1 cursor-pointer hover:bg-gray-200 text-black"
                                     >
-                                        <Link href={route("movie.detail", {
-                                            id: item.id,
-                                            status: "ongoing",
-                                        })}>
+                                        <Link href={route("movie.detail", { id: item.id, status: "search" })}>
                                             <div className="flex">
                                                 <img
                                                     src={item.poster_path ? `${imgURL}/w185/${item.poster_path}` : ""}
@@ -91,8 +88,8 @@ const Navbar = () => {
                         >
                             <div className="w-9 rounded-full">
                                 <img
-                                    alt="profile"
-                                    src={Profile}
+                                    alt="Profile Picture"
+                                    src={ProfilePicture}
                                 />
                             </div>
                         </div>
