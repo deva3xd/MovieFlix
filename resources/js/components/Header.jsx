@@ -78,7 +78,7 @@ const Header = ({ items, url, apiKey, carts }) => {
                                             Add to Cart
                                         </button>
                                     ) : (
-                                        <button type="button" onClick={() => handleAddToCart(item.id)} className="flex items-center gap-1 bg-custom-secondary text-white px-4 py-2 rounded-md font-medium">
+                                        <button type="button" onClick={() => handleAddToCart(item.id)} className="flex items-center gap-1 bg-custom-secondary text-white px-4 py-2 rounded-md font-medium" disabled>
                                             <Check size={20} />
                                             In Cart
                                         </button>
