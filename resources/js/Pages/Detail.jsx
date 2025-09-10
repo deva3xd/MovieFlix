@@ -73,7 +73,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                             CART
                                         </button>
                                     )}
-                                    <button className="border bg-custom-primary border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full hover:bg-opacity-80">
+                                    <button className="border bg-custom-primary border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full disabled:opacity-50" disabled>
                                         Checkout
                                     </button>
                                 </form>

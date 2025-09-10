@@ -13,8 +13,7 @@ const Cart = ({ auth, carts, cartCount }) => {
     const [itemToDelete, setItemToDelete] = useState(null);
     const [selectId, setSelectId] = useState([]);
 
-    const selectCount = selectId.length;
-
+    // show toast
     if (flash.message) {
         toast.success(flash.message);
     }
@@ -30,11 +29,13 @@ const Cart = ({ auth, carts, cartCount }) => {
         }));
     };
 
+    // delete modal
     const openModal = (itemId) => {
         setItemToDelete(itemId);
         setModalOpen(true);
     };
 
+    // confirm delete
     const confirmDelete = () => {
         if (itemToDelete) {
             destroy(route("cart.destroy", itemToDelete));
@@ -51,6 +52,25 @@ const Cart = ({ auth, carts, cartCount }) => {
             setSelectId(selectId.filter(id => id !== checkedId))
         }
     }
+
+    // summary section
+    const getSummary = () => {
+        let totalItems = 0
+        let totalPrice = 0
+
+        selectId.forEach((id) => {
+            const qty = counts[id] || 1
+            const cartItem = carts.find((item) => item.id == id)
+            const price = Number(cartItem?.price) || 25000
+
+            totalItems += qty
+            totalPrice += qty * price
+        })
+
+        return { totalItems, totalPrice }
+    }
+
+    const { totalItems, totalPrice } = getSummary()
 
     return (
         <MainLayout title="Home" user={auth.user}>
@@ -81,24 +101,18 @@ const Cart = ({ auth, carts, cartCount }) => {
                                             <div className="flex">
                                                 <button
                                                     onClick={() =>
-                                                        setCount(
-                                                            item.id,
-                                                            (counts[item.id] || 1) - 1
-                                                        )
+                                                        setCount(item.id, Math.max((counts[item.id] || 1) - 1, 1))
                                                     } // fallback to 1 if undefined
                                                     className="px-2 border border-white"
                                                 >
                                                     -
                                                 </button>
                                                 <p className="px-3 underline">
-                                                    {counts[item.id] || 1}
+                                                    {counts[item.id]}
                                                 </p>
                                                 <button
                                                     onClick={() =>
-                                                        setCount(
-                                                            item.id,
-                                                            (counts[item.id] || 1) + 1
-                                                        )
+                                                        setCount(item.id, Math.min((counts[item.id] || 1) + 1, 5))
                                                     } // fallback to 1 if undefined
                                                     className="px-2 border border-white"
                                                 >
@@ -108,7 +122,7 @@ const Cart = ({ auth, carts, cartCount }) => {
                                         </div>
                                     </div>
                                     <div className="flex-1 flex flex-col justify-end items-end">
-                                        <p className="font-semibold text-lg">Rp. 25.000</p>
+                                        <p className="font-semibold text-lg">Rp{((counts[item.id] || 1) * (Number(item.price) || 25000)).toLocaleString("id-ID")}</p>
                                         <div className="flex gap-1">
                                             <input type="checkbox" className="checkbox checkbox-info bg-custom-primary border-white hover:border-white" value={item.id} onChange={(event) => handleCheckboxChange(event)} />
                                             <button onClick={() => openModal(item.id)} className="text-sm text-red-500">
@@ -125,9 +139,9 @@ const Cart = ({ auth, carts, cartCount }) => {
                     <p className="py-3 font-light text-2xl">{cartCount} items</p>
                     <div className="bg-custom-secondary rounded-sm p-2">
                         <p className="font-bold text-lg underline">Order Summary</p>
-                        <p className="text-lg">Items : {selectCount}</p>
-                        <p className="text-lg">Total : Rp. 25.000</p>
-                        <button className="bg-white py-1 w-full text-custom-secondary hover:bg-opacity-90 rounded-sm font-semibold">Checkout</button>
+                        <p className="text-lg">Items : {totalItems}</p>
+                        <p className="text-lg">Price : Rp{totalPrice.toLocaleString("id-ID")}</p>
+                        <button className="bg-white py-1 w-full text-custom-secondary rounded-sm font-semibold disabled:opacity-50" disabled>Checkout</button>
                     </div>
                 </div>
             </div>
