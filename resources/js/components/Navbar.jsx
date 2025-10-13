@@ -63,7 +63,7 @@ const Navbar = () => {
                     </form>
 
                     {showList && result.length > 0 && (
-                        <ul className="absolute px-1 pt-1 top-full mt-2 w-64 bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
+                        <ul className="absolute px-1 pt-1 top-24 right-0 sm:top-full mt-2 w-64 bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
                             {result.map((item) => {
                                 const year = new Date(item.release_date).getFullYear();
                                 return (

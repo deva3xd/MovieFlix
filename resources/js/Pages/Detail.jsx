@@ -54,7 +54,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-custom-primary to-transparent"></div>
                 </div>
 
-                <div className="flex text-white px-3 sm:px-32 -mt-24 sm:-mt-48 z-10 relative">
+                <div className="flex flex-row sm:flex-row text-white px-3 sm:px-32 -mt-24 sm:-mt-48 z-10 relative">
                     <div className="card w-1/5 rounded-none">
                         <figure>
                             <img
@@ -84,7 +84,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                             )}
                         </div>
                     </div>
-                    <div className="w-full sm:w-4/5 ps-4">
+                    <div className="w-full sm:w-4/5 ms-2">
                         <div className="flex items-center">
                             <span className="bg-red-600 rounded-sm font-semibold px-3 py-1 text-xs sm:text-base me-1">
                                 {voteAverage}
@@ -102,7 +102,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                             </div>
                             <div className="flex items-center">
                                 Genre:
-                                { detail.genres.map( (genre) => 
+                                {detail.genres.map((genre) =>
                                     <span key={genre.id} className="bg-white px-2 ms-1 rounded-sm text-black font-semibold">{genre.name}</span>
                                 )}
                             </div>
@@ -115,7 +115,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                 {detail.overview}
                             </p>
                         </div>
-                        <div className="my-5 w-3/4 border-t border-white">
+                        <div className="my-5 border-t border-white">
                             <h3 className="text-lg sm:text-2xl font-bold">
                                 Cast
                             </h3>
