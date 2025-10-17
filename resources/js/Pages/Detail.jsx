@@ -54,7 +54,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-custom-primary to-transparent"></div>
                 </div>
 
-                <div className="flex flex-row sm:flex-row text-white px-3 sm:px-32 -mt-24 sm:-mt-48 z-10 relative">
+                <div className="flex text-white px-4 md:px-32 -mt-24 sm:-mt-48 z-10 relative">
                     <div className="card w-1/5 rounded-none">
                         <figure>
                             <img
@@ -96,7 +96,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                         <h3 className="font-bold text-xl sm:text-3xl">
                             {detail.title}
                         </h3>
-                        <div className="text-xs sm:text-base flex items-center">
+                        <div className="text-xs sm:text-base flex flex-col md:flex-row items-start md:items-center">
                             <div className="me-2">
                                 Release: {detail.release_date},
                             </div>

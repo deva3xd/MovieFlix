@@ -35,48 +35,48 @@ const Genre = ({ items }) => {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 <Link
-                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg w-full hover:bg-opacity-70 h-14 sm:h-24"
                     href={route("movie.genre", { id: 28 })}
                 >
-                    <div className="w-6 sm:w-12 flex justify-center">
-                        <Film size={45} />
+                    <div className="flex flex-col items-center">
+                        <Film />
+                        <p className="text-xs md:text-md">
+                            Action
+                        </p>
                     </div>
-                    <p className="text-sm">
-                        Action
-                    </p>
                 </Link>
                 <Link
-                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg w-full hover:bg-opacity-70 h-14 sm:h-24"
                     href={route("movie.genre", { id: 10749 })}
                 >
-                    <div className="w-6 sm:w-12 flex justify-center">
-                        <Heart size={45} />
+                    <div className="flex flex-col items-center">
+                        <Heart />
+                        <p className="text-xs md:text-md">
+                            Romance
+                        </p>
                     </div>
-                    <p className="text-sm">
-                        Romance
-                    </p>
                 </Link>
                 <Link
-                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg w-full hover:bg-opacity-70 h-14 sm:h-24"
                     href={route("movie.genre", { id: 27 })}
                 >
-                    <div className="w-6 sm:w-12 flex justify-center">
-                       <Ghost size={45} />
+                    <div className="flex flex-col items-center">
+                        <Ghost />
+                        <p className="text-xs md:text-md">
+                            Horror
+                        </p>
                     </div>
-                    <p className="text-sm">
-                        Horror
-                    </p>
                 </Link>
                 <Link
-                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg py-3 sm:py-6 w-full hover:bg-opacity-70"
+                    className="bg-custom-secondary flex flex-col justify-center items-center text-white rounded-lg w-full hover:bg-opacity-70 h-14 sm:h-24"
                     href={route("movie.genre", { id: 878 })}
                 >
-                    <div className="w-6 sm:w-12 flex justify-center">
-                       <Rocket size={45} />
+                    <div className="flex flex-col items-center">
+                        <Rocket />
+                        <p className="text-xs md:text-md">
+                            Sci-Fi
+                        </p>
                     </div>
-                    <p className="text-sm">
-                        Sci-Fi
-                    </p>
                 </Link>
             </div>
         </div>

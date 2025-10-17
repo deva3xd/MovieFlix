@@ -6,7 +6,7 @@ const Genre = ({ movies }) => {
     const imgURL = import.meta.env.VITE_IMGURL;
     return (
         <MainLayout title='Genre'>
-            <div className="grid grid-cols-2 sm:grid-cols-5 justify-center p-8 gap-5 bg-custom-primary">
+            <div className="grid grid-cols-3 sm:grid-cols-5 justify-center p-8 gap-4 bg-custom-primary">
                 {movies.map((movie) => {
                     const year = new Date(movie.release_date).getFullYear();
 
@@ -18,7 +18,7 @@ const Genre = ({ movies }) => {
                             })}
                             key={movie.id}
                         >
-                            <div className="card w-44 sm:w-60 rounded-sm">
+                            <div className="card rounded-sm">
                                 <figure>
                                     <img
                                         src={`${imgURL}/w500/${movie.poster_path}`}
