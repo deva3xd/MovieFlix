@@ -10,16 +10,16 @@ const Upcoming = ({ items }) => {
             <h2 className="text-xl sm:text-3xl mb-4 font-medium">Upcoming</h2>
             <Swiper
                 slidesPerView={3}
-                spaceBetween={0}
+                spaceBetween={8}
                 breakpoints={{
                     640: {
-                        slidesPerView: 3,
+                        slidesPerView: 4,
                     },
                     768: {
                         slidesPerView: 5,
                     },
                     1024: {
-                        slidesPerView: 7,
+                        slidesPerView: 6,
                     },
                 }}
             >
@@ -37,7 +37,7 @@ const Upcoming = ({ items }) => {
                                         status: "upcoming",
                                     })}
                                 >
-                                    <div className="card w-[115px] sm:w-44 shadow-xl rounded-sm">
+                                    <div className="card shadow-xl rounded-sm">
                                         <figure>
                                             <img
                                                 src={`${imgURL}/w500/${item.poster_path}`}

@@ -12,7 +12,7 @@ const Ongoing = ({ items }) => {
             <h2 className="text-xl sm:text-3xl mb-4 font-medium">Ongoing</h2>
             <Swiper
                 slidesPerView={2}
-                spaceBetween={0}
+                spaceBetween={10}
                 fadeEffect="true"
                 grabCursor="true"
                 pagination={{
@@ -22,10 +22,10 @@ const Ongoing = ({ items }) => {
                 modules={[Pagination]}
                 breakpoints={{
                     640: {
-                        slidesPerView: 2,
+                        slidesPerView: 3,
                     },
                     768: {
-                        slidesPerView: 3,
+                        slidesPerView: 4,
                     },
                     1024: {
                         slidesPerView: 5,
@@ -48,7 +48,7 @@ const Ongoing = ({ items }) => {
                                         status: "ongoing",
                                     })}
                                 >
-                                    <div className="card w-44 sm:w-60 rounded-sm mb-5">
+                                    <div className="card rounded-sm mb-5">
                                         <figure>
                                             <img
                                                 src={`${imgURL}/w500/${item.poster_path}`}
