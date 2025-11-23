@@ -24,14 +24,14 @@ const Navbar = () => {
     }
 
     return (
-        <div className="bg-black text-white fixed top-0 left-0 w-screen sm:w-full z-50 px-8">
+        <div className="bg-black text-white fixed top-0 left-0 w-screen lg:w-full z-50 px-8">
             <div className="navbar max-w-screen-2xl mx-auto px-0 flex justify-between items-center">
                 <div className="flex items-center">
                     <Link href="#" className="p-0 font-extrabold me-4 text-xl">
                         MovieFlix
                     </Link>
 
-                    <div className="hidden sm:flex space-x-4">
+                    <div className="hidden lg:flex space-x-4">
                         <Link
                             href={route("movie")}
                             className="font-light hover:opacity-70 text-sm pb-1"
@@ -58,12 +58,12 @@ const Navbar = () => {
                             onFocus={() => setShowList(true)}
                             onBlur={() => setTimeout(() => setShowList(false), 200)}
                             placeholder="Search"
-                            className="hidden sm:flex input input-sm rounded-md focus:outline-none bg-custom-primary text-white placeholder-gray-300"
+                            className="hidden lg:flex input input-sm rounded-md focus:outline-none bg-custom-primary text-white placeholder-gray-300"
                         />
                     </form>
 
                     {showList && result.length > 0 && (
-                        <ul className="absolute px-1 pt-1 top-24 right-0 sm:top-full mt-2 w-64 bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
+                        <ul className="absolute px-1 pt-1 top-24 right-0 lg:top-full mt-2 w-64 bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
                             {result.map((item) => {
                                 const year = new Date(item.release_date).getFullYear();
                                 return (
@@ -107,7 +107,7 @@ const Navbar = () => {
                         <div
                             tabIndex="0"
                             role="button"
-                            className="hidden sm:flex btn btn-ghost btn-circle avatar"
+                            className="hidden lg:flex btn btn-ghost btn-circle avatar"
                         >
                             <div className="w-9 rounded-full">
                                 <img alt="Profile Picture" src={ProfilePicture} />
@@ -134,7 +134,7 @@ const Navbar = () => {
                     {/* menu button */}
                     <button
                         onClick={() => setMenuOpen(!menuOpen)}
-                        className="sm:hidden ml-3 focus:outline-none"
+                        className="lg:hidden ml-3 focus:outline-none"
                     >
                         {menuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
@@ -142,7 +142,7 @@ const Navbar = () => {
             </div>
 
             {menuOpen && (
-                <div className="sm:hidden bg-black border-t border-gray-700 py-3 space-y-2">
+                <div className="lg:hidden bg-black border-t border-gray-700 py-3 space-y-2">
                     <form onSubmit={handleSubmit}>
                         <input
                             type="text"
