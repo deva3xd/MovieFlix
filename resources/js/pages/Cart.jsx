@@ -5,8 +5,7 @@ import MainLayout from "@/layouts/MainLayout";
 import DeleteModal from "@/components/ui/DeleteModal";
 import { Trash2 } from "lucide-react";
 
-const Cart = ({ auth, carts, cartCount }) => {
-    const imgURL = import.meta.env.VITE_IMGURL;
+const Cart = ({ carts, cartCount }) => {
     const { flash } = usePage().props;
     const { delete: destroy } = useForm();
     const [isModalOpen, setModalOpen] = useState(false);
@@ -44,9 +43,9 @@ const Cart = ({ auth, carts, cartCount }) => {
         }
     };
 
-    const handleCheckboxChange = (event) => {
-        const checkedId = event.target.value;
-        if (event.target.checked) {
+    const handleCheckboxChange = (e) => {
+        const checkedId = e.target.value;
+        if (e.target.checked) {
             setSelectId([...selectId, checkedId])
         } else {
             setSelectId(selectId.filter(id => id !== checkedId))
@@ -73,48 +72,46 @@ const Cart = ({ auth, carts, cartCount }) => {
     const { totalItems, totalPrice } = getSummary()
 
     return (
-        <MainLayout title="Home" user={auth.user}>
-            <div className="min-h-screen bg-custom-primary pb-2 px-8 flex gap-1 text-white">
+        <MainLayout title="Home">
+            <div className="min-h-screen px-4 flex gap-1 text-white max-w-screen-xl mx-auto">
                 <div className="w-4/6">
-                    <h2 className="py-3 font-bold text-2xl">Shopping Cart</h2>
+                    <h2 className="py-2 font-bold text-2xl">Items</h2>
                     {carts.length == 0 ? (
-                        <div className="bg-custom-secondary p-2">
-                            <p className="font-semibold text-xl text-center">No Data Available</p>
+                        <div className="bg-foreground p-2">
+                            <p className="font-semibold text-xl text-center">No Items Available</p>
                         </div>
                     ) : (
                         carts.map((item) => (
-                            <div className="bg-custom-secondary rounded-sm p-2 mb-1" key={item.id}>
+                            <div className="bg-foreground border border-primary/25 rounded-md p-2 mb-1" key={item.id}>
                                 <div className="flex">
                                     <img
-                                        src={`${imgURL}/w500/${item.poster_path}`}
-                                        className="h-32"
+                                        src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                                        className="h-40 rounded-md"
                                         alt="Poster Image"
                                     />
                                     <div className="px-2">
                                         <div className="flex flex-col justify-between h-full">
                                             <div>
-                                                <p className="font-bold text-lg">{item.title}</p>
+                                                <p className="font-bold text-xl">{item.title}</p>
                                                 <div className="flex">
-                                                    {item.genres.map((genre) => <p className="me-2" key={genre.id}>{genre.name}</p>)}
+                                                    {item.genres.map((genre) => <p key={genre.id} className="me-2 text-gray-500 text-sm">{genre.name}</p>)}
                                                 </div>
                                             </div>
-                                            <div className="flex">
+                                            <div className="flex text-lg">
                                                 <button
                                                     onClick={() =>
                                                         setCount(item.id, Math.max((counts[item.id] || 1) - 1, 1))
                                                     } // fallback to 1 if undefined
-                                                    className="px-2 border border-white"
                                                 >
                                                     -
                                                 </button>
-                                                <p className="px-3 underline">
+                                                <p className="px-4 underline">
                                                     {counts[item.id]}
                                                 </p>
                                                 <button
                                                     onClick={() =>
                                                         setCount(item.id, Math.min((counts[item.id] || 1) + 1, 5))
                                                     } // fallback to 1 if undefined
-                                                    className="px-2 border border-white"
                                                 >
                                                     +
                                                 </button>
@@ -122,11 +119,11 @@ const Cart = ({ auth, carts, cartCount }) => {
                                         </div>
                                     </div>
                                     <div className="flex-1 flex flex-col justify-end items-end">
-                                        <p className="font-semibold text-lg">Rp{((counts[item.id] || 1) * (Number(item.price) || 25000)).toLocaleString("id-ID")}</p>
-                                        <div className="flex gap-1">
-                                            <input type="checkbox" className="checkbox checkbox-info bg-custom-primary border-white hover:border-white" value={item.id} onChange={(event) => handleCheckboxChange(event)} />
-                                            <button onClick={() => openModal(item.id)} className="text-sm text-red-500">
-                                                <Trash2 color="#ffffff" />
+                                        <div className="flex items-center gap-2">
+                                            <p className="font-semibold text-primary text-lg">Rp{((counts[item.id] || 1) * (Number(item.price) || 25000)).toLocaleString("id-ID")}</p>
+                                            <input type="checkbox" className="checkbox bg-background border-white" value={item.id} onChange={(e) => handleCheckboxChange(e)} />
+                                            <button onClick={() => openModal(item.id)} className="text-sm text-white hover:text-red-500">
+                                                <Trash2 />
                                             </button>
                                         </div>
                                     </div>
@@ -136,12 +133,11 @@ const Cart = ({ auth, carts, cartCount }) => {
                     )}
                 </div>
                 <div className="w-2/6">
-                    <p className="py-3 font-light text-2xl">{cartCount} items</p>
-                    <div className="bg-custom-secondary rounded-sm p-2">
-                        <p className="font-bold text-lg underline">Order Summary</p>
-                        <p className="text-lg">Items : {totalItems}</p>
-                        <p className="text-lg">Price : Rp{totalPrice.toLocaleString("id-ID")}</p>
-                        <button className="bg-white py-1 w-full text-custom-secondary rounded-sm font-semibold disabled:opacity-50" disabled>Checkout</button>
+                    <p className="py-2 font-light text-2xl">Total: {cartCount}</p>
+                    <div className="bg-foreground border border-primary/25 rounded-md p-2 text-lg flex flex-col gap-2">
+                        <p>Items : {totalItems}</p>
+                        <p>Price : Rp{totalPrice.toLocaleString("id-ID")}</p>
+                        <button className="bg-white hover:bg-white/90 py-1 w-full text-foreground rounded-sm font-semibold disabled:opacity-50" disabled>Checkout</button>
                     </div>
                 </div>
             </div>
@@ -151,7 +147,7 @@ const Cart = ({ auth, carts, cartCount }) => {
                 onConfirm={confirmDelete}
             />
         </MainLayout>
-    );
-};
+    )
+}
 
 export default Cart;

@@ -15,10 +15,10 @@ const Search = ({ results }) => {
             data: data.query
         });
     };
-    console.log(results.original)
+    
     return (
         <MainLayout title="Search">
-            <div className="p-4 pt-0 text-white max-w-screen-xl mx-auto">
+            <div className="p-4 pt-0 text-white max-w-screen-xl mx-auto min-h-screen">
                 <form onSubmit={handleSubmit}>
                     <div className="flex justify-between">
                         {/* category */}
@@ -51,9 +51,9 @@ const Search = ({ results }) => {
                             <div className="mb-5" key={index}>
                                 <figure>
                                     <img
-                                        src={`https://image.tmdb.org/t/p/w500/${r.poster_path}`}
+                                        src={`${r.poster_path ? `https://image.tmdb.org/t/p/w500/${r.poster_path}` : 'https://blocks.astratic.com/img/general-img-portrait.png'}`}
                                         alt={r.title}
-                                        className="rounded-md"
+                                        className="rounded-md h-72"
                                         loading="lazy"
                                     />
                                 </figure>

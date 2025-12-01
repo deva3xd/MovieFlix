@@ -1,6 +1,7 @@
 import { Head } from "@inertiajs/react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 export default function MainLayout({ children, title }) {
     return (
@@ -13,6 +14,7 @@ export default function MainLayout({ children, title }) {
                     <div className="mt-16">
                         {children}
                     </div>
+                    <Footer />
                 </div>
 
                 <div className="drawer-side is-drawer-close:overflow-visible z-[999]">

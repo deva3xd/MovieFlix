@@ -7,9 +7,8 @@ import { useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { Check } from "lucide-react";
 
-const Header = ({ items, url, apiKey, carts }) => {
+const Header = ({ items, url, apiKey, cart }) => {
     const [expanded, setExpanded] = useState(false);
-    const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
 
     const handleTrailer = async (id) => {
@@ -39,10 +38,11 @@ const Header = ({ items, url, apiKey, carts }) => {
 
     const handleAddToCart = (e, id) => {
         e.preventDefault();
+
         router.post("/movie/{status}/{id}", {
             ...data, movie_id: id
         });
-    }
+    };
 
     useEffect(() => {
         if (flash.message) {
@@ -51,45 +51,70 @@ const Header = ({ items, url, apiKey, carts }) => {
     }, [flash.message]);
 
     return (
-        <Swiper loop="true" className="mySwiper">
+        <>
             <Toaster />
-            {items.map((item) => (
-                <SwiperSlide key={item.id}>
-                    <img
-                        src={`${imgURL}/original/${item.backdrop_path}`}
-                        className="object-cover h-[33rem] w-full"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-l from-transparent to-custom-primary">
-                        <div className="flex flex-col sm:flex-row px-8 items-center h-full justify-end sm:justify-start">
-                            <div className="w-full sm:w-1/2 my-2">
-                                <h1 className="text-2xl sm:text-4xl font-semibold text-white">
-                                    {item.title}
-                                </h1>
-                                <p className={`text-base text-justify ${expanded ? "" : "line-clamp-3"}`}>{item.overview}</p>
-                                <button type="button" onClick={() => setExpanded(true)} className="hover:underline" hidden={expanded}>{expanded ? "" : "Read More..."}</button>
-                                <div className="flex gap-2 my-2">
-                                    <button type="button" onClick={() => handleTrailer(item.id)} className="flex items-center gap-1 bg-white text-black px-4 py-2 rounded-md font-medium">
-                                        <Play size={20} fill="true" />
-                                        Trailer
+            <Swiper loop={true} className="mySwiper min-w-0">
+                {items.map((i) => (
+                    <SwiperSlide key={i.id}>
+                        <div className="relative h-[33rem] w-full">
+                            <img
+                                src={`https://image.tmdb.org/t/p/original/${i.backdrop_path}`}
+                                className="object-cover h-full w-full"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 flex items-end p-4 sm:justify-start justify-end">
+                                <div className="bg-black/60 backdrop-blur-sm p-4 rounded-lg w-full sm:w-1/2">
+                                    <h1 className="text-2xl sm:text-4xl font-semibold text-white">
+                                        {i.title}
+                                    </h1>
+                                    <p className={`text-base text-justify text-white ${expanded ? "" : "line-clamp-3"}`}>
+                                        {i.overview}
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() => setExpanded(true)}
+                                        className="hover:underline text-white"
+                                        hidden={expanded}
+                                    >
+                                        Read More...
                                     </button>
-                                    {!carts.some((cart) => cart.movie_id === item.id) ? (
-                                        <button type="button" onClick={() => handleAddToCart(item.id)} className="flex items-center gap-1 bg-custom-secondary text-white px-4 py-2 rounded-md font-medium">
-                                            <Plus size={20} />
-                                            Add to Cart
+
+                                    <div className="flex gap-2 my-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => handleTrailer(i.id)}
+                                            className="flex items-center gap-1 bg-white hover:bg-white/90 text-black px-4 py-2 rounded-md font-medium"
+                                        >
+                                            <Play size={20} fill="true" />
+                                            Trailer
                                         </button>
-                                    ) : (
-                                        <button type="button" onClick={() => handleAddToCart(item.id)} className="flex items-center gap-1 bg-custom-secondary text-white px-4 py-2 rounded-md font-medium" disabled>
-                                            <Check size={20} />
-                                            In Cart
-                                        </button>
-                                    )}
+                                        {!cart.some(cart => cart.movie_id === i.id) ? (
+                                            <button
+                                                type="button"
+                                                onClick={(e) => handleAddToCart(e, i.id)}
+                                                className="flex items-center gap-1 bg-foreground hover:bg-foreground/90 text-white px-4 py-2 rounded-md font-medium"
+                                            >
+                                                <Plus size={20} />
+                                                Add to Cart
+                                            </button>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                disabled
+                                                className="flex items-center gap-1 bg-foreground hover:bg-foreground/90 text-white px-4 py-2 rounded-md font-medium opacity-70"
+                                            >
+                                                <Check size={20} />
+                                                In Cart
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </SwiperSlide>
-            ))}
-        </Swiper>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </>
     );
 };
 

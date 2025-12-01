@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\Http;
 class CartController extends Controller
 {
     public function index() {
-        $key = env('API_KEY');
-        $url = env('API_URL');
+        $key = config('services.tmdb.key');
+        $url = config('services.tmdb.url');
         $carts = Cart::where('user_id', Auth::id())->pluck('movie_id')->map(function ($movieId) use ($url, $key) {
             return Http::get("{$url}/movie/{$movieId}?api_key={$key}")->json();
          });
         $cartCount = Cart::where('user_id', Auth::id())->count();
         
-        return Inertia::render('Cart', ['carts' => $carts, 'cartCount' => $cartCount]);
+        return Inertia::render('Cart', compact('carts', 'cartCount'));
     }
 
     public function store(Request $request) {

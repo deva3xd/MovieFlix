@@ -4,7 +4,6 @@ import { toast, Toaster } from "sonner";
 import MainLayout from "@/layouts/MainLayout";
 
 const Detail = ({ auth, id, items, status, detail, credits }) => {
-    const imgURL = import.meta.env.VITE_IMGURL;
     const { flash } = usePage().props;
     const voteAverage =
         typeof detail.vote_average === "number"
@@ -44,41 +43,41 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
     return (
         <MainLayout title='Home'>
             <Toaster />
-            <div className="bg-custom-primary">
+            <div className="bg-background max-w-screen-xl mx-auto">
                 <div className="relative">
                     <img
-                        src={`${imgURL}/original/${detail.backdrop_path}`}
+                        src={`https://image.tmdb.org/t/p/original/${detail.backdrop_path}`}
                         className="w-full object-cover max-h-[80vh]"
                         alt="Backdrop Image"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-custom-primary to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
                 </div>
 
                 <div className="flex text-white px-4 md:px-32 -mt-24 sm:-mt-48 z-10 relative">
                     <div className="card w-1/5 rounded-none">
                         <figure>
                             <img
-                                src={`${imgURL}/w500/${detail.poster_path}`}
+                                src={`https://image.tmdb.org/t/p/w500/${detail.poster_path}`}
                                 alt={detail.title}
                             />
                         </figure>
                         <div className="flex flex-col my-2">
-                            {status == "ongoing" ? (
+                            {status === "ongoing" ? (
                                 <form onSubmit={onSubmit}>
                                     {items.length < 1 && (
                                         <button
-                                            className="border bg-white border-white text-custom-primary rounded-sm font-bold px-2 py-1 text-center me-1 text-xs sm:text-base w-full hover:bg-opacity-80"
+                                            className="border bg-white border-white text-background rounded-sm font-bold px-2 py-1 text-center me-1 text-xs sm:text-base w-full hover:bg-opacity-80"
                                             disabled={isLoading}
                                         >
                                             CART
                                         </button>
                                     )}
-                                    <button className="border bg-custom-primary border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full disabled:opacity-50" disabled>
+                                    <button className="border bg-background border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full disabled:opacity-50" disabled>
                                         Checkout
                                     </button>
                                 </form>
                             ) : (
-                                <div className="border bg-custom-primary border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full" disabled>
+                                <div className="border bg-background border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full" disabled>
                                     Not Available
                                 </div>
                             )}
@@ -115,7 +114,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                                 {detail.overview}
                             </p>
                         </div>
-                        <div className="my-5 border-t border-white">
+                        <div className="my-5 border-t border-gray-500">
                             <h3 className="text-lg sm:text-2xl font-bold">
                                 Cast
                             </h3>
@@ -127,7 +126,7 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                 </div>
             </div>
         </MainLayout>
-    );
-};
+    )
+}
 
 export default Detail;

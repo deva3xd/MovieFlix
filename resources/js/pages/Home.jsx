@@ -2,13 +2,12 @@ import MainLayout from "@/layouts/MainLayout";
 import Header from "@/components/Header";
 import Movie from "@/components/Movie";
 
-const Home = ({ ongoing, url, apiKey, carts }) => {
+const Home = ({ movie, url, apiKey, cart }) => {
     return (
         <MainLayout title="Home">
             <div className="max-w-screen-xl mx-auto">
-                <Header items={ongoing} url={url} apiKey={apiKey} carts={carts} />
-                <Movie items={ongoing} />
-                <Movie items={ongoing} />
+                <Header items={movie} url={url} apiKey={apiKey} cart={cart} />
+                <Movie items={movie} />
             </div>
         </MainLayout>
     )
