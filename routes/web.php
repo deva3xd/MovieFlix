@@ -1,17 +1,17 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-    // movie
-    Route::redirect('/', '/movie');
-    Route::get('/movie', [MovieController::class, 'index'])->name('movie');
-    Route::get('/movie/{query}', [MovieController::class, 'search'])->name('movie.search');
-    Route::get('/movie/genre/{genre}', [MovieController::class, 'genre'])->name('movie.genre');
-    Route::get('/movie/{status}/{id}', [MovieController::class, 'show'])->name('movie.detail');
+    // home
+    Route::redirect('/', '/browse');
+    
+    Route::get('/browse', [HomeController::class, 'index'])->name('browse');
+    Route::get('/search', [HomeController::class, 'search'])->name('search');
+    Route::get('/detail/{status}/{id}', [HomeController::class, 'show'])->name('detail');
     Route::post('/movie/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
 
     // cart

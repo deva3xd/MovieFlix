@@ -31,4 +31,9 @@ return [
         ],
     ],
 
+    'tmdb' => [
+        'key' => env('API_KEY'),
+        'url' => env('API_URL'),
+    ]
+
 ];
