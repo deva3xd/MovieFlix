@@ -3,8 +3,10 @@ import { router, useForm, usePage } from "@inertiajs/react";
 import { toast, Toaster } from "sonner";
 import MainLayout from "@/layouts/MainLayout";
 
-const Detail = ({ auth, id, items, status, detail, credits }) => {
-    const { flash } = usePage().props;
+const Detail = ({ cart, status, detail, credits }) => {
+    const { auth, flash } = usePage().props;
+    const [isLoading, setIsLoading] = useState(false);
+
     const voteAverage =
         typeof detail.vote_average === "number"
             ? detail.vote_average.toFixed(1)
@@ -16,12 +18,11 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
 
     const { data } = useForm({
         user_id: auth.user.id,
-        movie_id: id,
+        movie_id: detail.id,
         price: 20000,
         count: 1,
     });
 
-    const [isLoading, setIsLoading] = useState(false);
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -64,12 +65,19 @@ const Detail = ({ auth, id, items, status, detail, credits }) => {
                         <div className="flex flex-col my-2">
                             {status === "ongoing" ? (
                                 <form onSubmit={onSubmit}>
-                                    {items.length < 1 && (
+                                    {!cart ? (
                                         <button
                                             className="border bg-white border-white text-background rounded-sm font-bold px-2 py-1 text-center me-1 text-xs sm:text-base w-full hover:bg-opacity-80"
                                             disabled={isLoading}
                                         >
-                                            CART
+                                            Cart
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="border bg-white border-white text-background rounded-sm font-bold px-2 py-1 text-center me-1 text-xs sm:text-base w-full disabled:opacity-50"
+                                            disabled
+                                        >
+                                            In Cart
                                         </button>
                                     )}
                                     <button className="border bg-background border-white rounded-sm font-bold px-2 py-1 my-1 text-center text-xs sm:text-base w-full disabled:opacity-50" disabled>

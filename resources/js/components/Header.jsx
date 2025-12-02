@@ -7,14 +7,14 @@ import { useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { Check } from "lucide-react";
 
-const Header = ({ items, url, apiKey, cart }) => {
+const Header = ({ items, apiKey, cart }) => {
+    const { auth, flash } = usePage().props;
     const [expanded, setExpanded] = useState(false);
-    const { flash } = usePage().props;
 
     const handleTrailer = async (id) => {
         try {
             const res = await fetch(
-                `${url}/movie/${id}/videos?language=en-US&api_key=${apiKey}`
+                `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=${apiKey}`
             );
             const data = await res.json();
 
@@ -30,7 +30,7 @@ const Header = ({ items, url, apiKey, cart }) => {
     };
 
     const { data } = useForm({
-        user_id: 1,
+        user_id: auth.user.id,
         movie_id: null,
         price: 20000,
         count: 1,
@@ -41,7 +41,7 @@ const Header = ({ items, url, apiKey, cart }) => {
 
         router.post("/movie/{status}/{id}", {
             ...data, movie_id: id
-        });
+        })
     };
 
     useEffect(() => {
@@ -100,8 +100,8 @@ const Header = ({ items, url, apiKey, cart }) => {
                                         ) : (
                                             <button
                                                 type="button"
-                                                disabled
                                                 className="flex items-center gap-1 bg-foreground hover:bg-foreground/90 text-white px-4 py-2 rounded-md font-medium opacity-70"
+                                                disabled
                                             >
                                                 <Check size={20} />
                                                 In Cart
@@ -115,7 +115,7 @@ const Header = ({ items, url, apiKey, cart }) => {
                 ))}
             </Swiper>
         </>
-    );
-};
+    )
+}
 
 export default Header;
