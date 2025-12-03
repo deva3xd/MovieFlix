@@ -5,17 +5,16 @@ import { useForm } from "@inertiajs/react";
 import { SearchIcon } from "lucide-react";
 
 const Search = ({ results }) => {
-    const { data, setData, get } = useForm({ query: "" });
+    const { data, setData, get } = useForm({ category: "", query: "" });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        get(route('search'), {
+        get(route('search'), data, {
             preserveState: true,
-            data: data.query
         });
     };
-    
+
     return (
         <MainLayout title="Search">
             <div className="p-4 pt-0 text-white max-w-screen-xl mx-auto min-h-screen">
@@ -23,9 +22,17 @@ const Search = ({ results }) => {
                     <div className="flex justify-between">
                         {/* category */}
                         <fieldset className="fieldset">
-                            <select id="category" name="category" defaultValue="Movie" className="select bg-primary text-background text-lg outline-none border-none focus:outline-none h-12">
+                            <select
+                                id="category"
+                                name="category"
+                                value={data.category}
+                                onChange={(e) => setData("category", e.target.value)}
+                                className="select bg-primary text-background text-lg outline-none border-none focus:outline-none h-12"
+                                required
+                            >
+                                <option value="" disabled>Category</option>
                                 <option value="movie">Movie</option>
-                                <option value="tv-show">TV Show</option>
+                                <option value="tv">TV Show</option>
                             </select>
                         </fieldset>
                         {/* search */}
@@ -46,7 +53,7 @@ const Search = ({ results }) => {
 
                 {/* results */}
                 <div className="mt-4 pt-4 border-t border-white/30 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-                    {results.original.length > 0 ? (
+                    {results?.original.length > 0 ? (
                         results.original.map((r, index) => (
                             <div className="mb-5" key={index}>
                                 <figure>
@@ -58,10 +65,10 @@ const Search = ({ results }) => {
                                     />
                                 </figure>
                                 <div className="flex flex-col my-1">
-                                    <p className="font-medium text-sm sm:text-base">
-                                        {r.title}
-                                    </p>
-                                    <p className="font-light text-gray-500 text-xs sm:text-sm">{new Date(r.release_date).getFullYear()}</p>
+                                    <span className="font-medium text-sm sm:text-base line-clamp-1" title={r.title}>{r.title}</span>
+                                    <span className="font-light text-gray-500 text-xs sm:text-sm">
+                                        {r.release_date ? new Date(r.release_date).getFullYear() : "undefined"}
+                                    </span>
                                 </div>
                             </div>
                         ))

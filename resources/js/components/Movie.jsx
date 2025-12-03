@@ -40,17 +40,17 @@ const Movie = ({ items }) => {
                                     <div className="mb-5">
                                         <figure>
                                             <img
-                                                src={`https://image.tmdb.org/t/p/w500/${i.poster_path}`}
+                                                src={`${i.poster_path ? `https://image.tmdb.org/t/p/w500/${i.poster_path}` : 'https://blocks.astratic.com/img/general-img-portrait.png'}`}
                                                 alt={i.title}
-                                                className="rounded-md"
+                                                className="rounded-md h-72"
                                                 loading="lazy"
                                             />
                                         </figure>
                                         <div className="flex flex-col my-1">
-                                            <p className="font-medium text-sm sm:text-base">
-                                                {i.title}
-                                            </p>
-                                            <p className="font-light text-gray-500 text-xs sm:text-sm">{new Date(i.release_date).getFullYear()}</p>
+                                            <span className="font-medium text-sm sm:text-base line-clamp-1" title={i.title}>{i.title}</span>
+                                            <span className="font-light text-gray-500 text-xs sm:text-sm">
+                                                {i.release_date ? new Date(i.release_date).getFullYear() : "undefined"}
+                                            </span>
                                         </div>
                                     </div>
                                 </Link>
@@ -60,7 +60,7 @@ const Movie = ({ items }) => {
                 )}
             </Swiper>
         </div>
-    );
-};
+    )
+}
 
 export default Movie;
