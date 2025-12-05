@@ -7,15 +7,13 @@ import { useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { Check } from "lucide-react";
 
-const Header = ({ items, apiKey, cart }) => {
+const Header = ({ items, cart }) => {
     const { auth, flash } = usePage().props;
     const [expanded, setExpanded] = useState(false);
 
     const handleTrailer = async (id) => {
         try {
-            const res = await fetch(
-                `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=${apiKey}`
-            );
+            const res = await fetch(`/movies/${id}/videos`);
             const data = await res.json();
 
             if (data.results && data.results.length > 0) {

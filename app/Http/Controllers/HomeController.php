@@ -15,7 +15,6 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $key = config('services.tmdb.key');
-        $apiKey = config('services.tmdb.key');
         $url = config('services.tmdb.url');
         $cart = Cart::where('user_id', Auth::id())->get();
         $movieURL = Http::get("{$url}/movie/now_playing", [
@@ -23,7 +22,7 @@ class HomeController extends Controller
         ]);
         $movie = MovieListResource::collection($movieURL->json()['results'])->toArray($request);
 
-        return Inertia::render('Home', compact('movie', 'apiKey', 'cart'));
+        return Inertia::render('Home', compact('movie', 'cart'));
     }
 
     public function show($status, $id)
@@ -54,6 +53,17 @@ class HomeController extends Controller
         ]);
 
         $results = response()->json($response->json()['results'] ?? []);
+        
         return Inertia::render('Search', compact('results'));
+    }
+
+    public function videos($id)
+    {
+        $key = config('services.tmdb.key');
+        $url = "https://api.themoviedb.org/3/movie/{$id}/videos?language=en-US&api_key={$key}";
+
+        $response = Http::get($url)->json();
+
+        return response()->json($response);
     }
 }
