@@ -1,11 +1,21 @@
 import SearchButton from "@/components/ui/buttons/SearchButton";
 import Input from "@/components/ui/Input";
 import MainLayout from "@/layouts/MainLayout";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { SearchIcon } from "lucide-react";
+import { useEffect } from "react";
 
-const Search = ({ results }) => {
-    const { data, setData, get } = useForm({ category: "", query: "" });
+const Search = ({ results, queryInput }) => {
+    const { url } = usePage();
+    const query = new URLSearchParams(url.split('?')[1] || "");
+    const queryCategory = query.get("category");
+    const { data, setData, get } = useForm({ category: "", query: queryInput ?? "" });
+
+    useEffect(() => {
+        if (queryCategory) {
+            setData("category", queryCategory);
+        }
+    }, [queryCategory]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -47,7 +57,6 @@ const Search = ({ results }) => {
                             />
                             <SearchButton type="submit" children={<SearchIcon size={24} />} />
                         </div>
-
                     </div>
                 </form>
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Http\Resources\MovieListResource;
 use App\Http\Resources\MovieDetailResource;
+use App\Http\Resources\TvResource;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,12 @@ class HomeController extends Controller
             'api_key' => $key
         ]);
         $movie = MovieListResource::collection($movieURL->json()['results'])->toArray($request);
+        $tvURL = Http::get("{$url}/tv/airing_today", [
+            'api_key' => $key
+        ]);
+        $tv = TvResource::collection($tvURL->json()['results'])->toArray($request);
 
-        return Inertia::render('Home', compact('movie', 'cart'));
+        return Inertia::render('Home', compact('movie', 'tv', 'cart'));
     }
 
     public function show($status, $id)
@@ -46,15 +51,15 @@ class HomeController extends Controller
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
         $category = $request->input('category');
-        $query = $request->input('query');
+        $queryInput = $request->input('query');
         $response = Http::get("{$url}/search/{$category}", [
-            'query' => $query,
+            'query' => $queryInput,
             'api_key' => $key,
         ]);
 
         $results = response()->json($response->json()['results'] ?? []);
         
-        return Inertia::render('Search', compact('results'));
+        return Inertia::render('Search', compact('results', 'queryInput'));
     }
 
     public function videos($id)
