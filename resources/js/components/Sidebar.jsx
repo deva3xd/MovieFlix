@@ -60,9 +60,9 @@ const Sidebar = () => {
                 ))}
                 {/* logout */}
                 <li>
-                    <button onClick={() => route("logout")} method="POST" className={`group flex items-center justify-between w-full text-white`}>
+                    <Link href={route("logout")} method="POST" as="button" className={`group flex items-center justify-between w-full text-white`}>
                         LOGOUT<LogOut size={20} />
-                    </button>
+                    </Link>
                 </li>
             </ul>
         </div>

@@ -13,7 +13,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [HomeController::class, 'search'])->name('search');
     Route::get('/detail/{status}/{id}', [HomeController::class, 'show'])->name('detail');
     Route::post('/movie/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
-    Route::get('/movies/{id}/videos', [HomeController::class, 'videos'])->name('browse');
+    Route::get('/movies/{id}/videos', [HomeController::class, 'videos']);
 
     // cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
