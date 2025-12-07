@@ -14,7 +14,7 @@ class CartController extends Controller
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
         $carts = Cart::where('user_id', Auth::id())->pluck('movie_id')->map(function ($movieId) use ($url, $key) {
-            return Http::get("{$url}/movie/{$movieId}?api_key={$key}")->json();
+            return Http::get("{$url}/movie/{$movieId}", ['api_key' => $key])->json();
          });
         $cartCount = Cart::where('user_id', Auth::id())->count();
         

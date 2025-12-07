@@ -50,7 +50,7 @@ const Cart = ({ carts, cartCount }) => {
         } else {
             setSelectId(selectId.filter(id => id !== checkedId))
         }
-    }
+    };
 
     // summary section
     const getSummary = () => {
@@ -67,15 +67,15 @@ const Cart = ({ carts, cartCount }) => {
         })
 
         return { totalItems, totalPrice }
-    }
+    };
 
-    const { totalItems, totalPrice } = getSummary()
+    const { totalItems, totalPrice } = getSummary();
 
     return (
         <MainLayout title="Home">
-            <div className="min-h-screen px-4 flex gap-1 text-white max-w-screen-xl mx-auto">
-                <div className="w-4/6">
-                    <h2 className="py-2 font-bold text-2xl">Items</h2>
+            <div className="min-h-screen px-4 flex flex-col-reverse lg:flex-row gap-1 text-white max-w-screen-xl mx-auto mb-4">
+                <div className="w-full lg:w-4/6">
+                    <h2 className="py-2 font-bold text-xl lg:text-2xl">Items</h2>
                     {carts.length == 0 ? (
                         <div className="bg-foreground p-2">
                             <p className="font-semibold text-xl text-center">No Items Available</p>
@@ -89,42 +89,42 @@ const Cart = ({ carts, cartCount }) => {
                                         className="h-40 rounded-md"
                                         alt="Poster Image"
                                     />
-                                    <div className="px-2">
+                                    <div className="pl-2 w-full">
                                         <div className="flex flex-col justify-between h-full">
                                             <div>
-                                                <p className="font-bold text-xl">{item.title}</p>
-                                                <div className="flex">
+                                                <p className="font-bold text-base lg:text-xl">{item.title}</p>
+                                                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6">
                                                     {item.genres.map((genre) => <p key={genre.id} className="me-2 text-gray-500 text-sm">{genre.name}</p>)}
                                                 </div>
                                             </div>
-                                            <div className="flex text-lg">
-                                                <button
-                                                    onClick={() =>
-                                                        setCount(item.id, Math.max((counts[item.id] || 1) - 1, 1))
-                                                    } // fallback to 1 if undefined
-                                                >
-                                                    -
-                                                </button>
-                                                <p className="px-4 underline">
-                                                    {counts[item.id]}
-                                                </p>
-                                                <button
-                                                    onClick={() =>
-                                                        setCount(item.id, Math.min((counts[item.id] || 1) + 1, 5))
-                                                    } // fallback to 1 if undefined
-                                                >
-                                                    +
-                                                </button>
+                                            <div className="flex justify-between">
+                                                <div className="flex items-center text-sm lg:text-lg">
+                                                    <button
+                                                        onClick={() =>
+                                                            setCount(item.id, Math.max((counts[item.id] || 1) - 1, 1))
+                                                        } // fallback to 1 if undefined
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <p className="px-4 underline">
+                                                        {counts[item.id]}
+                                                    </p>
+                                                    <button
+                                                        onClick={() =>
+                                                            setCount(item.id, Math.min((counts[item.id] || 1) + 1, 5))
+                                                        } // fallback to 1 if undefined
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <p className="font-semibold text-primary text-sm lg:text-lg">Rp{((counts[item.id] || 1) * (Number(item.price) || 25000)).toLocaleString("id-ID")}</p>
+                                                    <input type="checkbox" className="checkbox bg-background border-white" value={item.id} onChange={(e) => handleCheckboxChange(e)} />
+                                                    <button onClick={() => openModal(item.id)} className="text-sm text-white hover:text-red-500">
+                                                        <Trash2 />
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1 flex flex-col justify-end items-end">
-                                        <div className="flex items-center gap-2">
-                                            <p className="font-semibold text-primary text-lg">Rp{((counts[item.id] || 1) * (Number(item.price) || 25000)).toLocaleString("id-ID")}</p>
-                                            <input type="checkbox" className="checkbox bg-background border-white" value={item.id} onChange={(e) => handleCheckboxChange(e)} />
-                                            <button onClick={() => openModal(item.id)} className="text-sm text-white hover:text-red-500">
-                                                <Trash2 />
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -132,9 +132,9 @@ const Cart = ({ carts, cartCount }) => {
                         ))
                     )}
                 </div>
-                <div className="w-2/6">
-                    <p className="py-2 font-light text-2xl">Total: {cartCount}</p>
-                    <div className="bg-foreground border border-primary/25 rounded-md p-2 text-lg flex flex-col gap-2">
+                <div className="w-full lg:w-2/6">
+                    <p className="py-2 font-light text-xl lg:text-2xl">Total: {cartCount}</p>
+                    <div className="bg-foreground border border-primary/25 rounded-md p-2 text-sm lg:text-lg flex flex-col gap-2">
                         <p>Items : {totalItems}</p>
                         <p>Price : Rp{totalPrice.toLocaleString("id-ID")}</p>
                         <button className="bg-white hover:bg-white/90 py-1 w-full text-foreground rounded-sm font-semibold disabled:opacity-50" disabled>Checkout</button>
