@@ -4,8 +4,8 @@ import InputError from '@/components/ui/InputError';
 import InputLabel from '@/components/ui/InputLabel';
 import Modal from '@/components/ui/Modal';
 import SecondaryButton from '@/components/ui/SecondaryButton';
-import TextInput from '@/components/ui/TextInput';
 import { useForm } from '@inertiajs/react';
+import Input from "@/components/ui/Input";
 
 export default function DeleteUserForm({ className = '' }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
@@ -47,7 +47,7 @@ export default function DeleteUserForm({ className = '' }) {
         <section className={`space-y-6 ${className}`}>
             <button onClick={confirmUserDeletion} className='w-full text-start'>Delete Account</button>
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
-                <form onSubmit={deleteUser} className="p-6 bg-custom-secondary">
+                <form onSubmit={deleteUser} className="p-6 bg-foreground border border-primary/25">
                     <h2 className="text-lg font-medium text-white">
                         Are you sure you want to delete your account?
                     </h2>
@@ -57,14 +57,14 @@ export default function DeleteUserForm({ className = '' }) {
                     </p>
                     <div className="mt-6">
                         <InputLabel htmlFor="password" value="Password" className="sr-only" />
-                        <TextInput
+                        <Input
                             id="password"
                             type="password"
                             name="password"
                             ref={passwordInput}
                             value={data.password}
+                            className="w-full"
                             onChange={(e) => setData('password', e.target.value)}
-                            className="mt-1 block w-3/4 text-white border !border-custom-primary p-2 focus:outline-none bg-custom-primary focus:!border-white"
                             isFocused
                             placeholder="Password"
                         />

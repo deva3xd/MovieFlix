@@ -13,8 +13,8 @@ export default function Profile({ auth }) {
     return (
         <MainLayout title="Profile" user={userProfile}>
             <Toaster />
-            <div className="px-28 py-8 flex gap-2 text-white bg-custom-primary min-h-screen">
-                <div className="w-2/6 bg-custom-secondary rounded-md p-4 h-52">
+            <div className="max-w-screen-xl mx-auto flex gap-4 text-white min-h-screen px-4">
+                <div className="w-2/6 bg-foreground rounded-md h-48 p-2">
                     <div className='flex items-center gap-2'>
                         <img
                             alt="Profile Picture"
@@ -27,12 +27,12 @@ export default function Profile({ auth }) {
                         </div>
                     </div>
                     <div className='flex flex-col'>
-                        <button onClick={() => setActive(true)} className={`text-base rounded-sm px-2 py-1 text-start mt-4 hover:bg-white hover:bg-opacity-5 ${active && 'bg-white bg-opacity-5'}`}>Profile Information</button>
-                        <button onClick={() => setActive(false)} className={`text-base rounded-sm px-2 py-1 text-start hover:bg-white hover:bg-opacity-5  ${!active && 'bg-white bg-opacity-5'}`}>Change Password</button>
+                        <button onClick={() => setActive(true)} className={`text-base rounded-sm px-2 py-1 text-start mt-4 hover:bg-white hover:bg-opacity-5 ${active && 'bg-primary pointer-events-none text-black'}`}>Profile Information</button>
+                        <button onClick={() => setActive(false)} className={`text-base rounded-sm px-2 py-1 text-start hover:bg-white hover:bg-opacity-5  ${!active && 'bg-primary pointer-events-none text-black'}`}>Change Password</button>
                         <div className='text-base rounded-sm px-2 py-1 text-start hover:bg-red-700 hover:bg-opacity-95'><DeleteUserForm /></div>
                     </div>
                 </div>
-                <div className="w-4/6 bg-custom-secondary rounded-md p-4 h-1/2">
+                <div className="w-4/6 bg-foreground rounded-md h-1/2 p-2">
                     {active ? <UpdateProfileInformation /> : <UpdatePassword />}
                 </div>
             </div>

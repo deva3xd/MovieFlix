@@ -1,7 +1,9 @@
-import InputError from '@/components/ui/InputError';
 import { useForm, usePage } from '@inertiajs/react';
 import { Save, Pencil, X } from "lucide-react";
 import { useState } from 'react';
+import InputError from '@/components/ui/InputError';
+import Input from "@/components/ui/Input";
+import SubmitButton from "@/components/ui/buttons/SubmitButton";
 
 export default function UpdateProfileInformation() {
     const user = usePage().props.auth.user;
@@ -25,7 +27,7 @@ export default function UpdateProfileInformation() {
         <>
             <div className='flex justify-between'>
                 <h3 className='font-bold text-2xl'>Profile Information</h3>
-                <button className="btn bg-custom-primary hover:bg-opacity-90 text-white" onClick={() => setEdit(edit => !edit)}>
+                <button className={`btn border-none ${edit ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-white hover:bg-white/90 text-black'} `} onClick={() => setEdit(edit => !edit)}>
                     {!edit ? <Pencil size={15} /> : <X size={15} />}
                 </button>
             </div>
@@ -34,15 +36,13 @@ export default function UpdateProfileInformation() {
                     <div className='w-1/2'>
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend" htmlFor="first_name">First Name</legend>
-                            <input
+                            <Input
                                 type="text"
-                                className="input w-full focus:outline-none"
-                                placeholder="first name"
                                 id="first_name"
                                 name="first_name"
                                 value={data.first_name}
+                                className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                                 onChange={(e) => setData('first_name', e.target.value)}
-                                autoComplete="first-name"
                                 required
                                 disabled={!edit}
                             />
@@ -52,15 +52,13 @@ export default function UpdateProfileInformation() {
                     <div className='w-1/2'>
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend" htmlFor="last_name">Last Name</legend>
-                            <input
+                            <Input
                                 type="text"
-                                className="input w-full focus:outline-none"
-                                placeholder="last name"
                                 id="last_name"
                                 name="last_name"
                                 value={data.last_name}
+                                className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                                 onChange={(e) => setData('last_name', e.target.value)}
-                                autoComplete="last-name"
                                 required
                                 disabled={!edit}
                             />
@@ -70,15 +68,13 @@ export default function UpdateProfileInformation() {
                 </div>
                 <fieldset className="fieldset mt-3">
                     <legend className="fieldset-legend" htmlFor="email">Email Address</legend>
-                    <input
+                    <Input
                         type="email"
-                        className="input w-full focus:outline-none"
-                        placeholder="email address"
                         id="email"
                         name="email"
                         value={data.email}
+                        className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('email', e.target.value)}
-                        autoComplete="email"
                         required
                         disabled={!edit}
                     />
@@ -87,12 +83,12 @@ export default function UpdateProfileInformation() {
                 <div className='flex gap-2 mt-3'>
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend" htmlFor="image">Select Profile Picture</legend>
-                        <input
+                        <Input
                             type="file"
-                            className="file-input"
                             id="image"
                             name="image"
                             accept='image/*'
+                            className="file-input file:bg-foreground file:border-none disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                             onChange={(e) => setData('image', e.target.files[0])}
                             disabled={!edit}
                         />
@@ -100,23 +96,22 @@ export default function UpdateProfileInformation() {
                     </fieldset>
                     <fieldset className="fieldset">
                         <legend className="fieldset-legend" htmlFor="birthday">Birthday</legend>
-                        <input
+                        <Input
                             type="date"
-                            className="input w-full focus:outline-none"
                             id="birthday"
                             name="birthday"
                             value={data.birthday}
+                            className="block mx-auto disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                             onChange={(e) => setData('birthday', e.target.value)}
-                            autoComplete="birthday"
                             disabled={!edit}
                         />
                         <InputError message={errors.birthday} className="mt-1" />
                     </fieldset>
                 </div>
-                <button className="btn bg-white hover:bg-gray-200 text-black mt-3 disabled:bg-[#1c2228] disabled:text-white" disabled={!edit || processing}>
+                <SubmitButton className="disabled:text-gray-500 disabled:bg-black/25" disabled={!edit || processing}>
                     <Save size={18} />
                     Save
-                </button>
+                </SubmitButton>
             </form>
         </>
     );

@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
-import InputError from '@/components/ui/InputError';
 import { useForm } from '@inertiajs/react';
 import { Save, Pencil, X } from "lucide-react";
 import { toast } from 'sonner';
+import InputError from '@/components/ui/InputError';
+import Input from "@/components/ui/Input";
+import SubmitButton from "@/components/ui/buttons/SubmitButton";
 
 export default function UpdatePassword() {
     const passwordInput = useRef();
@@ -42,22 +44,21 @@ export default function UpdatePassword() {
         <>
             <div className='flex justify-between'>
                 <h3 className='font-bold text-2xl'>Change Password</h3>
-                <button className="btn bg-custom-primary hover:bg-opacity-90 text-white" onClick={() => setEdit(edit => !edit)}>
+                <button className={`btn border-none ${edit ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-white hover:bg-white/90 text-black'} `} onClick={() => setEdit(edit => !edit)}>
                     {!edit ? <Pencil size={15} /> : <X size={15} />}
                 </button>
             </div>
             <form onSubmit={updatePassword} >
                 <fieldset className="fieldset">
                     <legend className="fieldset-legend" htmlFor="current_password">Current Password</legend>
-                    <input
+                    <Input
                         type="password"
-                        className="input w-full focus:outline-none"
-                        placeholder="current password"
                         id="current_password"
+                        name="current_password"
                         ref={currentPasswordInput}
                         value={data.current_password}
+                        className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('current_password', e.target.value)}
-                        autoComplete="current-password"
                         required
                         disabled={!edit}
                     />
@@ -65,42 +66,40 @@ export default function UpdatePassword() {
                 </fieldset>
                 <fieldset className="fieldset mt-3">
                     <legend className="fieldset-legend" htmlFor="password">New Password</legend>
-                    <input
+                    <Input
                         type="password"
-                        className="input w-full focus:outline-none"
-                        placeholder="new password"
                         id="password"
+                        name="password"
                         ref={passwordInput}
                         value={data.password}
+                        className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('password', e.target.value)}
-                        autoComplete="new-password"
                         required
                         disabled={!edit}
                     />
                     <InputError message={errors.password} className="mt-1" />
-                    <p className="mt-1 text-sm text-gray-600">
+                    <p className="mt-1 text-sm text-gray-500">
                         Ensure your account is using a long, random password to stay secure.
                     </p>
                 </fieldset>
                 <fieldset className="fieldset mt-3">
                     <legend className="fieldset-legend" htmlFor="password_confirmation">Confirm Password</legend>
-                    <input
+                    <Input
                         type="password"
-                        className="input w-full focus:outline-none"
-                        placeholder="confirm password"
                         id="password_confirmation"
+                        name="password_confirmation"
                         value={data.password_confirmation}
+                        className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
-                        autoComplete="new-password"
                         required
                         disabled={!edit}
                     />
                     <InputError message={errors.password_confirmation} className="mt-1" />
                 </fieldset>
-                    <button className="btn bg-white hover:bg-gray-200 text-black mt-3 disabled:bg-[#1c2228] disabled:text-white" disabled={!edit || processing}>
-                        <Save size={18} />
-                        Save
-                    </button>
+                <SubmitButton className="disabled:text-gray-500 disabled:bg-black/25 mt-4" disabled={!edit || processing}>
+                    <Save size={18} />
+                    Save
+                </SubmitButton>
             </form>
         </>
     );
