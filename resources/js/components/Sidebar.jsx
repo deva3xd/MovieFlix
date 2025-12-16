@@ -13,9 +13,9 @@ const menu = [
         href: "/search"
     },
     {
-        name: "MOVIE",
+        name: "MOVIES",
         icon: <Film size={20} />,
-        href: "/movie"
+        href: "/movies"
     },
     {
         name: "TV SHOW",

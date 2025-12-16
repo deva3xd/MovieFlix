@@ -5,7 +5,6 @@ import { Link } from "@inertiajs/react";
 const Movie = ({ items }) => {
     return (
         <div className="bg-custom-primary text-white px-4 pt-4">
-            <h2 className="text-xl sm:text-3xl mb-4 font-medium">Ongoing Movie</h2>
             <Swiper
                 slidesPerView={2}
                 spaceBetween={10}
@@ -19,7 +18,7 @@ const Movie = ({ items }) => {
                         slidesPerView: 4,
                     },
                     1024: {
-                        slidesPerView: 5,
+                        slidesPerView: 6,
                     },
                 }}
             >
