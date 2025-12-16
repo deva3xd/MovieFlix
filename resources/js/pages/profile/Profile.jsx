@@ -14,7 +14,7 @@ export default function Profile({ auth }) {
         <MainLayout title="Profile" user={userProfile}>
             <Toaster />
             <div className="max-w-screen-xl mx-auto flex gap-4 text-white min-h-screen px-4">
-                <div className="w-2/6 bg-foreground rounded-md h-48 p-2">
+                <div className="w-2/6 bg-foreground rounded-md h-[13rem] p-4">
                     <div className='flex items-center gap-2'>
                         <img
                             alt="Profile Picture"
@@ -29,10 +29,10 @@ export default function Profile({ auth }) {
                     <div className='flex flex-col'>
                         <button onClick={() => setActive(true)} className={`text-base rounded-sm px-2 py-1 text-start mt-4 hover:bg-white hover:bg-opacity-5 ${active && 'bg-primary pointer-events-none text-black'}`}>Profile Information</button>
                         <button onClick={() => setActive(false)} className={`text-base rounded-sm px-2 py-1 text-start hover:bg-white hover:bg-opacity-5  ${!active && 'bg-primary pointer-events-none text-black'}`}>Change Password</button>
-                        <div className='text-base rounded-sm px-2 py-1 text-start hover:bg-red-700 hover:bg-opacity-95'><DeleteUserForm /></div>
+                        <DeleteUserForm />
                     </div>
                 </div>
-                <div className="w-4/6 bg-foreground rounded-md h-1/2 p-2">
+                <div className="w-4/6 bg-foreground rounded-md h-1/2 p-4">
                     {active ? <UpdateProfileInformation /> : <UpdatePassword />}
                 </div>
             </div>

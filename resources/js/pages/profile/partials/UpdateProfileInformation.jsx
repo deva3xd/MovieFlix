@@ -27,8 +27,8 @@ export default function UpdateProfileInformation() {
         <>
             <div className='flex justify-between'>
                 <h3 className='font-bold text-2xl'>Profile Information</h3>
-                <button className={`btn border-none ${edit ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-white hover:bg-white/90 text-black'} `} onClick={() => setEdit(edit => !edit)}>
-                    {!edit ? <Pencil size={15} /> : <X size={15} />}
+                <button className={`btn btn-sm border-none ${edit ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-white hover:bg-white/90 text-black'} `} onClick={() => setEdit(edit => !edit)}>
+                    {!edit ? <Pencil size={14} /> : <X size={14} />}
                 </button>
             </div>
             <form onSubmit={submit}>

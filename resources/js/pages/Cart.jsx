@@ -135,7 +135,7 @@ const Cart = ({ carts, cartCount }) => {
                 <div className="w-full lg:w-2/6">
                     <p className="py-2 font-light text-xl lg:text-2xl">Total: {cartCount}</p>
                     <div className="bg-foreground border border-primary/25 rounded-md p-2 text-sm lg:text-lg flex flex-col gap-2">
-                        <p>Items : {totalItems}</p>
+                        <p>Item : {totalItems}</p>
                         <p>Price : Rp{totalPrice.toLocaleString("id-ID")}</p>
                         <button className="bg-white hover:bg-white/90 py-1 w-full text-foreground rounded-sm font-semibold disabled:opacity-50" disabled>Checkout</button>
                     </div>

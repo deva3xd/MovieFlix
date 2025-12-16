@@ -45,7 +45,7 @@ export default function DeleteUserForm({ className = '' }) {
 
     return (
         <section className={`space-y-6 ${className}`}>
-            <button onClick={confirmUserDeletion} className='w-full text-start'>Delete Account</button>
+            <button onClick={confirmUserDeletion} className='w-full text-start text-base rounded-sm px-2 py-1 hover:bg-red-700 hover:bg-opacity-95'>Delete Account</button>
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6 bg-foreground border border-primary/25">
                     <h2 className="text-lg font-medium text-white">
