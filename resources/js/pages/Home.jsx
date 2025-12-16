@@ -3,13 +3,21 @@ import Header from "@/components/Header";
 import Movie from "@/components/Movie";
 import Tv from "@/components/Tv";
 
-const Home = ({ movie, tv, cart }) => {
+const Home = ({ nowPlaying, todayTv, cart }) => {
     return (
         <MainLayout title="Home">
             <div className="max-w-screen-xl mx-auto">
-                <Header items={movie} cart={cart} />
-                <Movie items={movie} />
-                <Tv items={tv} />
+                <Header items={nowPlaying} cart={cart} />
+                <div className="flex flex-col gap-4 mt-4">
+                    <div>
+                        <h2 className="text-xl text-white sm:text-3xl font-medium px-4">Movies</h2>
+                        <Movie items={nowPlaying} />
+                    </div>
+                    <div>
+                        <h2 className="text-xl text-white sm:text-3xl font-medium px-4">Today's TV</h2>
+                        <Tv items={todayTv} />
+                    </div>
+                </div>
             </div>
         </MainLayout>
     )

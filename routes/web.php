@@ -3,17 +3,20 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\MovieController;
+// use App\Http\Controllers\TvController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     // home
     Route::redirect('/', '/browse');
-    
     Route::get('/browse', [HomeController::class, 'index'])->name('browse');
+    Route::get('/movie-trailer/{id}/videos', [HomeController::class, 'videos']);
     Route::get('/search', [HomeController::class, 'search'])->name('search');
     Route::get('/detail/{status}/{id}', [HomeController::class, 'show'])->name('detail');
-    Route::post('/movie/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
-    Route::get('/movies/{id}/videos', [HomeController::class, 'videos']);
+    Route::post('/detail/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
+    Route::get('/movies', MovieController::class)->name('movie');
+    // Route::get('/movies', TvController::class)->name('tv');
 
     // cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');

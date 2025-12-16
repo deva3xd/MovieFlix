@@ -13,7 +13,7 @@ const Header = ({ items, cart }) => {
 
     const handleTrailer = async (id) => {
         try {
-            const res = await fetch(`/movies/${id}/videos`);
+            const res = await fetch(`/movie-trailer/${id}/videos`);
             const data = await res.json();
 
             if (data.results && data.results.length > 0) {

@@ -18,16 +18,16 @@ class HomeController extends Controller
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
         $cart = Cart::where('user_id', Auth::id())->get();
-        $movieURL = Http::get("{$url}/movie/now_playing", [
+        $nowPlayingURL = Http::get("{$url}/movie/now_playing", [
             'api_key' => $key
         ]);
-        $movie = MovieListResource::collection($movieURL->json()['results'])->toArray($request);
-        $tvURL = Http::get("{$url}/tv/airing_today", [
+        $nowPlaying = MovieListResource::collection($nowPlayingURL->json()['results'])->toArray($request);
+        $todayTvURL = Http::get("{$url}/tv/airing_today", [
             'api_key' => $key
         ]);
-        $tv = TvResource::collection($tvURL->json()['results'])->toArray($request);
+        $todayTv = TvResource::collection($todayTvURL->json()['results'])->toArray($request);
 
-        return Inertia::render('Home', compact('movie', 'tv', 'cart'));
+        return Inertia::render('Home', compact('nowPlaying', 'todayTv', 'cart'));
     }
 
     public function show($status, $id)
