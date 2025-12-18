@@ -58,7 +58,7 @@ class HomeController extends Controller
         ]);
 
         $results = response()->json($response->json()['results'] ?? []);
-        
+
         return Inertia::render('Search', compact('results', 'queryInput'));
     }
 
@@ -70,5 +70,14 @@ class HomeController extends Controller
         $response = Http::get($url)->json();
 
         return response()->json($response);
+    }
+
+    public function genre($genre)
+    {
+        $key = config('services.tmdb.key');
+        $url = config('services.tmdb.url');
+        $movies = Http::get("{$url}/discover/movie?api_key={$key}&with_genres={$genre}")->json()['results'];
+
+        return Inertia::render("Genre", ['movies' => $movies]);
     }
 }

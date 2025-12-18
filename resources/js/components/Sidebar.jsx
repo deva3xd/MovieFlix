@@ -18,9 +18,9 @@ const menu = [
         href: "/movies"
     },
     {
-        name: "TV SHOW",
+        name: "TV SHOWS",
         icon: <Tv size={20} />,
-        href: "/tv-show"
+        href: "/tv-shows"
     },
     {
         name: "CART",

@@ -16,7 +16,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/detail/{status}/{id}', [HomeController::class, 'show'])->name('detail');
     Route::post('/detail/{status}/{id}', [CartController::class, 'store'])->name('cart.store');
     Route::get('/movies', MovieController::class)->name('movie');
-    // Route::get('/movies', TvController::class)->name('tv');
+    // Route::get('/tv-shows', TvController::class)->name('tv');
+    Route::get('/genre/{genre}', [HomeController::class, 'genre'])->name('genre');
 
     // cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
