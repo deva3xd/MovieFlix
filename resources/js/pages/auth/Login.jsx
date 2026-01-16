@@ -53,6 +53,7 @@ export default function Login({ status }) {
                                         id="email"
                                         value={data.email}
                                         onChange={(e) => setData("email", e.target.value)}
+                                        required
                                     />
                                 </div>
                                 <InputError
@@ -70,6 +71,7 @@ export default function Login({ status }) {
                                         id="password"
                                         value={data.password}
                                         onChange={(e) => setData("password", e.target.value)}
+                                        required
                                     />
                                 </div>
                                 <InputError

@@ -1,16 +1,13 @@
 import "swiper/css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Play, Plus } from "lucide-react";
-import { router, useForm, usePage } from "@inertiajs/react";
-import { useEffect } from "react";
+import { Play, Clapperboard } from "lucide-react";
+import { Link, usePage } from "@inertiajs/react";
 import { toast, Toaster } from "sonner";
-import { Check } from "lucide-react";
 
-const Header = ({ items, cart }) => {
-    const { auth, flash } = usePage().props;
+const Header = ({ items }) => {
+    const { flash } = usePage().props;
     const [expanded, setExpanded] = useState(false);
-
     const handleTrailer = async (id) => {
         try {
             const res = await fetch(`/movie-trailer/${id}/videos`);
@@ -25,21 +22,6 @@ const Header = ({ items, cart }) => {
         } catch (err) {
             console.error(err);
         }
-    };
-
-    const { data } = useForm({
-        user_id: auth.user.id,
-        movie_id: null,
-        price: 20000,
-        count: 1,
-    });
-
-    const handleAddToCart = (e, id) => {
-        e.preventDefault();
-
-        router.post("/movie/{status}/{id}", {
-            ...data, movie_id: id
-        })
     };
 
     useEffect(() => {
@@ -78,33 +60,23 @@ const Header = ({ items, cart }) => {
                                     </button>
 
                                     <div className="flex gap-2 my-2">
+                                        <Link
+                                            href={route("detail", {
+                                                id: i.id
+                                            })}
+                                            className="flex items-center gap-1 bg-primary hover:bg-primary/85 text-black px-8 py-2 rounded-md font-semibold"
+                                        >
+                                            <Play size={20} fill="true" />
+                                            Play
+                                        </Link>
                                         <button
                                             type="button"
                                             onClick={() => handleTrailer(i.id)}
-                                            className="flex items-center gap-1 bg-white hover:bg-white/90 text-black px-4 py-2 rounded-md font-medium"
+                                            className="flex items-center gap-1 bg-white hover:bg-white/85 text-black px-8 py-2 rounded-md font-semibold"
                                         >
-                                            <Play size={20} fill="true" />
+                                            <Clapperboard size={20} />
                                             Trailer
                                         </button>
-                                        {!cart.some(cart => cart.movie_id === i.id) ? (
-                                            <button
-                                                type="button"
-                                                onClick={(e) => handleAddToCart(e, i.id)}
-                                                className="flex items-center gap-1 bg-foreground hover:bg-foreground/90 text-white px-4 py-2 rounded-md font-medium"
-                                            >
-                                                <Plus size={20} />
-                                                Add to Cart
-                                            </button>
-                                        ) : (
-                                            <button
-                                                type="button"
-                                                className="flex items-center gap-1 bg-foreground hover:bg-foreground/90 text-white px-4 py-2 rounded-md font-medium opacity-70"
-                                                disabled
-                                            >
-                                                <Check size={20} />
-                                                In Cart
-                                            </button>
-                                        )}
                                     </div>
                                 </div>
                             </div>

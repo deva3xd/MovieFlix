@@ -54,6 +54,7 @@ export default function Register() {
                                             value={data.first_name}
                                             onChange={(e) => setData("first_name", e.target.value)}
                                             className="w-full"
+                                            required
                                         />
                                     </div>
                                     <InputError
@@ -73,6 +74,7 @@ export default function Register() {
                                             value={data.last_name}
                                             onChange={(e) => setData("last_name", e.target.value)}
                                             className="w-full"
+                                            required
                                         />
                                     </div>
                                     <InputError
@@ -92,6 +94,7 @@ export default function Register() {
                                         name="email"
                                         value={data.email}
                                         onChange={(e) => setData("email", e.target.value)}
+                                        required
                                     />
                                 </div>
                                 <InputError
@@ -110,6 +113,7 @@ export default function Register() {
                                         name="password"
                                         value={data.password}
                                         onChange={(e) => setData("password", e.target.value)}
+                                        required
                                     />
                                 </div>
                                 <InputError
@@ -128,6 +132,7 @@ export default function Register() {
                                         name="password_confirmation"
                                         value={data.password_confirmation}
                                         onChange={(e) => setData("password_confirmation", e.target.value)}
+                                        required
                                     />
                                 </div>
                                 <InputError

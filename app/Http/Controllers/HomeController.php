@@ -17,7 +17,6 @@ class HomeController extends Controller
     {
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
-        $cart = Cart::where('user_id', Auth::id())->get();
         $nowPlayingURL = Http::get("{$url}/movie/now_playing", [
             'api_key' => $key
         ]);
@@ -27,10 +26,10 @@ class HomeController extends Controller
         ]);
         $todayTv = TvResource::collection($todayTvURL->json()['results'])->toArray($request);
 
-        return Inertia::render('Home', compact('nowPlaying', 'todayTv', 'cart'));
+        return Inertia::render('Home', compact('nowPlaying', 'todayTv'));
     }
 
-    public function show($status, $id)
+    public function show($id)
     {
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
@@ -42,8 +41,11 @@ class HomeController extends Controller
         $credits = Http::get("{$url}/movie/{$id}/credits", [
             'api_key' => $key
         ])->json();
+        $videos = Http::get("{$url}/movie/{$id}/videos", [
+            'api_key' => $key
+        ])->json();
 
-        return Inertia::render('Detail', compact('cart', 'detail', 'credits', 'status'));
+        return Inertia::render('Detail', compact('cart', 'detail', 'credits', 'videos'));
     }
 
     public function search(Request $request)
