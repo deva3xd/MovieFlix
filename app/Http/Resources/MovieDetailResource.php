@@ -23,7 +23,9 @@ class MovieDetailResource extends JsonResource
             'backdrop_path' => $this['backdrop_path'],
             'overview' => $this['overview'],
             'release_date' => $this['release_date'],
-            'genres' => $this['genres']
+            'genres' => $this['genres'],
+            'vote_average' => $this['vote_average'],
+            'original_language' => $this['original_language'],
         ];
     }
 }
