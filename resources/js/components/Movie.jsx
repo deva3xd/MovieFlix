@@ -33,7 +33,6 @@ const Movie = ({ items }) => {
                                 <Link
                                     href={route("detail", {
                                         id: i.id,
-                                        status: "ongoing",
                                     })}
                                 >
                                     <div className="mb-5">
@@ -41,7 +40,7 @@ const Movie = ({ items }) => {
                                             <img
                                                 src={`${i.poster_path ? `https://image.tmdb.org/t/p/w500/${i.poster_path}` : 'https://blocks.astratic.com/img/general-img-portrait.png'}`}
                                                 alt={i.title}
-                                                className="rounded-md h-72"
+                                                className="rounded-md h-64"
                                                 loading="lazy"
                                             />
                                         </figure>

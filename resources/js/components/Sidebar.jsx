@@ -5,7 +5,7 @@ const menu = [
     {
         name: "BROWSE",
         icon: <Compass size={20} />,
-        href: "/browse"
+        href: "/"
     },
     {
         name: "SEARCH",
