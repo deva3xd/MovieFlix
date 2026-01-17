@@ -41,19 +41,25 @@ const Sidebar = () => {
         <div className="w-64">
             <div className="px-6 pt-5 text-gray-500">Menu</div>
             <ul className="menu grow">
-                {menu.slice(0, 4).map((m, index) => (
-                    <li key={index}>
-                        <Link href={m.href} className={`group flex items-center justify-between w-full ${url.split('?')[0] === m.href ? 'bg-primary text-background pointer-events-none' : 'text-white'}`}>
-                            {m.name}{m.icon}
-                        </Link>
-                    </li>
-                ))}
+                {menu.slice(0, 4).map((m, index) => {
+                    const isActive =
+                        m.href === '/'
+                            ? url === '/'
+                            : url.startsWith(m.href);
+                    return (
+                        <li key={index}>
+                            <Link href={m.href} className={`group flex items-center justify-between w-full ${isActive ? 'bg-primary text-background pointer-events-none' : 'text-white'}`}>
+                                {m.name}{m.icon}
+                            </Link>
+                        </li>
+                    )
+                })}
             </ul>
             <div className="px-6 pt-5 text-gray-500">Account</div>
             <ul className="menu grow">
                 {menu.slice(4, 6).map((m, index) => (
                     <li key={index}>
-                        <Link href={m.href} className={`group flex items-center justify-between w-full ${url.split('?')[0] === m.href ? 'bg-primary text-background pointer-events-none' : 'text-white'}`}>
+                        <Link href={m.href} className={`group flex items-center justify-between w-full ${url.startsWith(m.href) ? 'bg-primary text-background pointer-events-none' : 'text-white'}`}>
                             {m.name}{m.icon}
                         </Link>
                     </li>
