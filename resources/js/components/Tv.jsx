@@ -40,7 +40,7 @@ const Tv = ({ items }) => {
                                             <img
                                                 src={`${i.poster_path ? `https://image.tmdb.org/t/p/w500/${i.poster_path}` : 'https://blocks.astratic.com/img/general-img-portrait.png'}`}
                                                 alt={i.title}
-                                                className="rounded-md h-64"
+                                                className="rounded-md"
                                                 loading="lazy"
                                             />
                                         </figure>

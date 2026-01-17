@@ -56,27 +56,27 @@ const Detail = ({ cart, detail, credits, videos }) => {
                 </div>
 
                 <div className="px-4 md:px-20 -mt-24 sm:-mt-48">
-                    <div className="flex text-white z-10 relative">
-                        <div className="card w-1/5 rounded-none">
+                    <div className="flex flex-col sm:flex-row gap-2 text-white z-10 relative">
+                        <div className="card w-full sm:w-1/5 rounded-none">
                             <figure>
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500/${detail.poster_path}`}
                                     alt={detail.title}
-                                    className="h-full rounded-md"
+                                    className="h-64 sm:h-full rounded-md"
                                 />
                             </figure>
                             <div className="flex flex-col my-2">
                                 <form onSubmit={onSubmit}>
                                     {!cart ? (
                                         <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center me-1 text-xs sm:text-base w-full hover:bg-opacity-85"
+                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85"
                                             disabled={isLoading}
                                         >
                                             <ShoppingCart size={20} />
                                         </button>
                                     ) : (
                                         <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center me-1 text-xs sm:text-base w-full disabled:opacity-50"
+                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
                                             disabled
                                         >
                                             <ShoppingCart size={20} />
@@ -85,7 +85,7 @@ const Detail = ({ cart, detail, credits, videos }) => {
                                 </form>
                             </div>
                         </div>
-                        <div className="w-full sm:w-4/5 ms-2">
+                        <div className="w-full sm:w-4/5">
                             <div className="flex items-center">
                                 <span className="bg-red-600 rounded-md font-semibold px-3 py-1 text-xs sm:text-base me-1">
                                     {voteAverage}
@@ -97,7 +97,7 @@ const Detail = ({ cart, detail, credits, videos }) => {
                             <h3 className="font-bold text-xl sm:text-3xl">
                                 {detail.title}
                             </h3>
-                            <div className="text-xs sm:text-base flex flex-col md:flex-row items-start md:items-center gap-2">
+                            <div className="text-xs sm:text-base flex flex-row sm:flex-col md:flex-row items-start md:items-center gap-2">
                                 Release: {detail.release_date},
                                 <div className="flex items-center gap-1">
                                     Genre:
@@ -125,7 +125,7 @@ const Detail = ({ cart, detail, credits, videos }) => {
                         </div>
                         <div className="flex gap-2 overflow-x-scroll w-full py-2">
                             {credits.cast.slice(0, 10).map((c, i) => (
-                                <div key={i} className="w-36 flex-none">
+                                <div key={i} className="w-32 flex-none">
                                     <div className="aspect-[2/3] w-full overflow-hidden rounded-md bg-[#e1e1e1] flex items-center">
                                         <img
                                             src={c.profile_path ? `https://image.tmdb.org/t/p/original/${c.profile_path}` : `https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png`}
@@ -141,9 +141,9 @@ const Detail = ({ cart, detail, credits, videos }) => {
                     </div>
                     <div className="my-2">
                         <h3 className="text-lg sm:text-2xl font-bold text-white">Trailer</h3>
-                        <div className="w-full flex gap-2 my-2 overflow-x-scroll py-2">
+                        <div className="w-full flex flex-col sm:flex-row gap-2 my-2 overflow-x-scroll py-2">
                             {videos.results.filter(v => v.site === 'YouTube' && v.type === 'Trailer').map((v, i) => (
-                                <iframe key={i} width="360" height="200" className="flex-none" src={`https://www.youtube.com/embed/${v.key}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe key={i} width="360" height="200" className="flex-none" src={`https://www.youtube-nocookie.com/embed/${v.key}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                             ))}
                         </div>
                     </div>
