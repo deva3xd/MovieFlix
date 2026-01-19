@@ -1,23 +1,30 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TvController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     // home
     Route::get('/', [HomeController::class, 'index'])->name('browse');
-    Route::get('/movie-trailer/{id}/videos', [HomeController::class, 'videos']);
     Route::get('/search', [HomeController::class, 'search'])->name('search');
-    Route::get('/movies/{id}', [HomeController::class, 'show'])->name('detail');
-    Route::post('/movies/{id}', [CartController::class, 'store'])->name('cart.store');
-    Route::get('/movies', MovieController::class)->name('movie');
-    Route::get('/tv-shows', TvController::class)->name('tv');
-    Route::get('/genre/{genre}', [HomeController::class, 'genre'])->name('genre');
-
+    
+    // movie
+    Route::prefix('movies')->group(function() {
+        Route::get('/', [MovieController::class, 'index'])->name('movie');
+        Route::get('/{id}', [MovieController::class, 'show'])->name('detail');
+        Route::post('/{id}', [CartController::class, 'store'])->name('cart.store');
+        Route::get('/{id}/videos', [MovieController::class, 'videos']);
+    });
+    
+    // tv
+    Route::prefix('tv-shows')->group(function() {
+        Route::get('/', TvController::class)->name('tv');    
+    });
+    
     // cart
     Route::prefix('cart')->group(function() { 
         Route::get('/', [CartController::class, 'index'])->name('cart');

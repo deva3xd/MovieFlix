@@ -5,12 +5,12 @@ import { Play, Clapperboard } from "lucide-react";
 import { Link, usePage } from "@inertiajs/react";
 import { toast, Toaster } from "sonner";
 
-const Header = ({ items }) => {
+const Header = ({ items, source }) => {
     const { flash } = usePage().props;
     const [expanded, setExpanded] = useState(false);
     const handleTrailer = async (id) => {
         try {
-            const res = await fetch(`/movie-trailer/${id}/videos`);
+            const res = await fetch(`/movies/${id}/videos`);
             const data = await res.json();
 
             if (data.results && data.results.length > 0) {
@@ -64,6 +64,7 @@ const Header = ({ items }) => {
                                             href={route("detail", {
                                                 id: i.id
                                             })}
+                                            data={{ source: source }}
                                             className="flex items-center gap-1 bg-primary hover:bg-primary/85 text-black px-8 py-2 rounded-md font-semibold"
                                         >
                                             <Play size={20} fill="true" />
