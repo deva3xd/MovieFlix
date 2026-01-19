@@ -2,7 +2,7 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "@inertiajs/react";
 
-const Movie = ({ items }) => {
+const Movie = ({ items, source }) => {
     return (
         <div className="bg-custom-primary text-white px-4 pt-4">
             <Swiper
@@ -34,6 +34,7 @@ const Movie = ({ items }) => {
                                     href={route("detail", {
                                         id: i.id,
                                     })}
+                                    data={{ source: source }}
                                 >
                                     <div className="mb-5">
                                         <figure>

@@ -93,8 +93,8 @@ const Cart = ({ carts, cartCount }) => {
                                         <div className="flex flex-col justify-between h-full">
                                             <div>
                                                 <p className="font-bold text-base lg:text-xl">{item.title}</p>
-                                                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6">
-                                                    {item.genres.map((genre) => <p key={genre.id} className="me-2 text-gray-500 text-sm">{genre.name}</p>)}
+                                                <div className="flex flex-wrap gap-2">
+                                                    {item.genres.map((genre) => <p key={genre.id} className="text-gray-500 text-sm">{genre.name}</p>)}
                                                 </div>
                                             </div>
                                             <div className="flex justify-between">

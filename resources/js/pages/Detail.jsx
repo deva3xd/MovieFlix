@@ -4,9 +4,10 @@ import { toast, Toaster } from "sonner";
 import MainLayout from "@/layouts/MainLayout";
 import { ShoppingCart } from "lucide-react";
 
-const Detail = ({ cart, detail, credits, videos }) => {
+const Detail = ({ cart, detail, credits, videos, source }) => {
     const { auth, flash } = usePage().props;
     const [isLoading, setIsLoading] = useState(false);
+    const isActive = source === "now_playing";
 
     const voteAverage =
         typeof detail.vote_average === "number"
@@ -33,7 +34,7 @@ const Detail = ({ cart, detail, credits, videos }) => {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-        post("/movie/{id}", data);
+        post("/movies/{id}", data);
     };
 
     useEffect(() => {
@@ -66,23 +67,32 @@ const Detail = ({ cart, detail, credits, videos }) => {
                                 />
                             </figure>
                             <div className="flex flex-col my-2">
-                                <form onSubmit={onSubmit}>
-                                    {!cart ? (
-                                        <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85"
-                                            disabled={isLoading}
-                                        >
-                                            <ShoppingCart size={20} />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
-                                            disabled
-                                        >
-                                            <ShoppingCart size={20} />
-                                        </button>
-                                    )}
-                                </form>
+                                {isActive ? (
+                                    <form onSubmit={onSubmit}>
+                                        {!cart ? (
+                                            <button
+                                                className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85"
+                                                disabled={isLoading}
+                                            >
+                                                <ShoppingCart size={20} />
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
+                                                disabled
+                                            >
+                                                <ShoppingCart size={20} />
+                                            </button>
+                                        )}
+                                    </form>
+                                ) : (
+                                    <div
+                                        className="flex items-center justify-center gap-2 border border-white/50 text-white/50 rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
+                                        disabled
+                                    >
+                                        Not Available
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className="w-full sm:w-4/5">
