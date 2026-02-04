@@ -1,12 +1,10 @@
 import "swiper/css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Play, Clapperboard } from "lucide-react";
-import { Link, usePage } from "@inertiajs/react";
-import { toast, Toaster } from "sonner";
+import { Link } from "@inertiajs/react";
 
 const Header = ({ items, source }) => {
-    const { flash } = usePage().props;
     const [expanded, setExpanded] = useState(false);
     const handleTrailer = async (id) => {
         try {
@@ -24,15 +22,8 @@ const Header = ({ items, source }) => {
         }
     };
 
-    useEffect(() => {
-        if (flash.message) {
-            toast.success(flash.message);
-        }
-    }, [flash.message]);
-
     return (
         <>
-            <Toaster />
             <Swiper loop={true} className="mySwiper min-w-0">
                 {items.map((i) => (
                     <SwiperSlide key={i.id}>

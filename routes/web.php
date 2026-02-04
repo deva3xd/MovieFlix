@@ -16,7 +16,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('movies')->group(function() {
         Route::get('/', [MovieController::class, 'index'])->name('movie');
         Route::get('/{id}', [MovieController::class, 'show'])->name('detail');
-        Route::post('/{id}', [CartController::class, 'store'])->name('cart.store');
         Route::get('/{id}/videos', [MovieController::class, 'videos']);
     });
     
@@ -28,6 +27,7 @@ Route::middleware('auth')->group(function () {
     // cart
     Route::prefix('cart')->group(function() { 
         Route::get('/', [CartController::class, 'index'])->name('cart');
+        Route::post('/', [CartController::class, 'store'])->name('cart.store');
         Route::delete('/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
     });
 

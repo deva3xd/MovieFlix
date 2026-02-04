@@ -29,13 +29,6 @@ class HandleInertiaRequests extends Middleware
         return ['user' => $request->user()];
     }
 
-    protected function flashProps(Request $request): array
-    {
-        return [
-            'message' => fn() => $request->session()->get('message'),
-        ];
-    }
-
     /**
      * Define the props that are shared by default.
      *
@@ -45,7 +38,6 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => $this->authProps($request),
-            'flash' => $this->flashProps($request),
         ]);
     }
 }

@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { useForm, usePage } from "@inertiajs/react";
-import { toast, Toaster } from "sonner";
 import MainLayout from "@/layouts/MainLayout";
+import { useState } from "react";
+import { useForm, usePage } from "@inertiajs/react";
 import { ShoppingCart } from "lucide-react";
+import { toast } from "sonner";
 
 const Detail = ({ cart, detail, credits, videos, source }) => {
-    const { auth, flash } = usePage().props;
+    const { auth } = usePage().props;
     const [isLoading, setIsLoading] = useState(false);
     const isActive = source === "now_playing";
 
@@ -18,7 +18,7 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
             ? detail.original_language
             : "N/A";
 
-    const { data, post } = useForm({
+    const { post } = useForm({
         user_id: auth.user.id,
         movie_id: detail.id,
         price: 20000,
@@ -34,18 +34,16 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-        post("/movies/{id}", data);
-    };
 
-    useEffect(() => {
-        if (flash.message) {
-            toast.success(flash.message);
-        }
-    }, [flash.message]);
+        post(route('cart.store', ), {
+            onSuccess: () => {
+                toast.success("Item added");
+            }
+        })
+    };
 
     return (
         <MainLayout title='Home'>
-            <Toaster />
             <div className="bg-background max-w-screen-xl mx-auto">
                 <div className="relative">
                     <img
@@ -100,7 +98,7 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
                                 <span className="bg-red-600 rounded-md font-semibold px-3 py-1 text-xs sm:text-base me-1">
                                     {voteAverage}
                                 </span>
-                                <span className="bg-blue-600 rounded-md font-semibold px-3 py-1 text-xs sm:text-base">
+                                <span className="bg-blue-600 rounded-md font-semibold px-3 py-1 text-xs sm:text-base uppercase">
                                     {originalLanguage}
                                 </span>
                             </div>
@@ -126,7 +124,7 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="my-2 border-t border-white/10">
+                    <div className="mt-2 border-t border-white/10">
                         <div className="flex items-center justify-between mt-2 text-white">
                             <h3 className="text-lg sm:text-2xl font-bold">
                                 Cast
@@ -149,7 +147,7 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
                             ))}
                         </div>
                     </div>
-                    <div className="my-2">
+                    <div className="mt-2">
                         <h3 className="text-lg sm:text-2xl font-bold text-white">Trailer</h3>
                         <div className="w-full flex flex-col sm:flex-row gap-2 my-2 overflow-x-scroll py-2">
                             {videos.results.filter(v => v.site === 'YouTube' && v.type === 'Trailer').map((v, i) => (

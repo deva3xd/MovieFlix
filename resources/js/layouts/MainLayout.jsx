@@ -2,6 +2,7 @@ import { Head } from "@inertiajs/react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
+import { Toaster } from "sonner";
 
 export default function MainLayout({ children, title }) {
     return (
@@ -12,6 +13,7 @@ export default function MainLayout({ children, title }) {
                 <div className="drawer-content">
                     <Navbar />
                     <div className="mt-16">
+                        <Toaster />
                         {children}
                     </div>
                     <Footer />

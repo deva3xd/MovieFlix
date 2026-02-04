@@ -1,21 +1,14 @@
 import { useState } from "react";
-import { useForm, usePage } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 import { toast } from "sonner";
 import MainLayout from "@/layouts/MainLayout";
 import DeleteModal from "@/components/ui/DeleteModal";
 import { Trash2 } from "lucide-react";
 
 const Cart = ({ carts, cartCount }) => {
-    const { flash } = usePage().props;
-    const { delete: destroy } = useForm();
     const [isModalOpen, setModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
     const [selectId, setSelectId] = useState([]);
-
-    // show toast
-    if (flash.message) {
-        toast.success(flash.message);
-    }
 
     const [counts, setCounts] = useState(() =>
         carts.reduce((acc, item) => ({ ...acc, [item.id]: 1 }), {})
@@ -24,7 +17,7 @@ const Cart = ({ carts, cartCount }) => {
     const setCount = (id, newCount) => {
         setCounts((prevCounts) => ({
             ...prevCounts,
-            [id]: Math.max(newCount, 1), // ensure the count doesn't go below 1
+            [id]: Math.max(newCount, 1), 
         }));
     };
 
@@ -37,7 +30,9 @@ const Cart = ({ carts, cartCount }) => {
     // confirm delete
     const confirmDelete = () => {
         if (itemToDelete) {
-            destroy(route("cart.destroy", itemToDelete));
+            router.delete(route("cart.destroy", itemToDelete), {
+                onSuccess: () => toast.success("Item deleted")
+            });
             setModalOpen(false);
             setItemToDelete(null);
         }
