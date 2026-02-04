@@ -60,6 +60,7 @@ export default function UpdatePassword() {
                         className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('current_password', e.target.value)}
                         required
+                        placeholder="current password"
                         disabled={!edit}
                     />
                     <InputError message={errors.current_password} className="mt-1" />
@@ -75,6 +76,7 @@ export default function UpdatePassword() {
                         className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('password', e.target.value)}
                         required
+                        placeholder="new password"
                         disabled={!edit}
                     />
                     <InputError message={errors.password} className="mt-1" />
@@ -92,6 +94,7 @@ export default function UpdatePassword() {
                         className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
                         required
+                        placeholder="confirm password"
                         disabled={!edit}
                     />
                     <InputError message={errors.password_confirmation} className="mt-1" />

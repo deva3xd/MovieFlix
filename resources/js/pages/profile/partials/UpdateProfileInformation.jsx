@@ -1,4 +1,4 @@
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm, usePage, router } from '@inertiajs/react';
 import { Save, Pencil, X } from "lucide-react";
 import { useState } from 'react';
 import InputError from '@/components/ui/InputError';
@@ -9,7 +9,7 @@ export default function UpdateProfileInformation() {
     const user = usePage().props.auth.user;
     const [edit, setEdit] = useState(false);
 
-    const { data, setData, patch, errors, processing } = useForm({
+    const { data, setData, errors, processing } = useForm({
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
@@ -20,7 +20,15 @@ export default function UpdateProfileInformation() {
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route("profile.update"), { forceFormData: true });
+        router.post(route("profile.update"), {
+            _method: 'patch',
+            forceFormData: true,
+            ...data,
+        }, {
+            onSuccess: () => {
+                setEdit(false);
+            },
+        });
     };
 
     return (
@@ -44,6 +52,7 @@ export default function UpdateProfileInformation() {
                                 className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                                 onChange={(e) => setData('first_name', e.target.value)}
                                 required
+                                placeholder="first name"
                                 disabled={!edit}
                             />
                             <InputError message={errors.first_name} className="mt-1" />
@@ -60,6 +69,7 @@ export default function UpdateProfileInformation() {
                                 className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                                 onChange={(e) => setData('last_name', e.target.value)}
                                 required
+                                placeholder="last name"
                                 disabled={!edit}
                             />
                             <InputError message={errors.last_name} className="mt-1" />
@@ -76,6 +86,7 @@ export default function UpdateProfileInformation() {
                         className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                         onChange={(e) => setData('email', e.target.value)}
                         required
+                        placeholder="email"
                         disabled={!edit}
                     />
                     <InputError message={errors.email} className="mt-1" />
@@ -88,7 +99,7 @@ export default function UpdateProfileInformation() {
                             id="image"
                             name="image"
                             accept='image/*'
-                            className="file-input file:bg-foreground file:border-none disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
+                            className="file-input px-0 file:bg-foreground file:border-none disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
                             onChange={(e) => setData('image', e.target.files[0])}
                             disabled={!edit}
                         />

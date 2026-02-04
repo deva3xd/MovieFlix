@@ -8,18 +8,18 @@ import { Toaster } from "sonner";
 
 export default function Profile({ auth }) {
     const [active, setActive] = useState(true);
-    const userProfile = auth ? auth.user : null;
+    const userImage = auth ? auth.user.image : ProfilePicture;
 
     return (
-        <MainLayout title="Profile" user={userProfile}>
+        <MainLayout title="Profile">
             <Toaster />
             <div className="max-w-screen-xl mx-auto flex gap-4 text-white min-h-screen px-4">
                 <div className="w-2/6 bg-foreground rounded-md h-[13rem] p-4">
                     <div className='flex items-center gap-2'>
                         <img
                             alt="Profile Picture"
-                            src={ProfilePicture}
-                            className='w-14 rounded-full'
+                            src={`/storage/${userImage}`}
+                            className='w-14 h-14 rounded-full'
                         />
                         <div className='w-1/2'>
                             <p className='font-semibold text-lg capitalize'>Hello, {auth.user.first_name}</p>
