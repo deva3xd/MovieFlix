@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/react";
 
 const Movie = ({ items, source }) => {
     return (
-        <div className="bg-custom-primary text-white px-4 pt-4">
+        <div className="bg-custom-primary text-white p-4">
             <Swiper
                 slidesPerView={2}
                 spaceBetween={10}
@@ -36,21 +36,19 @@ const Movie = ({ items, source }) => {
                                     })}
                                     data={{ source: source }}
                                 >
-                                    <div className="mb-5">
-                                        <figure>
-                                            <img
-                                                src={`${i.poster_path ? `https://image.tmdb.org/t/p/w500/${i.poster_path}` : 'https://blocks.astratic.com/img/general-img-portrait.png'}`}
-                                                alt={i.title}
-                                                className="rounded-md"
-                                                loading="lazy"
-                                            />
-                                        </figure>
-                                        <div className="flex flex-col my-1">
-                                            <span className="font-medium text-sm sm:text-base line-clamp-1" title={i.title}>{i.title}</span>
-                                            <span className="font-light text-gray-500 text-xs sm:text-sm">
-                                                {i.release_date ? new Date(i.release_date).getFullYear() : "undefined"}
-                                            </span>
-                                        </div>
+                                    <figure>
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w500/${i.poster_path}`}
+                                            alt="poster image"
+                                            className="rounded-md aspect-[2/3]"
+                                            loading="lazy"
+                                        />
+                                    </figure>
+                                    <div className="flex flex-col my-1">
+                                        <span className="font-medium text-sm sm:text-base line-clamp-1" title={i.title}>{i.title}</span>
+                                        <span className="font-light text-gray-500 text-xs sm:text-sm">
+                                            {i.release_date ? new Date(i.release_date).getFullYear() : "undefined"}
+                                        </span>
                                     </div>
                                 </Link>
                             </SwiperSlide>

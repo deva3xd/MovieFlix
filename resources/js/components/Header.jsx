@@ -30,6 +30,7 @@ const Header = ({ items, source }) => {
                         <div className="relative h-[33rem] w-full">
                             <img
                                 src={`https://image.tmdb.org/t/p/original/${i.backdrop_path}`}
+                                alt="backdrop image"
                                 className="object-cover h-full w-full"
                                 loading="lazy"
                             />

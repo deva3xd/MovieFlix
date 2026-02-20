@@ -68,8 +68,8 @@ const Search = ({ results, queryInput }) => {
                                 <figure>
                                     <img
                                         src={`${r.poster_path ? `https://image.tmdb.org/t/p/w500/${r.poster_path}` : 'https://blocks.astratic.com/img/general-img-portrait.png'}`}
-                                        alt={r.title}
-                                        className="rounded-md h-72"
+                                        alt="poster image"
+                                        className="rounded-md"
                                         loading="lazy"
                                     />
                                 </figure>

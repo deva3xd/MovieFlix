@@ -60,7 +60,7 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
                             <figure>
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500/${detail.poster_path}`}
-                                    alt={detail.title}
+                                    alt="poster image"
                                     className="h-64 sm:h-full rounded-md"
                                 />
                             </figure>
