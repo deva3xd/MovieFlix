@@ -1,0 +1,39 @@
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    ports:
+      - "9000:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/storage
+      - /var/www/html/bootstrap/cache
+    depends_on:
+      - db
+    networks:
+      - app_network
+    mem_limit: 2g
+    cpus: 1
+
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    restart: always
+    environment:
+       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+       MYSQL_DATABASE: movieflix
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app_network
+    mem_limit: 2g
+    cpus: 1
+
+volumes:
+  db_data:
+
+networks:
+  app_network:
+    driver: bridge
