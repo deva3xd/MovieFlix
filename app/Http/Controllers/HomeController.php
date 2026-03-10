@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Pool;
 use App\Http\Resources\MovieListResource;
 use App\Http\Resources\TvResource;
 
@@ -14,16 +15,16 @@ class HomeController extends Controller
     {
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
-        $nowPlayingURL = Http::get("{$url}/movie/now_playing", [
-            'api_key' => $key
-        ]);
-        $nowPlaying = MovieListResource::collection($nowPlayingURL->json()['results'])->toArray($request);
-        $todayTvURL = Http::get("{$url}/tv/airing_today", [
-            'api_key' => $key
-        ]);
-        $todayTv = TvResource::collection($todayTvURL->json()['results'])->toArray($request);
 
-        return Inertia::render('Home', compact('nowPlaying', 'todayTv'));
+        $responses = Http::pool(fn(Pool $pool) => [
+            $pool->as('now_playing')->get("{$url}/movie/now_playing", ['api_key' => $key]),
+            $pool->as('airingToday')->get("{$url}/tv/airing_today", ['api_key' => $key]),
+        ]);
+
+        $nowPlaying = MovieListResource::collection($responses['now_playing']->json()['results'])->toArray($request);
+        $airingToday = TvResource::collection($responses['airingToday']->json()['results'])->toArray($request);
+
+        return Inertia::render('Home', compact('nowPlaying', 'airingToday'));
     }
 
     public function search(Request $request)
