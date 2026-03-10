@@ -1,4 +1,4 @@
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import GuestLayout from "@/layouts/GuestLayout";
 import InputError from "@/components/ui/InputError";
 import Input from "@/components/ui/Input";
@@ -33,16 +33,16 @@ export default function Login({ status }) {
                         <h2 className="text-3xl font-bold">Login</h2>
                         <span className="text-sm my-2">
                             Don't have an account?{" "}
-                            <a
+                            <Link
                                 href={route("register")}
                                 className="text-primary hover:underline"
                             >
                                 Register
-                            </a>
+                            </Link>
                         </span>
                     </div>
                     <form onSubmit={submit}>
-                        <div className="max-w-xs lg:max-w-xl">
+                        <div className="max-w-xs lg:max-w-xl flex flex-col gap-1">
                             <>
                                 <div className="form-control">
                                     <label htmlFor="email" className="label-text text-white">
@@ -56,10 +56,7 @@ export default function Login({ status }) {
                                         required
                                     />
                                 </div>
-                                <InputError
-                                    message={errors.email}
-                                    className="mt-2"
-                                />
+                                <InputError message={errors.email} />
                             </>
                             <>
                                 <div className="form-control">
@@ -74,10 +71,7 @@ export default function Login({ status }) {
                                         required
                                     />
                                 </div>
-                                <InputError
-                                    message={errors.password}
-                                    className="mt-2"
-                                />
+                                <InputError message={errors.password} />
                             </>
                             <div className="flex items-center justify-center mt-4">
                                 <SubmitButton children="Login" className="w-full" type="submit" />
