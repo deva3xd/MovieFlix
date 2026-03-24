@@ -2,41 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MediaCacheMissed;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Client\Pool;
-use App\Http\Resources\MovieListResource;
 use App\Http\Resources\MovieDetailResource;
 
 class MovieController extends Controller
 {
     public function index(Request $request)
     {
-        $key = config('services.tmdb.key');
-        $url = config('services.tmdb.url');
+        $mediaEndpoints = [
+            'movie' => ['now_playing', 'popular', 'top_rated', 'upcoming'],
+        ];
 
-        $responses = Http::pool(fn(Pool $pool) => [
-            $pool->as('now_playing')->get("{$url}/movie/now_playing", ['api_key' => $key]),
-            $pool->as('popular')->get("{$url}/movie/popular", ['api_key' => $key]),
-            $pool->as('top_rated')->get("{$url}/movie/top_rated", ['api_key' => $key]),
-            $pool->as('upcoming')->get("{$url}/movie/upcoming", ['api_key' => $key]),
-        ]);
+        $data = [];
 
-        $nowPlaying = MovieListResource::collection($responses['now_playing']->json()['results'])->toArray($request);
-        $popular = MovieListResource::collection($responses['popular']->json()['results'])->toArray($request);
-        $topRated = MovieListResource::collection($responses['top_rated']->json()['results'])->toArray($request);
-        $upcoming = MovieListResource::collection($responses['upcoming']->json()['results'])->toArray($request);
+        foreach ($mediaEndpoints as $type => $endpoints) {
+            foreach ($endpoints as $endpoint) {
+                $cacheKey = "media:$type:$endpoint";
+                $media = Cache::get($cacheKey);
 
-        return Inertia::render('Movies', compact('nowPlaying', 'popular', 'topRated', 'upcoming'));
+                if (!$media) {
+                    event(new MediaCacheMissed($type, $endpoint));
+                }
+
+                $data[$type][$endpoint] = $media;
+            }
+        }
+
+        return Inertia::render('Movies', compact('data'));
     }
 
     public function show(Request $request, $id)
     {
         $cart = Cart::where('user_id', Auth::id())->where('movie_id', $id)->first();
-        $source = $request->input('source');
 
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
@@ -51,7 +55,7 @@ class MovieController extends Controller
         $credits = $responses['credits']->json();
         $videos = $responses['videos']->json();
 
-        return Inertia::render('Detail', compact('cart', 'detail', 'credits', 'videos', 'source'));
+        return Inertia::render('MovieDetail', compact('cart', 'detail', 'credits', 'videos'));
     }
 
     public function videos($id)

@@ -1,25 +1,25 @@
 import MainLayout from "@/layouts/MainLayout";
 import Tv from "@/components/Tv";
 
-const TvShows = ({ airingToday, onTheAir, popular, topRated }) => {
+const TvShows = ({ data }) => {
     return (
         <MainLayout title="Movies">
             <div className="max-w-screen-xl mx-auto flex flex-col gap-4">
                 <div>
                     <h2 className="text-xl text-white sm:text-3xl font-medium px-4">Popular</h2>
-                    <Tv items={popular} />
+                    <Tv items={data.tv.popular} />
                 </div>
                 <div>
                     <h2 className="text-xl text-white sm:text-3xl font-medium px-4">Airing Today</h2>
-                    <Tv items={airingToday} />
+                    <Tv items={data.tv.airing_today} />
                 </div>
                 <div>
                     <h2 className="text-xl text-white sm:text-3xl font-medium px-4">On The Air</h2>
-                    <Tv items={onTheAir} />
+                    <Tv items={data.tv.on_the_air} />
                 </div>
                 <div>
                     <h2 className="text-xl text-white sm:text-3xl font-medium px-4">Top Rated</h2>
-                    <Tv items={topRated} />
+                    <Tv items={data.tv.top_rated} />
                 </div>
             </div>
         </MainLayout>

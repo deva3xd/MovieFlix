@@ -2,29 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MediaCacheMissed;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Client\Pool;
-use App\Http\Resources\MovieListResource;
-use App\Http\Resources\TvResource;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $key = config('services.tmdb.key');
-        $url = config('services.tmdb.url');
+        $mediaEndpoints = [
+            'movie' => ['now_playing'],
+            'tv' => ['airing_today']
+        ];
 
-        $responses = Http::pool(fn(Pool $pool) => [
-            $pool->as('now_playing')->get("{$url}/movie/now_playing", ['api_key' => $key]),
-            $pool->as('airingToday')->get("{$url}/tv/airing_today", ['api_key' => $key]),
-        ]);
+        $data = [];
 
-        $nowPlaying = MovieListResource::collection($responses['now_playing']->json()['results'])->toArray($request);
-        $airingToday = TvResource::collection($responses['airingToday']->json()['results'])->toArray($request);
+        foreach ($mediaEndpoints as $type => $endpoints) {
+            foreach ($endpoints as $endpoint) {
+                $cacheKey = "media:$type:$endpoint";
+                $media = Cache::get($cacheKey);
 
-        return Inertia::render('Home', compact('nowPlaying', 'airingToday'));
+                if (!$media) {
+                    event(new MediaCacheMissed($type, $endpoint));
+                }
+
+                $data[$type][$endpoint] = $media;
+            }
+        }
+
+        return Inertia::render('Home', compact('data'));
     }
 
     public function search(Request $request)
