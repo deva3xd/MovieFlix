@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TvResource extends JsonResource
+class TvListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,7 +14,7 @@ class TvResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-       return [
+        return [
             'id' => $this['id'],
             'name' => $this['name'],
             'poster_path' => $this['poster_path'],

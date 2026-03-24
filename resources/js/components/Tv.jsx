@@ -1,5 +1,6 @@
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Card from "./ui/Card";
 
 const Tv = ({ items }) => {
     return (
@@ -22,34 +23,14 @@ const Tv = ({ items }) => {
                 }}
             >
                 {items.length === 0 ? (
-                    <span className="py-3 text-lg sm:text-xl text-center">
+                    <span className="py-3 text-lg sm:text-xl text-center block w-full">
                         No Tv Shows Available
                     </span>
                 ) : (
                     items.map((i) => {
                         return (
                             <SwiperSlide key={i.id}>
-                                <div
-                                    href={route("detail", {
-                                        id: i.id,
-                                        status: "ongoing",
-                                    })}
-                                >
-                                    <figure>
-                                        <img
-                                            src={`https://image.tmdb.org/t/p/w500/${i.poster_path}`}
-                                            alt="poster image"
-                                            className="rounded-md aspect-[2/3]"
-                                            loading="lazy"
-                                        />
-                                    </figure>
-                                    <div className="flex flex-col my-1">
-                                        <span className="font-medium text-sm sm:text-base line-clamp-1" title={i.name}>{i.name}</span>
-                                        <span className="font-light text-gray-500 text-xs sm:text-sm">
-                                            {i.first_air_date ? new Date(i.first_air_date).getFullYear() : "undefined"}
-                                        </span>
-                                    </div>
-                                </div>
+                                <Card item={i} link="tv.show" date={i.first_air_date} title={i.name} />
                             </SwiperSlide>
                         );
                     })

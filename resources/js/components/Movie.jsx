@@ -1,8 +1,8 @@
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "@inertiajs/react";
+import Card from "./ui/Card";
 
-const Movie = ({ items, source }) => {
+const Movie = ({ items }) => {
     return (
         <div className="bg-custom-primary text-white p-4">
             <Swiper
@@ -23,34 +23,14 @@ const Movie = ({ items, source }) => {
                 }}
             >
                 {items.length === 0 ? (
-                    <span className="py-3 text-lg sm:text-xl text-center">
+                    <span className="py-3 text-lg sm:text-xl text-center block w-full">
                         No Movie Available
                     </span>
                 ) : (
                     items.map((i) => {
                         return (
                             <SwiperSlide key={i.id}>
-                                <Link
-                                    href={route("detail", {
-                                        id: i.id,
-                                    })}
-                                    data={{ source: source }}
-                                >
-                                    <figure>
-                                        <img
-                                            src={`https://image.tmdb.org/t/p/w500/${i.poster_path}`}
-                                            alt="poster image"
-                                            className="rounded-md aspect-[2/3]"
-                                            loading="lazy"
-                                        />
-                                    </figure>
-                                    <div className="flex flex-col my-1">
-                                        <span className="font-medium text-sm sm:text-base line-clamp-1" title={i.title}>{i.title}</span>
-                                        <span className="font-light text-gray-500 text-xs sm:text-sm">
-                                            {i.release_date ? new Date(i.release_date).getFullYear() : "undefined"}
-                                        </span>
-                                    </div>
-                                </Link>
+                                <Card item={i} link="movie.show" date={i.release_date} title={i.title} />
                             </SwiperSlide>
                         );
                     })

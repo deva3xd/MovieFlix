@@ -1,22 +1,15 @@
 import MainLayout from "@/layouts/MainLayout";
 import { useState } from "react";
-import { useForm, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 
-const Detail = ({ cart, detail, credits, videos, source }) => {
+const MovieDetail = ({ cart, detail, credits, videos }) => {
     const { auth } = usePage().props;
     const [isLoading, setIsLoading] = useState(false);
-    const isActive = source === "now_playing";
 
-    const voteAverage =
-        typeof detail.vote_average === "number"
-            ? detail.vote_average.toFixed(1)
-            : "N/A";
-    const originalLanguage =
-        typeof detail.original_language === "string"
-            ? detail.original_language
-            : "N/A";
+    const voteAverage = typeof detail.vote_average === "number" ? detail.vote_average.toFixed(1) : "N/A";
+    const originalLanguage = typeof detail.original_language === "string" ? detail.original_language : "N/A";
 
     const { post } = useForm({
         user_id: auth.user.id,
@@ -35,7 +28,7 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
             setIsLoading(false);
         }, 2000);
 
-        post(route('cart.store', ), {
+        post(route('cart.store',), {
             onSuccess: () => {
                 toast.success("Item added");
             }
@@ -65,32 +58,23 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
                                 />
                             </figure>
                             <div className="flex flex-col my-2">
-                                {isActive ? (
-                                    <form onSubmit={onSubmit}>
-                                        {!cart ? (
-                                            <button
-                                                className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85"
-                                                disabled={isLoading}
-                                            >
-                                                <ShoppingCart size={20} />
-                                            </button>
-                                        ) : (
-                                            <button
-                                                className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
-                                                disabled
-                                            >
-                                                <ShoppingCart size={20} />
-                                            </button>
-                                        )}
-                                    </form>
-                                ) : (
-                                    <div
-                                        className="flex items-center justify-center gap-2 border border-white/50 text-white/50 rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
-                                        disabled
-                                    >
-                                        Not Available
-                                    </div>
-                                )}
+                                <form onSubmit={onSubmit}>
+                                    {!cart ? (
+                                        <button
+                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85"
+                                            disabled={isLoading}
+                                        >
+                                            <ShoppingCart size={20} />
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
+                                            disabled
+                                        >
+                                            <ShoppingCart size={20} />
+                                        </button>
+                                    )}
+                                </form>
                             </div>
                         </div>
                         <div className="w-full sm:w-4/5">
@@ -129,30 +113,47 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
                             <h3 className="text-lg sm:text-2xl font-bold">
                                 Cast
                             </h3>
-                            <button className="underline hover:opacity-85">More</button>
                         </div>
                         <div className="flex gap-2 overflow-x-scroll w-full py-2">
-                            {credits.cast.slice(0, 10).map((c, i) => (
-                                <div key={i} className="w-32 flex-none">
-                                    <div className="aspect-[2/3] w-full overflow-hidden rounded-md bg-[#e1e1e1] flex items-center">
-                                        <img
-                                            src={c.profile_path ? `https://image.tmdb.org/t/p/original/${c.profile_path}` : `https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png`}
-                                            className="rounded-md"
-                                            alt={c.name}
-                                        />
-                                    </div>
-                                    <p className="font-bold text-base text-white">{c.name}</p>
-                                    <p className="font-light text-xs">{c.character?.replace(' (voice)', '')}</p>
-                                </div>
-                            ))}
+                            {credits.cast.length > 0 ? (
+                                <>
+                                    {credits.cast.slice(0, 10).map((c, i) => (
+                                        <div key={i} className="w-32 flex-none">
+                                            <div className="aspect-[2/3] w-full overflow-hidden rounded-md bg-[#e1e1e1] flex items-center">
+                                                <img
+                                                    src={c.profile_path ? `https://image.tmdb.org/t/p/original/${c.profile_path}` : `https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png`}
+                                                    className="rounded-md"
+                                                    alt={c.name}
+                                                />
+                                            </div>
+                                            <p className="font-bold text-base text-white">{c.name}</p>
+                                            <p className="font-light text-xs">{c.character?.replace(' (voice)', '')}</p>
+                                        </div>
+                                    ))}
+
+                                    {credits.cast.length > 10 && (
+                                        <Link className="flex items-center hover:underline">View More</Link>
+                                    )}
+                                </>
+                            ) : (
+                                <span className="text-lg sm:text-xl text-center block w-full">
+                                    No Cast Available
+                                </span>
+                            )}
                         </div>
                     </div>
                     <div className="mt-2">
                         <h3 className="text-lg sm:text-2xl font-bold text-white">Trailer</h3>
                         <div className="w-full flex flex-col sm:flex-row gap-2 my-2 overflow-x-scroll py-2">
-                            {videos.results.filter(v => v.site === 'YouTube' && v.type === 'Trailer').map((v, i) => (
-                                <iframe key={i} width="360" height="200" className="flex-none" src={`https://www.youtube-nocookie.com/embed/${v.key}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                            ))}
+                            {videos.results.length > 0 ? (
+                                videos.results.filter(v => v.site === 'YouTube' && v.type === 'Trailer').map((v, i) => (
+                                    <iframe key={i} width="360" height="200" className="flex-none" src={`https://www.youtube-nocookie.com/embed/${v.key}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                ))
+                            ) : (
+                                <span className="text-lg sm:text-xl text-center block w-full">
+                                    No Trailer Available
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -161,4 +162,4 @@ const Detail = ({ cart, detail, credits, videos, source }) => {
     )
 }
 
-export default Detail;
+export default MovieDetail;
