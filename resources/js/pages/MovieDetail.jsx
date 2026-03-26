@@ -1,7 +1,7 @@
 import MainLayout from "@/layouts/MainLayout";
 import { useState } from "react";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, MoveRight } from "lucide-react";
 import { toast } from "sonner";
 
 const MovieDetail = ({ cart, detail, credits, videos }) => {
@@ -36,7 +36,7 @@ const MovieDetail = ({ cart, detail, credits, videos }) => {
     };
 
     return (
-        <MainLayout title='Home'>
+        <MainLayout title={detail.title}>
             <div className="bg-background max-w-screen-xl mx-auto">
                 <div className="relative">
                     <img
@@ -47,7 +47,7 @@ const MovieDetail = ({ cart, detail, credits, videos }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
                 </div>
 
-                <div className="px-4 md:px-20 -mt-24 sm:-mt-48">
+                <div className="px-4 -mt-24 sm:-mt-48">
                     <div className="flex flex-col sm:flex-row gap-2 text-white z-10 relative">
                         <div className="card w-full sm:w-1/5 rounded-none">
                             <figure>
@@ -132,7 +132,7 @@ const MovieDetail = ({ cart, detail, credits, videos }) => {
                                     ))}
 
                                     {credits.cast.length > 10 && (
-                                        <Link className="flex items-center hover:underline">View More</Link>
+                                        <Link href={route('cast', { media: 'movie', id: detail.id })} className="text-xs text-white p-2 hover:bg-white hover:text-black rounded-full border border-white h-auto self-center"><MoveRight /></Link>
                                     )}
                                 </>
                             ) : (

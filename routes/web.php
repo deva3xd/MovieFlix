@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CastController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MovieController;
@@ -31,6 +32,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [CartController::class, 'store'])->name('cart.store');
         Route::delete('/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
     });
+
+    // cast
+    Route::get('/{media}s/{id}/cast', CastController::class)->name('cast');
 
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

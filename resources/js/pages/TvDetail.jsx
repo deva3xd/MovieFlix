@@ -1,21 +1,19 @@
 import MainLayout from "@/layouts/MainLayout";
 import { useState } from "react";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, MoveRight } from "lucide-react";
 import { toast } from "sonner";
 
 const TvDetail = ({ cart, detail, credits, videos }) => {
     const { auth } = usePage().props;
     const [isLoading, setIsLoading] = useState(false);
-    const data = detail.data;
-    console.log(credits)
 
-    const voteAverage = typeof data.vote_average === "number" ? data.vote_average.toFixed(1) : "N/A";
-    const originalLanguage = typeof data.original_language === "string" ? data.original_language : "N/A";
+    const voteAverage = typeof detail.data.vote_average === "number" ? detail.data.vote_average.toFixed(1) : "N/A";
+    const originalLanguage = typeof detail.data.original_language === "string" ? detail.data.original_language : "N/A";
 
     const { post } = useForm({
         user_id: auth.user.id,
-        movie_id: data.id,
+        movie_id: detail.data.id,
         price: 20000,
         count: 1,
     });
@@ -38,23 +36,23 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
     };
 
     return (
-        <MainLayout title='Home'>
+        <MainLayout title={detail.data.name}>
             <div className="bg-background max-w-screen-xl mx-auto">
                 <div className="relative">
                     <img
-                        src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`}
+                        src={`https://image.tmdb.org/t/p/original/${detail.data.backdrop_path}`}
                         className="w-full object-cover"
                         alt="Backdrop Image"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
                 </div>
 
-                <div className="px-4 md:px-20 -mt-24 sm:-mt-48">
+                <div className="px-4 -mt-24 sm:-mt-48">
                     <div className="flex flex-col sm:flex-row gap-2 text-white z-10 relative">
                         <div className="card w-full sm:w-1/5 rounded-none">
                             <figure>
                                 <img
-                                    src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
+                                    src={`https://image.tmdb.org/t/p/w500/${detail.data.poster_path}`}
                                     alt="poster image"
                                     className="h-64 sm:h-full rounded-md"
                                 />
@@ -89,13 +87,13 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
                                 </span>
                             </div>
                             <h3 className="font-bold text-xl sm:text-3xl">
-                                {data.name}
+                                {detail.data.name}
                             </h3>
                             <div className="text-xs sm:text-base flex flex-row sm:flex-col md:flex-row items-start md:items-center gap-2">
-                                Release: {data.first_air_date},
+                                Release: {detail.data.first_air_date},
                                 <div className="flex items-center gap-1">
                                     Genre:
-                                    {data.genres.map((genre) =>
+                                    {detail.data.genres.map((genre) =>
                                         <span key={genre.id} className="bg-white px-2 rounded-md text-black font-semibold">{genre.name}</span>
                                     )}
                                 </div>
@@ -105,7 +103,7 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
                                     Overview
                                 </h3>
                                 <p className="text-justify font-light text-xs sm:text-base">
-                                    {data.overview}
+                                    {detail.data.overview}
                                 </p>
                             </div>
                         </div>
@@ -134,7 +132,7 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
                                     ))}
 
                                     {credits.cast.length > 10 && (
-                                        <Link className="flex items-center hover:underline">View More</Link>
+                                        <Link href={route('cast', { media: 'tv', id: detail.data.id })} className="text-xs text-white p-2 hover:bg-white hover:text-black rounded-full border border-white h-auto self-center"><MoveRight /></Link>
                                     )}
                                 </>
                             ) : (
@@ -145,10 +143,10 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
                         </div>
                     </div>
                     <div className="mt-2">
-                        <h3 className="text-lg sm:text-2xl font-bold text-white">Trailer</h3>
+                        <h3 className="text-lg sm:text-2xl font-bold text-white">Video</h3>
                         <div className="w-full flex flex-col sm:flex-row gap-2 my-2 overflow-x-scroll py-2">
                             {videos.results.length > 0 ? (
-                                videos.results.filter(v => v.site === 'YouTube' && v.type === 'Trailer').map((v, i) => (
+                                videos.results.filter(v => v.site === 'YouTube').map((v, i) => (
                                     <iframe key={i} width="360" height="200" className="flex-none" src={`https://www.youtube-nocookie.com/embed/${v.key}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 ))
                             ) : (
