@@ -1,39 +1,10 @@
 import MainLayout from "@/layouts/MainLayout";
-import { useState } from "react";
-import { Link, useForm, usePage } from "@inertiajs/react";
-import { ShoppingCart, MoveRight } from "lucide-react";
-import { toast } from "sonner";
+import { Link } from "@inertiajs/react";
+import { MoveRight } from "lucide-react";
 
-const TvDetail = ({ cart, detail, credits, videos }) => {
-    const { auth } = usePage().props;
-    const [isLoading, setIsLoading] = useState(false);
-
+const TvDetail = ({ detail, credits, videos }) => {
     const voteAverage = typeof detail.data.vote_average === "number" ? detail.data.vote_average.toFixed(1) : "N/A";
     const originalLanguage = typeof detail.data.original_language === "string" ? detail.data.original_language : "N/A";
-
-    const { post } = useForm({
-        user_id: auth.user.id,
-        movie_id: detail.data.id,
-        price: 20000,
-        count: 1,
-    });
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-
-        if (isLoading) return;
-        setIsLoading(true);
-
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-
-        post(route('cart.store',), {
-            onSuccess: () => {
-                toast.success("Item added");
-            }
-        })
-    };
 
     return (
         <MainLayout title={detail.data.name}>
@@ -57,24 +28,10 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
                                     className="h-64 sm:h-full rounded-md"
                                 />
                             </figure>
-                            <div className="flex flex-col my-2">
-                                <form onSubmit={onSubmit}>
-                                    {!cart ? (
-                                        <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85"
-                                            disabled={isLoading}
-                                        >
-                                            <ShoppingCart size={20} />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
-                                            disabled
-                                        >
-                                            <ShoppingCart size={20} />
-                                        </button>
-                                    )}
-                                </form>
+                            <div
+                                className="my-2 flex items-center justify-center gap-2 border border-white text-white rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full"
+                            >
+                                Not Available for TV
                             </div>
                         </div>
                         <div className="w-full sm:w-4/5">
@@ -89,20 +46,20 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
                             <h3 className="font-bold text-xl sm:text-3xl">
                                 {detail.data.name}
                             </h3>
-                            <div className="text-xs sm:text-base flex flex-row sm:flex-col md:flex-row items-start md:items-center gap-2">
-                                Release: {detail.data.first_air_date},
-                                <div className="flex items-center gap-1">
-                                    Genre:
-                                    {detail.data.genres.map((genre) =>
-                                        <span key={genre.id} className="bg-white px-2 rounded-md text-black font-semibold">{genre.name}</span>
-                                    )}
-                                </div>
+                            <div className="text-xs sm:text-base flex flex-row sm:flex-col md:flex-row items-start md:items-center gap-2 text-gray-300">
+                                <span>Release: {detail.data.first_air_date},</span>
+                                <span>Runtime: {detail.data.episode_run_time}</span>
                             </div>
-                            <div className="my-2">
+                            <div className="flex items-center gap-1 my-2">
+                                {detail.data.genres.map((genre) =>
+                                    <span key={genre.id} className="bg-white px-2 rounded-md text-black font-semibold">{genre.name}</span>
+                                )}
+                            </div>
+                            <div>
                                 <h3 className="text-lg sm:text-2xl font-bold">
                                     Overview
                                 </h3>
-                                <p className="text-justify font-light text-xs sm:text-base">
+                                <p className="text-justify font-light text-xs sm:text-base text-gray-300">
                                     {detail.data.overview}
                                 </p>
                             </div>
@@ -151,7 +108,7 @@ const TvDetail = ({ cart, detail, credits, videos }) => {
                                 ))
                             ) : (
                                 <span className="text-lg sm:text-xl text-center block w-full">
-                                    No Trailer Available
+                                    No Video Available
                                 </span>
                             )}
                         </div>

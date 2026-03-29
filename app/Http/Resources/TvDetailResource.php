@@ -24,6 +24,7 @@ class TvDetailResource extends JsonResource
             'genres' => $this['genres'],
             'vote_average' => $this['vote_average'],
             'original_language' => $this['original_language'],
+            'episode_run_time' => $this['episode_run_time'],
         ];
     }
 }

@@ -26,6 +26,7 @@ class MovieDetailResource extends JsonResource
             'genres' => $this['genres'],
             'vote_average' => $this['vote_average'],
             'original_language' => $this['original_language'],
+            'runtime' => $this['runtime'],
         ];
     }
 }

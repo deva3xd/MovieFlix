@@ -59,21 +59,12 @@ const MovieDetail = ({ cart, detail, credits, videos }) => {
                             </figure>
                             <div className="flex flex-col my-2">
                                 <form onSubmit={onSubmit}>
-                                    {!cart ? (
-                                        <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85"
-                                            disabled={isLoading}
-                                        >
-                                            <ShoppingCart size={20} />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full disabled:opacity-50"
-                                            disabled
-                                        >
-                                            <ShoppingCart size={20} />
-                                        </button>
-                                    )}
+                                    <button
+                                        className="flex items-center justify-center gap-2 border bg-white border-white text-background rounded-md font-bold px-2 py-1 text-center text-xs sm:text-base w-full hover:bg-opacity-85 disabled:bg-opacity-100 disabled:opacity-50"
+                                        disabled={isLoading || cart}
+                                    >
+                                        <ShoppingCart size={20} />
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -89,20 +80,20 @@ const MovieDetail = ({ cart, detail, credits, videos }) => {
                             <h3 className="font-bold text-xl sm:text-3xl">
                                 {detail.title}
                             </h3>
-                            <div className="text-xs sm:text-base flex flex-row sm:flex-col md:flex-row items-start md:items-center gap-2">
-                                Release: {detail.release_date},
-                                <div className="flex items-center gap-1">
-                                    Genre:
-                                    {detail.genres.map((genre) =>
-                                        <span key={genre.id} className="bg-white px-2 rounded-md text-black font-semibold">{genre.name}</span>
-                                    )}
-                                </div>
+                            <div className="text-xs sm:text-base flex flex-row sm:flex-col md:flex-row items-start md:items-center gap-2 text-gray-300">
+                                <span>Release: {detail.release_date},</span>
+                                <span>Runtime: {detail.runtime}</span>
                             </div>
-                            <div className="my-2">
+                            <div className="flex items-center gap-1 my-2">
+                                {detail.genres.map((genre) =>
+                                    <span key={genre.id} className="bg-white px-2 rounded-md text-black font-semibold">{genre.name}</span>
+                                )}
+                            </div>
+                            <div>
                                 <h3 className="text-lg sm:text-2xl font-bold">
                                     Overview
                                 </h3>
-                                <p className="text-justify font-light text-xs sm:text-base">
+                                <p className="text-justify font-light text-xs sm:text-base text-gray-300">
                                     {detail.overview}
                                 </p>
                             </div>

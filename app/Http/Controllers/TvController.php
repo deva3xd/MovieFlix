@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Events\MediaCacheMissed;
 use App\Http\Resources\TvDetailResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Client\Pool;
 use Inertia\Inertia;
-use App\Models\Cart;
 
 class TvController extends Controller
 {
@@ -40,8 +38,6 @@ class TvController extends Controller
 
     public function show(Request $request, $id)
     {
-        $cart = Cart::where('user_id', Auth::id())->where('movie_id', $id)->first();
-
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
 
@@ -55,6 +51,6 @@ class TvController extends Controller
         $credits = $responses['credits']->json();
         $videos = $responses['videos']->json();
 
-        return Inertia::render('TvDetail', compact('cart', 'detail', 'credits', 'videos'));
+        return Inertia::render('TvDetail', compact('detail', 'credits', 'videos'));
     }
 }
