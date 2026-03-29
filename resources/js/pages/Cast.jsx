@@ -1,7 +1,7 @@
 import MainLayout from "@/layouts/MainLayout";
 
 const Cast = ({ data }) => {
-    console.log(data);
+
     return (
         <MainLayout title="Cast">
             <div className="bg-background max-w-screen-xl mx-auto px-4">
