@@ -47,7 +47,7 @@ class FetchMediaJob implements ShouldQueue
         Cache::put(
             "media:{$this->type}:{$this->endpoint}",
             $data,
-            now()->addHour()
+            now()->addDay()
         );
     }
 }

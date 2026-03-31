@@ -18,8 +18,6 @@ class TvListResource extends JsonResource
             'id' => $this['id'],
             'name' => $this['name'],
             'poster_path' => $this['poster_path'],
-            'backdrop_path' => $this['backdrop_path'],
-            'overview' => $this['overview'],
             'first_air_date' => $this['first_air_date']
         ];
     }
