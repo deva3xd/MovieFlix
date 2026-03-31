@@ -22,12 +22,12 @@ const Tv = ({ items }) => {
                     },
                 }}
             >
-                {items.length === 0 ? (
-                    <span className="py-3 text-lg sm:text-xl text-center block w-full">
-                        No Tv Shows Available
-                    </span>
+                {!items ? (
+                    <div className="py-3 flex justify-center">
+                        <span className="loading loading-dots loading-xl"></span>
+                    </div>
                 ) : (
-                    items.map((i) => {
+                    items?.map((i) => {
                         return (
                             <SwiperSlide key={i.id}>
                                 <Card item={i} link="tv.show" date={i.first_air_date} title={i.name} />

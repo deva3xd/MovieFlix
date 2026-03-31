@@ -22,12 +22,12 @@ const Movie = ({ items }) => {
                     },
                 }}
             >
-                {items.length === 0 ? (
-                    <span className="py-3 text-lg sm:text-xl text-center block w-full">
-                        No Movie Available
-                    </span>
+                {!items ? (
+                    <div className="py-3 flex justify-center">
+                        <span className="loading loading-dots loading-xl"></span>
+                    </div>
                 ) : (
-                    items.map((i) => {
+                    items?.map((i) => {
                         return (
                             <SwiperSlide key={i.id}>
                                 <Card item={i} link="movie.show" date={i.release_date} title={i.title} />
