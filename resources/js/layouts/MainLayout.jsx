@@ -12,7 +12,7 @@ export default function MainLayout({ children, title }) {
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
                     <Navbar />
-                    <div className="mt-16">
+                    <div className="mt-16 min-h-screen">
                         <Toaster />
                         {children}
                     </div>
