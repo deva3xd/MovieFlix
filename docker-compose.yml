@@ -1,6 +1,8 @@
 services:
   app:
     build: .
+    env_file:
+      - .env
     container_name: laravel_app
     ports:
       - "9000:8000"
@@ -14,6 +16,18 @@ services:
       - app_network
     mem_limit: 2g
     cpus: 1
+
+  queue:
+    build: .
+    env_file:
+      - .env
+    container_name: laravel_queue
+    command: php artisan queue:work --tries=3 --timeout=90
+    restart: unless-stopped
+    depends_on:
+      - db
+    networks:
+      - app_network
 
   db:
     image: mysql:8.0
