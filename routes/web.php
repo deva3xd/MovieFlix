@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // cast
-    Route::get('/{media}s/{id}/cast', CastController::class)->name('cast');
+    Route::get('/{media}/{id}/cast', CastController::class)->name('cast');
 
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -123,7 +123,7 @@ const MovieDetail = ({ cart, detail, credits, videos }) => {
                                     ))}
 
                                     {credits.cast.length > 10 && (
-                                        <Link href={route('cast', { media: 'movie', id: detail.id })} className="text-xs text-white p-2 hover:bg-white hover:text-black rounded-full border border-white h-auto self-center"><MoveRight /></Link>
+                                        <Link href={route('cast', { media: 'movies', id: detail.id })} className="text-xs text-white p-2 hover:bg-white hover:text-black rounded-full border border-white h-auto self-center"><MoveRight /></Link>
                                     )}
                                 </>
                             ) : (
