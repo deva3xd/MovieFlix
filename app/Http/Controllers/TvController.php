@@ -23,9 +23,10 @@ class TvController extends Controller
         foreach ($mediaEndpoints as $type => $endpoints) {
             foreach ($endpoints as $endpoint) {
                 $cacheKey = "media:$type:$endpoint";
+                $hasMedia = Cache::has($cacheKey);
                 $media = Cache::get($cacheKey);
 
-                if (!$media) {
+                if (!$hasMedia) {
                     event(new MediaCacheMissed($type, $endpoint));
                 }
 

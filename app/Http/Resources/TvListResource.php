@@ -15,10 +15,10 @@ class TvListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this['id'],
-            'name' => $this['name'],
-            'poster_path' => $this['poster_path'],
-            'first_air_date' => $this['first_air_date']
+            'id' => $this['id'] ?? null,
+            'name' => $this['name'] ?? null,
+            'poster_path' => $this['poster_path'] ?? null,
+            'first_air_date' => $this['first_air_date'] ?? null,
         ];
     }
 }

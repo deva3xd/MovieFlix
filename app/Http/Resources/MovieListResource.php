@@ -15,12 +15,12 @@ class MovieListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this['id'],
-            'title' => $this['title'],
-            'poster_path' => $this['poster_path'],
-            'backdrop_path' => $this['backdrop_path'],
-            'overview' => $this['overview'],
-            'release_date' => $this['release_date']
+            'id' => $this['id'] ?? null,
+            'title' => $this['title'] ?? null,
+            'poster_path' => $this['poster_path'] ?? null,
+            'backdrop_path' => $this['backdrop_path'] ?? null,
+            'overview' => $this['overview'] ?? null,
+            'release_date' => $this['release_date'] ?? null,
         ];
     }
 }
