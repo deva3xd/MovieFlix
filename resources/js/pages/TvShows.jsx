@@ -1,7 +1,10 @@
 import MainLayout from "@/layouts/MainLayout";
 import Tv from "@/components/Tv";
+import useAutoReloadWhenPending from "@/hooks/useAutoReloadWhenPending";
 
 const TvShows = ({ data }) => {
+    useAutoReloadWhenPending("data", data);
+
     return (
         <MainLayout title="Movies">
             <div className="max-w-screen-xl mx-auto flex flex-col gap-4">

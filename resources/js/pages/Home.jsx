@@ -2,8 +2,11 @@ import MainLayout from "@/layouts/MainLayout";
 import Header from "@/components/Header";
 import Movie from "@/components/Movie";
 import Tv from "@/components/Tv";
+import useAutoReloadWhenPending from "@/hooks/useAutoReloadWhenPending";
 
 const Home = ({ data }) => {
+    useAutoReloadWhenPending("data", data);
+
     return (
         <MainLayout title="Home">
             <div className="max-w-screen-xl mx-auto">

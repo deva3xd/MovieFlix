@@ -17,9 +17,9 @@ export default function Profile({ auth }) {
                 <div className="w-2/6 bg-foreground rounded-md h-[13rem] p-4">
                     <div className='flex items-center gap-2'>
                         <img
-                            alt="Profile Picture"
+                            alt="profile"
                             src={`/storage/${userImage}`}
-                            className='w-14 h-14 rounded-full'
+                            className='w-14 h-14 rounded-full border border-primary'
                         />
                         <div className='w-1/2'>
                             <p className='font-semibold text-lg capitalize'>Hello, {auth.user.first_name}</p>
