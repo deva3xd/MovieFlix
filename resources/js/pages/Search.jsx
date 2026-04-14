@@ -37,7 +37,7 @@ const Search = ({ results, queryInput }) => {
                                 name="category"
                                 value={data.category}
                                 onChange={(e) => setData("category", e.target.value)}
-                                className="select bg-primary text-background text-lg outline-none border-none focus:outline-none h-12"
+                                className="select bg-primary text-background text-lg outline-none border-none focus:outline-none h-12 hover:bg-primary/90"
                                 required
                             >
                                 <option value="" disabled>Category</option>

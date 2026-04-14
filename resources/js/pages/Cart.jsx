@@ -8,6 +8,7 @@ import DeleteModal from "@/components/ui/DeleteModal";
 const Cart = ({ carts, cartCount }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
+    const [selected, setSelected] = useState([]);
 
     // delete modal
     const openModal = (itemId) => {
@@ -26,12 +27,21 @@ const Cart = ({ carts, cartCount }) => {
         }
     };
 
+    const handleChange = (id, checked) => {
+        if (checked) {
+            setSelected((prev) => [...prev, id]);
+        } else {
+            setSelected((prev) => prev.filter((item) => item !== id));
+        }
+    }
+
     return (
         <MainLayout title="Home">
             <div className="min-h-screen px-4 flex flex-col-reverse lg:flex-row gap-1 text-white max-w-screen-xl mx-auto mb-4">
                 <div className="w-full">
-                    <div className="flex justify-between">
-                        <span className="py-2 font-light text-xl lg:text-2xl">Items: {cartCount}</span>
+                    <div className="flex justify-between mb-1">
+                        <span className="py-2 font-light text-xl lg:text-2xl">Total Items : {cartCount}</span>
+                        <button className="w-36 text-background bg-primary border border-primary hover:bg-primary/90 text-lg h-12 rounded-md px-4">Checkout ({selected.length})</button>
                     </div>
                     {carts.length == 0 ? (
                         <div className="bg-foreground p-2">
@@ -55,15 +65,18 @@ const Cart = ({ carts, cartCount }) => {
                                                     <div className="text-sm text-white my-2 flex items-center gap-1"><Calendar size={16} color={"red"} /> {new Date(item.release_date).getFullYear()}</div>
                                                     <div className="text-sm text-white my-2 flex items-center gap-1"><Clock size={16} color={"white"} /> {item.runtime}</div>
                                                 </div>
-                                                <p className="text-sm text-gray-500">{item.overview}</p>
+                                                <p className="text-sm text-gray-500 hidden sm:flex">{item.overview}</p>
                                             </div>
                                             <div className="flex justify-between">
                                                 <div className="flex flex-wrap items-center gap-2 text-gray-500 text-sm">
-                                                    {item.genres.map((genre) => <p key={genre.id}>{genre.name}</p>)}
+                                                    {item.genres.map((genre) => <p key={genre.id}>{genre.name} | </p>)}
                                                 </div>
-                                                <button onClick={() => openModal(item.id)} className="text-sm text-white hover:text-red-500">
-                                                    <Trash2 size={20} />
-                                                </button>
+                                                <div className="flex items-center gap-1">
+                                                    <input type="checkbox" onChange={(e) => handleChange(item.id, e.target.checked)} className="checkbox checkbox-sm rounded-full border-white" />
+                                                    <button onClick={() => openModal(item.id)} className="text-sm text-white hover:text-red-500">
+                                                        <Trash2 size={20} />
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
