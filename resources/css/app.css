@@ -8,10 +8,6 @@
     --swiper-theme-color: white !important;
 }
 
-body {
-  background-color: #0E0D14;
-}
-
 /* inria sans font */
 .inria-sans-light {
   font-family: "Inria Sans", sans-serif;
@@ -50,8 +46,8 @@ body {
 }
 
 /* irish grover font */
-.irish-grover-regular {
+.irish-grover-bold {
   font-family: "Irish Grover", system-ui;
-  font-weight: 400;
+  font-weight: 700;
   font-style: normal;
 }

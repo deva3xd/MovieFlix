@@ -1,9 +1,9 @@
 import MainLayout from "@/layouts/MainLayout";
 import Tv from "@/components/Tv";
-import useAutoReloadWhenPending from "@/hooks/useAutoReloadWhenPending";
+import useAutoReload from "@/hooks/useAutoReload";
 
 const TvShows = ({ data }) => {
-    useAutoReloadWhenPending("data", data);
+    useAutoReload("data", data);
 
     return (
         <MainLayout title="Movies">

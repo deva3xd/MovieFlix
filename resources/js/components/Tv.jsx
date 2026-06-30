@@ -4,7 +4,7 @@ import Card from "./ui/Card";
 
 const Tv = ({ items }) => {
     return (
-        <div className="bg-custom-primary text-white p-4">
+        <div className="text-white py-4">
             <Swiper
                 slidesPerView={2}
                 spaceBetween={10}

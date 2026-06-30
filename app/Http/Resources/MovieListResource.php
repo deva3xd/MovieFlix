@@ -21,6 +21,7 @@ class MovieListResource extends JsonResource
             'backdrop_path' => $this['backdrop_path'] ?? null,
             'overview' => $this['overview'] ?? null,
             'release_date' => $this['release_date'] ?? null,
+            'vote_average' => $this['vote_average'] ?? null,
         ];
     }
 }

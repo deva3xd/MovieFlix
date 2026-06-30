@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $mediaEndpoints = [
-            'movie' => ['now_playing'],
-            'tv' => ['airing_today']
+            'movie' => ['now_playing', 'upcoming', 'top_rated', 'popular'],
+            'tv' => ['airing_today', 'on_the_air', 'popular', 'top_rated']
         ];
 
         $data = [];

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\MediaCacheMissed;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +13,7 @@ use App\Http\Resources\MovieDetailResource;
 
 class MovieController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $mediaEndpoints = [
             'movie' => ['now_playing', 'popular', 'top_rated', 'upcoming'],
@@ -39,7 +38,7 @@ class MovieController extends Controller
         return Inertia::render('Movies', compact('data'));
     }
 
-    public function show(Request $request, $id)
+    public function show(string $id)
     {
         $cart = Cart::where('user_id', Auth::id())->where('movie_id', $id)->first();
 
@@ -59,7 +58,7 @@ class MovieController extends Controller
         return Inertia::render('MovieDetail', compact('cart', 'detail', 'credits', 'videos'));
     }
 
-    public function videos($id)
+    public function videos(string $id)
     {
         $key = config('services.tmdb.key');
         $url = "https://api.themoviedb.org/3/movie/{$id}/videos?language=en-US&api_key={$key}";

@@ -1,14 +1,52 @@
+import { useEffect, useState } from "react";
+import { Link, usePage } from "@inertiajs/react";
+import { Search } from "lucide-react";
+import Profile from "../assets/images/profile.png";
+
 const Navbar = () => {
+    const { url } = usePage();
+    const [visible, setVisible] = useState(false);
+    
+    const menu = [
+        { id: 1, name: "Browse", href: "/", isActive: (url) => url === "/" },
+        { id: 2, name: "Movies", href: "/movies", isActive: (url) => url.startsWith("/movies") },
+        { id: 3, name: "Tv Shows", href: "/tv-shows", isActive: (url) => url.startsWith("/tv-shows") },
+    ]
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setVisible(window.scrollY > window.innerHeight);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <nav className="navbar w-full background fixed top-0 z-50 bg-background">
-            <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost flex lg:hidden">
-                {/* sidebar toggle icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
-            </label>
-            <div className="px-2">
-                <h1 className="text-2xl irish-grover-regular text-primary">
-                    MovieFlix
-                </h1>
+        <nav
+            className={`w-full justify-between fixed top-0 z-50 py-4 bg-black/95 transition-transform duration-300 border-b border-white/50 ${visible ? "translate-y-0" : "-translate-y-full"}`}
+        >
+            <div className="flex justify-between items-center max-w-7xl mx-auto">
+                <div className="flex gap-8">
+                    {menu.map((m) => {
+                        const isActive = m.isActive(url);
+
+                        return (
+                            <Link
+                                key={m.id}
+                                className={`text-xl font-semibold ${isActive ? "underline underline-offset-8 decoration-2 decoration-red-600 text-white" : "font-semibold text-white/50"}`}
+                            >
+                                {m.name}
+                            </Link>
+                        )
+                    })}
+                </div>
+                <div className="flex gap-4">
+                    <div className="bg-white/50 flex justify-center items-center rounded-full size-10">
+                        <Search size={24} color="white" />
+                    </div>
+                    <img src={Profile} className="rounded-full size-10" />
+                </div>
             </div>
         </nav>
     )

@@ -1,13 +1,13 @@
 import MainLayout from "@/layouts/MainLayout";
 import Movie from "@/components/Movie";
-import useAutoReloadWhenPending from "@/hooks/useAutoReloadWhenPending";
+import useAutoReload from "@/hooks/useAutoReload";
 
 const Movies = ({ data }) => {
-    useAutoReloadWhenPending("data", data);
+    useAutoReload("data", data);
 
     return (
         <MainLayout title="Movies">
-            <div className="max-w-screen-xl mx-auto flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
                 <div>
                     <h2 className="text-xl text-white sm:text-3xl font-medium px-4">Now Playing</h2>
                     <Movie items={data.movie.now_playing} source="now_playing" />
