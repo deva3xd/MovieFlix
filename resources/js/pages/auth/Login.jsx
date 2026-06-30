@@ -1,8 +1,9 @@
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
+import { Button } from "@/components/ui/Button";
+import { Label } from "@/components/ui/Label";
 import GuestLayout from "@/layouts/GuestLayout";
 import InputError from "@/components/ui/InputError";
 import Input from "@/components/ui/Input";
-import SubmitButton from "@/components/ui/buttons/SubmitButton";
 
 export default function Login({ status }) {
     const { data, setData, post, errors } = useForm({
@@ -17,8 +18,7 @@ export default function Login({ status }) {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <GuestLayout title="Login">
             <div className="flex flex-col justify-center items-center p-6 lg:p-12 rounded-md bg-foreground text-white border border-primary">
                 <div className="w-72 lg:w-96">
                     {status && (
@@ -26,28 +26,17 @@ export default function Login({ status }) {
                             {status}
                         </div>
                     )}
-                    <div className="flex flex-col items-center">
-                        <h1 className="text-4xl irish-grover-regular text-primary">
-                            MovieFlix
-                        </h1>
-                        <h2 className="text-3xl font-bold">Login</h2>
-                        <span className="text-sm my-2">
-                            Don't have an account?{" "}
-                            <Link
-                                href={route("register")}
-                                className="text-primary hover:underline"
-                            >
-                                Register
-                            </Link>
-                        </span>
-                    </div>
+                    <h1 className="text-4xl irish-grover-bold text-primary text-center">
+                        MovieFlix
+                    </h1>
+                    <h2 className="text-3xl font-bold text-center">Login</h2>
                     <form onSubmit={submit}>
-                        <div className="max-w-xs lg:max-w-xl flex flex-col gap-1">
+                        <div className="max-w-xs lg:max-w-xl flex flex-col gap-1 my-4">
                             <>
                                 <div className="form-control">
-                                    <label htmlFor="email" className="label-text text-white">
+                                    <Label htmlFor="email">
                                         Email
-                                    </label>
+                                    </Label>
                                     <Input
                                         type="email"
                                         id="email"
@@ -60,9 +49,9 @@ export default function Login({ status }) {
                             </>
                             <>
                                 <div className="form-control">
-                                    <label htmlFor="password" className="label-text text-white">
+                                    <Label htmlFor="password">
                                         Password
-                                    </label>
+                                    </Label>
                                     <Input
                                         type="password"
                                         id="password"
@@ -73,11 +62,17 @@ export default function Login({ status }) {
                                 </div>
                                 <InputError message={errors.password} />
                             </>
-                            <div className="flex items-center justify-center mt-4">
-                                <SubmitButton children="Login" className="w-full" type="submit" />
+                            <div className="flex items-center justify-center mt-2">
+                                <Button className="rounded-md w-full">Login</Button>
                             </div>
                         </div>
                     </form>
+                    <div className="text-sm flex justify-end">
+                        Don't have an account?
+                        <Link href={route("register")} className="text-primary hover:underline ps-2">
+                            Register
+                        </Link>
+                    </div>
                 </div>
             </div>
         </GuestLayout>

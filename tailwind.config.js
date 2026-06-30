@@ -16,9 +16,7 @@ export default {
             },
             colors: {
                 'background': '#0E0D14',
-                'foreground': '#18181B',
-                'primary': '#FFE100',
-                'secondary': '#232326'
+                'primary': '#FF0000',
             },
         },
     },
@@ -26,6 +24,6 @@ export default {
     plugins: [require("daisyui")],
 
     daisyui: {
-        themes: ["dark"],
+        themes: ["black"],
     }
 };

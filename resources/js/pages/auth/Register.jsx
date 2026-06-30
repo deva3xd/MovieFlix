@@ -1,8 +1,9 @@
-import { Head, useForm, Link } from "@inertiajs/react";
+import { useForm, Link } from "@inertiajs/react";
+import { Button } from "@/components/ui/Button";
+import { Label } from "@/components/ui/Label";
 import GuestLayout from "@/layouts/GuestLayout";
 import InputError from "@/components/ui/InputError";
 import Input from "@/components/ui/Input";
-import SubmitButton from "@/components/ui/buttons/SubmitButton";
 
 export default function Register() {
     const { data, setData, post, errors } = useForm({
@@ -20,33 +21,21 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Register" />
+        <GuestLayout title="Register">
             <div className="flex flex-col justify-center items-center p-6 lg:p-12 rounded-md bg-foreground text-white border border-primary">
                 <div className="w-72 lg:w-96">
-                    <div className="flex flex-col items-center">
-                        <h1 className="text-4xl irish-grover-regular text-primary">
-                            MovieFlix
-                        </h1>
-                        <h2 className="text-3xl font-bold">Register</h2>
-                        <span className="text-sm my-2">
-                            Already registered?{" "}
-                            <Link
-                                href={route("login")}
-                                className="text-primary hover:underline"
-                            >
-                                Login
-                            </Link>
-                        </span>
-                    </div>
+                    <h1 className="text-4xl irish-grover-bold text-primary text-center">
+                        MovieFlix
+                    </h1>
+                    <h2 className="text-3xl font-bold text-center">Register</h2>
                     <form onSubmit={submit}>
-                        <div className="max-w-xs lg:max-w-xl flex flex-col gap-1">
+                        <div className="max-w-xs lg:max-w-xl flex flex-col gap-1 my-4">
                             <div className="flex gap-2">
                                 <>
                                     <div className="form-control">
-                                        <label htmlFor="first_name" className="label-text text-white">
+                                        <Label htmlFor="first_name">
                                             First Name
-                                        </label>
+                                        </Label>
                                         <Input
                                             type="text"
                                             id="first_name"
@@ -61,9 +50,9 @@ export default function Register() {
                                 </>
                                 <>
                                     <div className="form-control">
-                                        <label htmlFor="last_name" className="label-text text-white">
+                                        <Label htmlFor="last_name">
                                             Last Name
-                                        </label>
+                                        </Label>
                                         <Input
                                             type="text"
                                             id="last_name"
@@ -79,9 +68,9 @@ export default function Register() {
                             </div>
                             <>
                                 <div className="form-control">
-                                    <label htmlFor="email" className="label-text text-white">
+                                    <Label htmlFor="email">
                                         Email
-                                    </label>
+                                    </Label>
                                     <Input
                                         type="email"
                                         id="email"
@@ -95,9 +84,9 @@ export default function Register() {
                             </>
                             <>
                                 <div className="form-control">
-                                    <label htmlFor="password" className="label-text text-white">
+                                    <Label htmlFor="password">
                                         Password
-                                    </label>
+                                    </Label>
                                     <Input
                                         type="password"
                                         id="password"
@@ -111,9 +100,9 @@ export default function Register() {
                             </>
                             <>
                                 <div className="form-control">
-                                    <label htmlFor="password_confirmation" className="label-text text-white">
+                                    <Label htmlFor="password_confirmation">
                                         Confirm Password
-                                    </label>
+                                    </Label>
                                     <Input
                                         type="password"
                                         id="password_confirmation"
@@ -125,11 +114,17 @@ export default function Register() {
                                 </div>
                                 <InputError message={errors.password_confirmation} />
                             </>
-                            <div className="flex items-center justify-center mt-4">
-                                <SubmitButton children="Register" className="w-full" type="submit" />
+                            <div className="flex items-center justify-center mt-2">
+                                <Button className="rounded-md w-full">Register</Button>
                             </div>
                         </div>
                     </form>
+                    <div className="text-sm flex justify-end">
+                        Already have an account?
+                        <Link href={route("login")} className="text-primary hover:underline ps-2">
+                            Login
+                        </Link>
+                    </div>
                 </div>
             </div>
         </GuestLayout>
