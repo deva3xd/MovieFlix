@@ -66,10 +66,9 @@ const Hero = ({ items, source }) => {
                             <p className="text-xl text-white/75">
                                 {item.overview}
                             </p>
-                            <div className="text-white/50 flex items-center gap-2">
-                                <Star size={18} className="fill-primary text-primary" />
-                                <span className="text-white/75">{item.vote_average}</span>
-                                · {releaseDate.getFullYear()}
+                            <div className="text-white/50 flex items-center gap-2 text-sm">
+                                <Star size={20} className="fill-primary text-primary" />
+                                <span className="text-white/75 text-xl">{item.vote_average.toFixed(1)}</span> · {releaseDate.getFullYear()}
                             </div>
 
                             <div className="flex gap-4 my-2">
