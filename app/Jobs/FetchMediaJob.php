@@ -9,6 +9,8 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
@@ -26,6 +28,7 @@ class FetchMediaJob implements ShouldQueue, ShouldBeUnique
     public string $endpoint;
     public int $tries = 3;
     public int $uniqueFor = 300;
+    public array $backoff = [10, 30, 60];
 
     public function __construct(string $type, string $endpoint)
     {
@@ -52,39 +55,21 @@ class FetchMediaJob implements ShouldQueue, ShouldBeUnique
                 'endpoint' => $this->endpoint,
             ]);
 
-            $this->storeFallbackCache();
-
             return;
         }
 
         try {
-            $response = Http::timeout(15)->get(
-                "{$url}/{$this->type}/{$this->endpoint}",
-                ['api_key' => $key]
-            );
-        } catch (ConnectionException $exception) {
-            Log::warning('TMDB media fetch failed due to a connection problem.', [
+            $response = $this->tmdbRequest($key)
+                ->get("{$url}/{$this->type}/{$this->endpoint}", $this->queryParameters($key))
+                ->throw();
+        } catch (ConnectionException|RequestException $exception) {
+            Log::warning('TMDB media fetch failed.', [
                 'type' => $this->type,
                 'endpoint' => $this->endpoint,
                 'message' => $exception->getMessage(),
             ]);
 
-            $this->storeFallbackCache();
-
-            return;
-        }
-
-        if ($response->failed()) {
-            Log::warning('TMDB media fetch returned an unsuccessful response.', [
-                'type' => $this->type,
-                'endpoint' => $this->endpoint,
-                'status' => $response->status(),
-                'body' => $response->json() ?? $response->body(),
-            ]);
-
-            $this->storeFallbackCache();
-
-            return;
+            throw $exception;
         }
 
         $payload = $response->json();
@@ -101,13 +86,23 @@ class FetchMediaJob implements ShouldQueue, ShouldBeUnique
             now()->addDay()
         );
     }
-    
-    protected function storeFallbackCache(): void
+
+    protected function tmdbRequest(string $key): PendingRequest
     {
-        Cache::put(
-            "media:{$this->type}:{$this->endpoint}",
-            [],
-            now()->addMinutes(10)
-        );
+        $request = Http::acceptJson()->timeout(15);
+
+        return $this->usesBearerToken($key)
+            ? $request->withToken($key)
+            : $request;
+    }
+
+    protected function queryParameters(string $key): array
+    {
+        return $this->usesBearerToken($key) ? [] : ['api_key' => $key];
+    }
+
+    protected function usesBearerToken(string $key): bool
+    {
+        return substr_count($key, '.') === 2;
     }
 }

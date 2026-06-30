@@ -17,7 +17,7 @@ const hasPendingValue = (value) => {
     return false;
 };
 
-const useAutoReloadWhenPending = (propName, value, interval = 3000) => {
+const useAutoReload = (propName, value, interval = 3000) => {
     const isReloadingRef = useRef(false);
 
     useEffect(() => {
@@ -50,4 +50,4 @@ const useAutoReloadWhenPending = (propName, value, interval = 3000) => {
     }, [interval, propName, value]);
 };
 
-export default useAutoReloadWhenPending;
+export default useAutoReload;
