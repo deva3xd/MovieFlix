@@ -1,8 +1,10 @@
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
+import { parseISO, format } from 'date-fns';
 
 const Card = ({ item, link, title, date }) => {
     const [loaded, setLoaded] = useState(false);
+    const formattedDate = format(parseISO(date), "dd MMM, yyyy");
 
     return (
         <Link href={route(link, { id: item.id })}>
@@ -22,7 +24,7 @@ const Card = ({ item, link, title, date }) => {
             <div className="flex flex-col my-1">
                 <span className="font-medium text-sm sm:text-base line-clamp-1" title={title}>{title}</span>
                 <span className="font-light text-gray-500 text-xs sm:text-sm">
-                    {date ? new Date(date).getFullYear() : "undefined"}
+                    {formattedDate ? formattedDate : "undefined"}
                 </span>
             </div>
         </Link>
