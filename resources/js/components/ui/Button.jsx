@@ -1,11 +1,11 @@
 import { cva } from "class-variance-authority";
 
 const buttonVariants = cva(
-    "flex justify-center items-center gap-2 rounded-full font-semibold",
+    "flex justify-center items-center gap-2 rounded-full font-semibold disabled:pointer-events-none disabled:opacity-50",
     {
         variants: {
             variant: {
-                primary: "bg-primary hover:bg-primary/85 text-white",
+                primary: "border border-primary bg-primary hover:bg-primary/85 text-white",
                 secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300",
                 outline: "border border-white text-white hover:bg-white/10",
                 danger: "bg-red-600 text-white hover:bg-red-700",
@@ -23,11 +23,13 @@ const buttonVariants = cva(
     }
 );
 
-export function Button({ className, variant, size, ...props }) {
+export function Button({ className, children, as : Component = "button", variant, size, ...props }) {
     return (
-        <button
+        <Component
             className={buttonVariants({ variant, size, className })}
             {...props}
-        />
+        >
+            {children}
+        </Component>
     );
 }
