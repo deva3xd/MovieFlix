@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Events\MediaCacheMissed;
 use Inertia\Inertia;
 use App\Models\Cart;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Http\Client\Pool;
 use App\Http\Resources\MovieDetailResource;
 
 class MovieController extends Controller
@@ -29,6 +29,7 @@ class MovieController extends Controller
 
                 if (!$hasMedia) {
                     event(new MediaCacheMissed($type, $endpoint));
+                    $media = Cache::get($cacheKey);
                 }
 
                 $data[$type][$endpoint] = $media;
@@ -44,27 +45,47 @@ class MovieController extends Controller
 
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
+        $tmdb = $this->tmdbRequest($key);
+        $query = $this->queryParameters($key);
 
-        $responses = Http::pool(fn(Pool $pool) => [
-            $pool->as('detail')->get("{$url}/movie/{$id}", ['api_key' => $key]),
-            $pool->as('credits')->get("{$url}/movie/{$id}/credits", ['api_key' => $key]),
-            $pool->as('videos')->get("{$url}/movie/{$id}/videos", ['api_key' => $key]),
-        ]);
+        $detail = (new MovieDetailResource(
+            $tmdb->get("{$url}/movie/{$id}", $query)->throw()->json()
+        ))->resolve();
+        $credits = $tmdb->get("{$url}/movie/{$id}/credits", $query)->throw()->json();
+        $videos = $tmdb->get("{$url}/movie/{$id}/videos", $query)->throw()->json();
 
-        $detail = new MovieDetailResource($responses['detail']->json());
-        $credits = $responses['credits']->json();
-        $videos = $responses['videos']->json();
-
-        return Inertia::render('MovieDetail', compact('cart', 'detail', 'credits', 'videos'));
+        return Inertia::render('Detail', compact('cart', 'detail', 'credits', 'videos'));
     }
 
     public function videos(string $id)
     {
         $key = config('services.tmdb.key');
-        $url = "https://api.themoviedb.org/3/movie/{$id}/videos?language=en-US&api_key={$key}";
+        $url = config('services.tmdb.url');
 
-        $response = Http::get($url)->json();
+        $response = $this->tmdbRequest($key)
+            ->get("{$url}/movie/{$id}/videos", $this->queryParameters($key))
+            ->throw()
+            ->json();
 
         return response()->json($response);
+    }
+
+    protected function tmdbRequest(string $key): PendingRequest
+    {
+        $request = Http::acceptJson()->timeout(15);
+
+        return $this->usesBearerToken($key)
+            ? $request->withToken($key)
+            : $request;
+    }
+
+    protected function queryParameters(string $key): array
+    {
+        return $this->usesBearerToken($key) ? [] : ['api_key' => $key];
+    }
+
+    protected function usesBearerToken(string $key): bool
+    {
+        return substr_count($key, '.') === 2;
     }
 }

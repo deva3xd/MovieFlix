@@ -14,17 +14,19 @@ class TvDetailResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $tv = is_array($this->resource) ? $this->resource : [];
+
         return [
-            'id' => $this['id'],
-            'name' => $this['name'],
-            'poster_path' => $this['poster_path'],
-            'backdrop_path' => $this['backdrop_path'],
-            'overview' => $this['overview'],
-            'first_air_date' => $this['first_air_date'],
-            'genres' => $this['genres'],
-            'vote_average' => $this['vote_average'],
-            'original_language' => $this['original_language'],
-            'episode_run_time' => $this['episode_run_time'],
+            'id' => $tv['id'] ?? null,
+            'name' => $tv['name'] ?? null,
+            'poster_path' => $tv['poster_path'] ?? null,
+            'backdrop_path' => $tv['backdrop_path'] ?? null,
+            'overview' => $tv['overview'] ?? null,
+            'first_air_date' => $tv['first_air_date'] ?? null,
+            'genres' => $tv['genres'] ?? [],
+            'vote_average' => $tv['vote_average'] ?? null,
+            'original_language' => $tv['original_language'] ?? null,
+            'episode_run_time' => $tv['episode_run_time'] ?? null,
         ];
     }
 }

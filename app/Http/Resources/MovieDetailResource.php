@@ -12,21 +12,21 @@ class MovieDetailResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public static $wrap = null; // remove wrapper, (default wrapper is data)
-
     public function toArray(Request $request): array
     {
+        $movie = is_array($this->resource) ? $this->resource : [];
+
         return [
-            'id' => $this['id'],
-            'title' => $this['title'],
-            'poster_path' => $this['poster_path'],
-            'backdrop_path' => $this['backdrop_path'],
-            'overview' => $this['overview'],
-            'release_date' => $this['release_date'],
-            'genres' => $this['genres'],
-            'vote_average' => $this['vote_average'],
-            'original_language' => $this['original_language'],
-            'runtime' => $this['runtime'],
+            'id' => $movie['id'] ?? null,
+            'title' => $movie['title'] ?? null,
+            'poster_path' => $movie['poster_path'] ?? null,
+            'backdrop_path' => $movie['backdrop_path'] ?? null,
+            'overview' => $movie['overview'] ?? null,
+            'release_date' => $movie['release_date'] ?? null,
+            'genres' => $movie['genres'] ?? [],
+            'vote_average' => $movie['vote_average'] ?? null,
+            'original_language' => $movie['original_language'] ?? null,
+            'runtime' => $movie['runtime'] ?? null,
         ];
     }
 }
