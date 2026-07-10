@@ -2,23 +2,23 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "./ui/Card";
 
-const Movie = ({ items }) => {
+const CardList = ({ items }) => {
     return (
-        <div className="text-white py-4">
+        <div className="text-white my-4">
             <Swiper
-                slidesPerView={2}
+                slidesPerView={2.2}
                 spaceBetween={10}
                 fadeEffect="true"
                 grabCursor="true"
                 breakpoints={{
                     640: {
-                        slidesPerView: 3,
+                        slidesPerView: 3.2,
                     },
                     768: {
-                        slidesPerView: 4,
+                        slidesPerView: 4.2,
                     },
                     1024: {
-                        slidesPerView: 6,
+                        slidesPerView: 6.2,
                     },
                 }}
             >
@@ -30,7 +30,7 @@ const Movie = ({ items }) => {
                     items?.map((i) => {
                         return (
                             <SwiperSlide key={i.id}>
-                                <Card item={i} link="movie.show" date={i.release_date} title={i.title} />
+                                <Card item={i} link={i.title ? "movie.show" : "tv.show"} date={i.release_date ? i.release_date : i.first_air_date} title={i.title ? i.title : i.name} />
                             </SwiperSlide>
                         );
                     })
@@ -40,4 +40,4 @@ const Movie = ({ items }) => {
     )
 }
 
-export default Movie;
+export default CardList;

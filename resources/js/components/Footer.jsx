@@ -1,8 +1,9 @@
 const Footer = () => {
     return (
-        <footer className="py-4 border-t border-white/50">
-            <div className="max-w-7xl mx-auto">
-                <p className="text-sm py-2 text-center text-white/50">Complete in 2025</p>
+        <footer className="max-w-7xl mx-auto py-12 px-4 ">
+            <div className="w-1/2">
+                <p className="text-lg text-white">MovieFlix</p>
+                <p className="text-sm text-gray-400 mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt adipisci fugiat tempore animi distinctio aperiam laboriosam rem veniam? Eligendi provident, eveniet dignissimos mollitia maiores sit incidunt illum qui consequatur quidem?</p>
             </div>
         </footer>
     )
