@@ -20,6 +20,6 @@ class MediaCacheMissedListener
      */
     public function handle(MediaCacheMissed $event): void
     {
-        FetchMediaJob::dispatch($event->type, $event->endpoint);
+        FetchMediaJob::dispatchSync($event->type, $event->endpoint);
     }
 }
