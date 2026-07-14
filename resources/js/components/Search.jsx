@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from '@inertiajs/react';
+import { createPortal } from 'react-dom';
+import { Link, router } from '@inertiajs/react';
 import { Button } from "@/components/ui/Button";
 import { Film, Tv, Star, Loader2, Search as SearchIcon } from "lucide-react";
 import Input from "@/components/ui/Input";
@@ -9,9 +10,10 @@ const Search = ({ isOpen, onClose }) => {
     const [category, setCategory] = useState("movie");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const inputRef = useRef(null);
 
-    // focus input when opened
+    // focus input when opened, reset when closed
     useEffect(() => {
         if (isOpen) {
             setTimeout(() => {
@@ -23,7 +25,7 @@ const Search = ({ isOpen, onClose }) => {
         }
     }, [isOpen]);
 
-    // disable scroll when search is active
+    // lock body scroll when search is open
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
@@ -35,7 +37,7 @@ const Search = ({ isOpen, onClose }) => {
         };
     }, [isOpen]);
 
-    // fetch results from controller
+    // fetch results from controller (no query params)
     const performSearch = (searchQuery = query, searchCategory = category) => {
         if (!searchQuery.trim()) {
             setResults([]);
@@ -54,16 +56,24 @@ const Search = ({ isOpen, onClose }) => {
             });
     };
 
-    // debounced search on type
+    // debounced live search — only while the input is focused
     useEffect(() => {
+        if (!isFocused || !isOpen) return;
+
         const delayDebounce = setTimeout(() => {
             performSearch(query, category);
         }, 300);
 
         return () => clearTimeout(delayDebounce);
-    }, [query, category]);
+    }, [query, category, isFocused, isOpen]);
 
-    // don't render the overlay if we are on the actual search page or if closed
+    // when category changes while focused, immediately re-fetch
+    useEffect(() => {
+        if (isFocused && isOpen && query.trim()) {
+            performSearch(query, category);
+        }
+    }, [category]);
+
     if (!isOpen) return null;
 
     const handleOverlayClick = (e) => {
@@ -72,24 +82,33 @@ const Search = ({ isOpen, onClose }) => {
         }
     };
 
+    // search button click, navigate to /search page with query params
     const handleSubmit = (e) => {
         e.preventDefault();
-        performSearch(query, category);
+        if (!query.trim()) return;
+        onClose();
+        router.get(route('search'), { category, query });
     };
 
-    return (
+    // clear results if input is emptied while focused
+    const handleInputChange = (e) => {
+        const val = e.target.value;
+        setQuery(val);
+        if (!val.trim()) {
+            setResults([]);
+        }
+    };
+
+    return createPortal(
         <div
             onClick={handleOverlayClick}
-            className="h-screen w-screen bg-black/75 backdrop-blur-sm fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4 cursor-pointer"
+            className="h-screen w-screen bg-black/75 backdrop-blur-sm fixed inset-0 z-50 flex items-start justify-center pt-[10vh] cursor-pointer"
         >
             <div className="bg-zinc-950 w-full max-w-2xl rounded-md flex flex-col max-h-[75vh] cursor-default border border-white/10 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
                 <form onSubmit={handleSubmit} className="flex gap-2 p-4 bg-zinc-900/40 border-b border-white/10 items-center">
                     <select
                         value={category}
-                        onChange={(e) => {
-                            setCategory(e.target.value);
-                            performSearch(query, e.target.value);
-                        }}
+                        onChange={(e) => setCategory(e.target.value)}
                         className="bg-zinc-800 text-white border border-white/10 focus:outline-none focus:border-primary rounded-md px-3 h-12 text-sm font-semibold cursor-pointer"
                     >
                         <option value="movie">Movies</option>
@@ -100,13 +119,15 @@ const Search = ({ isOpen, onClose }) => {
                         <Input
                             ref={inputRef}
                             value={query}
-                            onChange={(e) => setQuery(e.target.value)}
+                            onChange={handleInputChange}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
                             className="w-full text-white pr-10"
                             placeholder={`Search ${category === "movie" ? "movies" : "TV shows"}...`}
                         />
                     </div>
 
-                    <Button className="rounded-md h-12" size="sm">Search</Button>
+                    <Button className="rounded-md h-12" size="sm" type="submit">Search</Button>
                 </form>
 
                 {/* results */}
@@ -185,8 +206,9 @@ const Search = ({ isOpen, onClose }) => {
                 </div>
 
             </div>
-        </div>
-    )
+        </div>,
+        document.body,
+    );
 }
 
 export default Search;

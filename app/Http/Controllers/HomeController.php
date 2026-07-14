@@ -44,14 +44,29 @@ class HomeController extends Controller
         $url = config('services.tmdb.url');
         $category = $request->input('category');
         $queryInput = $request->input('query');
+
+        if (!$queryInput || !$category) {
+            return $request->wantsJson() || $request->input('json')
+                ? response()->json([])
+                : Inertia::render('Search', ['results' => [], 'queryInput' => $queryInput]);
+        }
+
         $response = $this->tmdbRequest($key)->get("{$url}/search/{$category}", [
             'query' => $queryInput,
             ...$this->queryParameters($key),
         ])->throw();
 
-        $results = response()->json($response->json()['results'] ?? []);
+        $results = $response->json()['results'] ?? [];
 
-        return Inertia::render('Search', compact('results', 'queryInput'));
+        // return raw JSON for the modal's live type-to-search
+        if ($request->input('json') || $request->wantsJson()) {
+            return response()->json($results);
+        }
+
+        return Inertia::render('Search', [
+            'results' => $results,
+            'queryInput' => $queryInput,
+        ]);
     }
 
     protected function tmdbRequest(string $key): PendingRequest
