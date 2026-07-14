@@ -1,17 +1,42 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { Button } from "./Button";
 
 const DeleteModal = ({ isOpen, onClose, onConfirm }) => {
+    // disable scroll when search is active
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isOpen]);
+
+    // don't render the overlay if we are on the actual search page or if closed
+    if (!isOpen) return null;
+
+    const handleOverlayClick = (e) => {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+
     return (
-        <dialog id="my_modal_5" className={`modal ${isOpen && 'modal-open'}`}>
-            <div className="modal-box bg-foreground border border-primary/25">
-                <h3 className="font-bold text-lg">Confirm Deletion</h3>
-                <p className="py-4">Are you sure want to delete this item?</p>
+        <div
+            onClick={handleOverlayClick}
+            className="h-screen w-screen bg-black/75 backdrop-blur-sm fixed inset-0 z-50 flex items-center justify-center cursor-pointer"
+        >
+            <div className="modal-box cursor-default bg-zinc-950 border border-white/20 rounded-md">
+                <h3 className="font-bold text-xl">Confirm Deletion</h3>
+                <p className="py-4 font-light">Are you sure want to delete this item?</p>
                 <div className="modal-action">
-                    <button className="btn bg-secondary hover:bg-secondary/90" onClick={onClose}>Close</button>
-                    <button className="btn bg-red-600 hover:bg-red-700 text-white" onClick={onConfirm}>Delete</button>
+                    <Button size="sm" variant="secondary" className="rounded-md" onClick={onClose}>Close</Button>
+                    <Button size="sm" className="rounded-md" onClick={onConfirm}>Delete</Button>
                 </div>
             </div>
-        </dialog>
+        </div>
     );
 };
 
