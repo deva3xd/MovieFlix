@@ -9,17 +9,14 @@ const Card = ({ item, link, title, date }) => {
     return (
         <Link href={route(link, { id: item.id })} className="hover:text-primary">
             <figure>
-                {!loaded && (
-                    <div className="rounded-md aspect-[2/3] absolute inset-0 animate-pulse bg-gray-300" />
-                )}
-
                 <img
-                    src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+                    src={item.poster_path ? `https://image.tmdb.org/t/p/w500/${item.poster_path}` : "https://blocks.astratic.com/img/general-img-portrait.png"}
                     alt="poster image"
                     className={`rounded-md border border-white/20 object-cover ${loaded ? 'opacity-100' : 'opacity-0'}`}
                     loading="lazy"
                     onLoad={() => setLoaded(true)}
                 />
+
             </figure>
             <div className="flex flex-col my-1">
                 <span className="font-medium text-sm sm:text-base line-clamp-1" title={title}>{title}</span>

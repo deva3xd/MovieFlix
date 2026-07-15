@@ -28,9 +28,12 @@ const CardList = ({ items }) => {
                     </div>
                 ) : (
                     items?.map((i) => {
+                        const title = i.title || i.name;
+                        const date = i.release_date || i.first_air_date;
+
                         return (
                             <SwiperSlide key={i.id}>
-                                <Card item={i} link={i.title ? "movie.show" : "tv.show"} date={i.release_date ? i.release_date : i.first_air_date} title={i.title ? i.title : i.name} />
+                                <Card item={i} link={i.title ? "movie.show" : "tv.show"} date={date} title={title} />
                             </SwiperSlide>
                         );
                     })
