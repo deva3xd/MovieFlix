@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CartRequest;
-use App\Models\Cart;
+use App\Http\Requests\WatchlistRequest;
+use App\Models\Watchlist;
 use Illuminate\Http\Client\PendingRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
-class CartController extends Controller
+class WatchlistController extends Controller
 {
     public function index()
     {
@@ -18,27 +18,26 @@ class CartController extends Controller
         $tmdb = $this->tmdbRequest($key);
         $query = $this->queryParameters($key);
         
-        $carts = Cart::where('user_id', Auth::id())->pluck('movie_id')->map(function ($movieId) use ($url, $tmdb, $query) {
+        $watchlist = Watchlist::where('user_id', Auth::id())->pluck('movie_id')->map(function ($movieId) use ($url, $tmdb, $query) {
             return $tmdb->get("{$url}/movie/{$movieId}", $query)->throw()->json();
         });
-        $cartCount = Cart::where('user_id', Auth::id())->count();
 
-        return Inertia::render('Cart', compact('carts', 'cartCount'));
+        return Inertia::render('Watchlist', compact('watchlist'));
     }
 
-    public function store(CartRequest $request)
+    public function store(WatchlistRequest $request)
     {
-        Cart::create($request->validated());
+        Watchlist::create($request->validated());
 
         return back();
     }
 
     public function destroy(string $id)
     {
-        $cart = Cart::where('movie_id', $id);
-        $cart->delete();
+        $watchlist = Watchlist::where('movie_id', $id);
+        $watchlist->delete();
 
-        return redirect()->route('cart');
+        return redirect()->route('watchl$watchlist');
     }
 
     protected function tmdbRequest(string $key): PendingRequest

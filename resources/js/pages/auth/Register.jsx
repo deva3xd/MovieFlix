@@ -35,38 +35,20 @@ export default function Register() {
                         <p className="text-2xl text-center">Create new account</p>
                         <form onSubmit={submit}>
                             <div className="max-w-xs lg:max-w-xl flex flex-col gap-4 my-6">
-                                <div className="flex gap-2">
-                                    <>
-                                        <div className="form-control">
-                                            <Label htmlFor="first_name">First Name</Label>
-                                            <Input
-                                                type="text"
-                                                id="first_name"
-                                                name="first_name"
-                                                value={data.first_name}
-                                                onChange={(e) => setData("first_name", e.target.value)}
-                                                className="w-full"
-                                                required
-                                            />
-                                        </div>
-                                        <InputError message={errors.first_name} />
-                                    </>
-                                    <>
-                                        <div className="form-control">
-                                            <Label htmlFor="last_name">Last Name</Label>
-                                            <Input
-                                                type="text"
-                                                id="last_name"
-                                                name="last_name"
-                                                value={data.last_name}
-                                                onChange={(e) => setData("last_name", e.target.value)}
-                                                className="w-full"
-                                                required
-                                            />
-                                        </div>
-                                        <InputError message={errors.last_name} />
-                                    </>
-                                </div>
+                                <>
+                                    <div className="form-control">
+                                        <Label htmlFor="name">Name</Label>
+                                        <Input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            value={data.name}
+                                            onChange={(e) => setData("name", e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <InputError message={errors.name} />
+                                </>
                                 <>
                                     <div className="form-control">
                                         <Label htmlFor="email">Email</Label>

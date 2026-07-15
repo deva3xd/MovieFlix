@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
-use App\Models\Cart;
+use App\Models\Watchlist;
 
 class TvController extends Controller
 {
@@ -41,7 +41,7 @@ class TvController extends Controller
 
     public function show(string $id)
     {
-        $cart = Cart::where('user_id', Auth::id())->where('movie_id', $id)->first();
+        $watchlist = Watchlist::where('user_id', Auth::id())->where('movie_id', $id)->first();
 
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
@@ -54,7 +54,7 @@ class TvController extends Controller
         $credits = $tmdb->get("{$url}/tv/{$id}/credits", $query)->throw()->json();
         $videos = $tmdb->get("{$url}/tv/{$id}/videos", $query)->throw()->json();
 
-        return Inertia::render('Detail', compact('cart', 'detail', 'credits', 'videos'));
+        return Inertia::render('Detail', compact('watchlist', 'detail', 'credits', 'videos'));
     }
 
     protected function tmdbRequest(string $key): PendingRequest

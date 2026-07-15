@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\MediaCacheMissed;
 use Inertia\Inertia;
-use App\Models\Cart;
+use App\Models\Watchlist;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -41,7 +41,7 @@ class MovieController extends Controller
 
     public function show(string $id)
     {
-        $cart = Cart::where('user_id', Auth::id())->where('movie_id', $id)->first();
+        $watchlist = Watchlist::where('user_id', Auth::id())->where('movie_id', $id)->first();
 
         $key = config('services.tmdb.key');
         $url = config('services.tmdb.url');
@@ -54,7 +54,7 @@ class MovieController extends Controller
         $credits = $tmdb->get("{$url}/movie/{$id}/credits", $query)->throw()->json();
         $videos = $tmdb->get("{$url}/movie/{$id}/videos", $query)->throw()->json();
 
-        return Inertia::render('Detail', compact('cart', 'detail', 'credits', 'videos'));
+        return Inertia::render('Detail', compact('watchlist', 'detail', 'credits', 'videos'));
     }
 
     public function videos(string $id)

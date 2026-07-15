@@ -6,8 +6,9 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/Button";
 import { parseISO, format } from "date-fns";
 
-const Detail = ({ cart, detail, credits, videos }) => {
+const Detail = ({ watchlist, detail, credits, videos }) => {
     const { auth } = usePage().props;
+    const isLoggedIn = !!auth?.user;
     const [isLoading, setIsLoading] = useState(false);
 
     const voteAverage = typeof detail.vote_average === "number" ? detail.vote_average.toFixed(1) : "N/A";
@@ -15,7 +16,7 @@ const Detail = ({ cart, detail, credits, videos }) => {
     const formattedDate = format(parseISO(detail.release_date || detail.first_air_date), "dd MMM, yyyy");
 
     const { post } = useForm({
-        user_id: auth.user.id,
+        user_id: auth.user?.id,
         movie_id: detail.id,
         price: 20000,
         count: 1,
@@ -24,14 +25,14 @@ const Detail = ({ cart, detail, credits, videos }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (isLoading) return;
+        if (!isLoggedIn || isLoading) return;
         setIsLoading(true);
 
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
 
-        post(route('cart.store',), {
+        post(route('watchlist.store',), {
             onSuccess: () => {
                 toast.success("Item added");
             }
@@ -50,7 +51,7 @@ const Detail = ({ cart, detail, credits, videos }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
 
                 {/* information */}
-                <div className="absolute bottom-10 left-0 right-0 px-4">
+                <div className="absolute bottom-10 left-8 right-0 px-4">
                     <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 text-white">
                         <div className="w-1/2 flex flex-col gap-3">
                             <div className="flex items-center gap-1 my-2 text-gray-400 text-sm">
@@ -71,9 +72,11 @@ const Detail = ({ cart, detail, credits, videos }) => {
                                 <Button as="a" href={`https://www.vidking.net/embed/movie/${detail.id}?color=e50914`} target="_blank">
                                     <Play size={20} fill="white" /> Play
                                 </Button>
-                                <Button onClick={handleSubmit} variant="outline" href={route("movie.show", { id: detail.id })} disabled={isLoading || cart}>
-                                    {cart ? <Check size={20} /> : <Plus size={20} />} Watchlist
-                                </Button>
+                                {isLoggedIn && (
+                                    <Button onClick={handleSubmit} variant="outline" disabled={isLoading || watchlist}>
+                                        {watchlist ? <Check size={20} /> : <Plus size={20} />} Watchlist
+                                    </Button>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -3,11 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
-use App\Models\Cart;
+use App\Models\Watchlist;
 
 
-Route::get('/cart', function () {
-    $cart = Cart::all();
+Route::get('/watchlist', function () {
+    $watchlist = Watchlist::all();
 
-    return response()->json(['data' => $cart]);
+    return response()->json(['data' => $watchlist]);
 });

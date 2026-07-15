@@ -6,7 +6,7 @@ import { Link } from "@inertiajs/react";
 import MainLayout from "@/layouts/MainLayout";
 import DeleteModal from "@/components/ui/DeleteModal";
 
-const Cart = ({ carts, cartCount }) => {
+const Watchlist = ({ watchlist }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
 
@@ -19,7 +19,7 @@ const Cart = ({ carts, cartCount }) => {
     // confirm delete
     const confirmDelete = () => {
         if (itemToDelete) {
-            router.delete(route("cart.destroy", itemToDelete), {
+            router.delete(route("watchlist.destroy", itemToDelete), {
                 onSuccess: () => toast.success("Item deleted")
             });
             setModalOpen(false);
@@ -28,20 +28,20 @@ const Cart = ({ carts, cartCount }) => {
     };
 
     return (
-        <MainLayout title="Cart">
+        <MainLayout title="Watchlist">
             <div className="min-h-screen max-w-7xl px-4 mx-auto mt-24">
                 <div className="flex justify-between mb-2">
                     <h2 className="text-xl text-white sm:text-3xl font-medium">
                         <span className="text-primary me-2">|</span>Watchlist
                     </h2>
                 </div>
-                {carts.length == 0 ? (
-                    <div className="bg-zinc-900/50 border border-white/20 p-2">
+                {watchlist.length == 0 ? (
+                    <div className="bg-zinc-900/50 border border-white/20 p-2 rounded-md">
                         <p className="font-semibold text-xl text-center">No Items Available</p>
                     </div>
                 ) : (
                     <div className="flex flex-col gap-2">
-                        {carts.map((item) => (
+                        {watchlist.map((item) => (
                             <div className="bg-zinc-900/50 border border-white/20 rounded-md hover:text-primary" key={item.id}>
                                 <div className="flex">
                                     <Link href={route("movie.show", { id: item.id })}>
@@ -90,4 +90,4 @@ const Cart = ({ carts, cartCount }) => {
     )
 }
 
-export default Cart;
+export default Watchlist;
