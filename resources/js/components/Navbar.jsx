@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
-import { UserPen, Plus, LogOut, Search as SearchIcon } from "lucide-react";
+import { UserPen, Plus, LogIn, LogOut, Search as SearchIcon } from "lucide-react";
 import Profile from "@/assets/images/profile.png";
 import useScrollVisibility from "@/hooks/useScrollVisibility";
 import Search from "./Search";
 
 const Navbar = ({ withScrollBehavior = false }) => {
-    const { url } = usePage();
+    const { url, props } = usePage();
+    const isLoggedIn = !!props.auth?.user;
     const [menuOpen, setMenuOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     const atTop = useScrollVisibility(withScrollBehavior);
@@ -20,7 +21,7 @@ const Navbar = ({ withScrollBehavior = false }) => {
 
     const profileMenu = [
         { id: 1, name: "Profile", href: "/profile", icon: <UserPen size={16} /> },
-        { id: 2, name: "Watchlist", href: "/cart", icon: <Plus size={16} /> },
+        { id: 2, name: "Watchlist", href: "/watchlist", icon: <Plus size={16} /> },
     ];
 
     // close dropdown when clicking outside
@@ -79,7 +80,8 @@ const Navbar = ({ withScrollBehavior = false }) => {
                         <SearchIcon size={24} />
                     </button>
 
-                    {/* dropdown */}
+                    {/* dropdown / login */}
+                    {isLoggedIn ? (
                     <div ref={dropdownRef} className="relative">
                         <button
                             id="profile-menu-btn"
@@ -144,6 +146,15 @@ const Navbar = ({ withScrollBehavior = false }) => {
                             </ul>
                         </div>
                     </div>
+                    ) : (
+                        <Link
+                            href={route("login")}
+                            className="flex justify-center items-center gap-2 px-4 py-2 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary/85 transition-colors"
+                        >
+                            <LogIn size={18} />
+                            <span>Login</span>
+                        </Link>
+                    )}
                 </div>
             </div>
             <Search isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
