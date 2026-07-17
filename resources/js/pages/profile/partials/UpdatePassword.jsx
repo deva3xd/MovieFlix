@@ -1,10 +1,11 @@
+import { toast } from 'sonner';
 import { useRef, useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import { Save, Pencil, X } from "lucide-react";
-import { toast } from 'sonner';
+import { Pencil, X } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import InputError from '@/components/ui/InputError';
+import Label from '@/components/ui/Label';
 import Input from "@/components/ui/Input";
-import SubmitButton from "@/components/ui/buttons/SubmitButton";
 
 export default function UpdatePassword() {
     const passwordInput = useRef();
@@ -40,69 +41,57 @@ export default function UpdatePassword() {
         });
     };
 
+    const cancelEdit = () => {
+        setEdit(false);
+        reset();
+    };
+
+    const fieldInput = [
+        { name: "Change Password", label: "change_password", placeholder: "current password", type: "password", value: data.current_password, errors: errors.current_password },
+        { name: "New Password", label: "new_password", placeholder: "new password", type: "password", value: data.password, errors: errors.password },
+        { name: "Confirm Password", label: "password_confirmation", placeholder: "confirm password", type: "password", value: data.password_confirmation, errors: errors.password_confirmation }
+    ];
+
     return (
         <>
-            <div className='flex justify-between'>
-                <h3 className='font-bold text-2xl'>Change Password</h3>
-                <button className={`btn btn-sm border-none ${edit ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-white hover:bg-white/90 text-black'} `} onClick={() => setEdit(edit => !edit)}>
-                    {!edit ? <Pencil size={14} /> : <X size={14} />}
-                </button>
+            <div className='flex items-center justify-between mb-6'>
+                <h3 className='font-bold text-xl uppercase'>Change Password</h3>
+                <Button
+                    size="sm"
+                    className="px-0rounded-full"
+                    variant={edit ? 'primary' : 'secondary'}
+                    onClick={() => setEdit((prev) => !prev)}
+                >
+                    {edit ? <X size={14} /> : <Pencil size={14} />}
+                </Button>
             </div>
             <form onSubmit={updatePassword} >
-                <fieldset className="fieldset">
-                    <legend className="fieldset-legend" htmlFor="current_password">Current Password</legend>
-                    <Input
-                        type="password"
-                        id="current_password"
-                        name="current_password"
-                        ref={currentPasswordInput}
-                        value={data.current_password}
-                        className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
-                        onChange={(e) => setData('current_password', e.target.value)}
-                        required
-                        placeholder="current password"
-                        disabled={!edit}
-                    />
-                    <InputError message={errors.current_password} className="mt-1" />
-                </fieldset>
-                <fieldset className="fieldset mt-3">
-                    <legend className="fieldset-legend" htmlFor="password">New Password</legend>
-                    <Input
-                        type="password"
-                        id="password"
-                        name="password"
-                        ref={passwordInput}
-                        value={data.password}
-                        className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                        placeholder="new password"
-                        disabled={!edit}
-                    />
-                    <InputError message={errors.password} className="mt-1" />
-                    <p className="mt-1 text-sm text-gray-500">
-                        Ensure your account is using a long, random password to stay secure.
-                    </p>
-                </fieldset>
-                <fieldset className="fieldset mt-3">
-                    <legend className="fieldset-legend" htmlFor="password_confirmation">Confirm Password</legend>
-                    <Input
-                        type="password"
-                        id="password_confirmation"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="w-full disabled:text-gray-500 disabled:bg-black/25 disabled:border-none"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
-                        placeholder="confirm password"
-                        disabled={!edit}
-                    />
-                    <InputError message={errors.password_confirmation} className="mt-1" />
-                </fieldset>
-                <SubmitButton className="disabled:text-gray-500 disabled:bg-black/25 mt-4" disabled={!edit || processing}>
-                    <Save size={18} />
-                    Save
-                </SubmitButton>
+                {fieldInput.map((field, index) => (
+                    <fieldset key={index} className="fieldset">
+                        <Label htmlFor={field.label}>{field.name}</Label>
+                        <Input
+                            type={field.type}
+                            id={field.label}
+                            name={field.label}
+                            value={field.value}
+                            className="w-full disabled:bg-zinc-900"
+                            onChange={(e) => setData(field.label, e.target.value)}
+                            required
+                            placeholder={field.placeholder}
+                            disabled={!edit}
+                        />
+                        <InputError message={field.errors} className="mt-1" />
+                    </fieldset>
+                ))}
+
+                <div className="flex gap-2 mt-6">
+                    <Button variant="secondary" className="size-11 rounded-md py-0 px-12 text-sm" disabled={!edit || processing}>
+                        Save
+                    </Button>
+                    <Button variant="outline" className="size-11 rounded-md py-0 px-12 text-sm" disabled={!edit} onClick={cancelEdit}>
+                        Cancel
+                    </Button>
+                </div>
             </form>
         </>
     );

@@ -13,7 +13,9 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
-    //  Display the user's profile form
+    /**
+     * Display the user's profile form.
+     */
     public function edit(Request $request): Response
     {
         return Inertia::render('profile/Profile', [
@@ -22,26 +24,32 @@ class ProfileController extends Controller
         ]);
     }
 
-    //  Update the user's profile information.
+    /**
+     * Update the user's profile information.
+     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->safe()->except('image'));
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->fill($request->safe()->only(['name', 'email']));
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('profile', 'public');
-            $request->user()->image = $path;
+            $user->image = $path;
         }
 
-        $request->user()->save();
-        
-        return Redirect::route('profile.edit');
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    //  Delete the user's account
+    /**
+     * Delete the user's account.
+     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validate([
