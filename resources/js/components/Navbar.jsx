@@ -47,13 +47,12 @@ const Navbar = ({ withScrollBehavior = false }) => {
     }, [menuOpen]);
 
     return (
-        <nav className={`max-w-[1380px] rounded-full mx-auto z-50 p-3 transition-[transform,background-color,position] duration-300 ${
-            atTop
+        <nav className={`max-w-[1380px] rounded-full mx-auto z-50 p-3 transition-[transform,background-color,position] duration-300 ${atTop
                 ? "absolute top-2 left-0 right-0 bg-transparent"
                 : "fixed top-2 left-0 right-0 bg-black/80 shadow-lg border border-white/20 backdrop-blur-sm"
-        }`}>
+            }`}>
             <div className="flex justify-between items-center max-w-7xl mx-auto px-4">
-                <div className="flex gap-8">
+                <div className="flex gap-6">
                     {navMenu.map((m) => {
                         const isActive = m.isActive(url);
 
@@ -62,7 +61,7 @@ const Navbar = ({ withScrollBehavior = false }) => {
                                 key={m.id}
                                 href={m.href}
                                 className={`text-lg font-semibold transition-colors ${isActive
-                                    ? "underline underline-offset-8 decoration-2 decoration-red-600 text-white"
+                                    ? "underline underline-offset-8 decoration-2 decoration-primary text-white"
                                     : "text-white/50 hover:text-white/60"
                                     }`}
                             >
@@ -72,84 +71,84 @@ const Navbar = ({ withScrollBehavior = false }) => {
                     })}
                 </div>
 
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-3 items-center">
                     <button
                         onClick={() => setSearchOpen(true)}
-                        className="bg-white/20 flex justify-center items-center rounded-full size-10 hover:bg-white/30 transition-colors text-white hover:text-red-600"
+                        className="bg-white/20 flex justify-center items-center rounded-full size-10 hover:bg-white/30 transition-colors text-white border border-white/20"
                     >
                         <SearchIcon size={24} />
                     </button>
 
                     {/* dropdown / login */}
                     {isLoggedIn ? (
-                    <div ref={dropdownRef} className="relative">
-                        <button
-                            id="profile-menu-btn"
-                            onClick={() => setMenuOpen((prev) => !prev)}
-                            className="flex justify-center items-center rounded-full size-10 ring-2 ring-transparent hover:ring-white/50 transition-all duration-200"
-                            aria-haspopup="true"
-                            aria-expanded={menuOpen}
-                            aria-controls="profile-dropdown"
-                        >
-                            <img src={Profile} className="rounded-full size-10 object-cover" alt="Profile" />
-                        </button>
+                        <div ref={dropdownRef} className="relative">
+                            <button
+                                id="profile-menu-btn"
+                                onClick={() => setMenuOpen((prev) => !prev)}
+                                className="flex justify-center items-center rounded-full size-10 ring-2 ring-transparent hover:ring-white/50 transition-all duration-200"
+                                aria-haspopup="true"
+                                aria-expanded={menuOpen}
+                                aria-controls="profile-dropdown"
+                            >
+                                <img src={Profile} className="rounded-full size-10 object-cover" alt="Profile" />
+                            </button>
 
-                        {/* dropdown panel */}
-                        <div
-                            id="profile-dropdown"
-                            role="menu"
-                            aria-label="Profile menu"
-                            className={`
+                            {/* dropdown panel */}
+                            <div
+                                id="profile-dropdown"
+                                role="menu"
+                                aria-label="Profile menu"
+                                className={`
                                 absolute top-12 right-0 w-52
                                 bg-black border border-white/20
                                 rounded-xl rounded-tr-none shadow-2xl overflow-hidden
                                 transition-all duration-200 origin-top-right
                                 ${menuOpen
-                                    ? "opacity-100 scale-100 pointer-events-auto"
-                                    : "opacity-0 scale-95 pointer-events-none"
-                                }
+                                        ? "opacity-100 scale-100 pointer-events-auto"
+                                        : "opacity-0 scale-95 pointer-events-none"
+                                    }
                             `}
-                        >
-                            <div className="px-4 py-3 border-b border-white/10">
-                                <p className="text-xs text-white uppercase tracking-widest font-medium">Account</p>
-                            </div>
+                            >
+                                <div className="px-4 py-3 border-b border-white/10">
+                                    <p className="text-xs text-white uppercase tracking-widest font-medium">Account</p>
+                                </div>
 
-                            {/* menu items */}
-                            <ul className="py-1">
-                                {profileMenu.map((item) => (
-                                    <li key={item.id} role="menuitem">
+                                {/* menu items */}
+                                <ul className="py-1">
+                                    {profileMenu.map((item) => (
+                                        <li key={item.id} role="menuitem">
+                                            <Link
+                                                href={item.href}
+                                                onClick={() => setMenuOpen(false)}
+                                                className="flex items-center gap-3 px-4 py-3 text-sm text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+                                            >
+                                                <span className="text-white/50">{item.icon}</span>
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+
+                                    {/* divider */}
+                                    <li role="separator" className="border-t border-white/10 my-1" />
+
+                                    <li role="menuitem">
                                         <Link
-                                            href={item.href}
+                                            href={route("logout")}
+                                            method="POST"
+                                            as="button"
                                             onClick={() => setMenuOpen(false)}
-                                            className="flex items-center gap-3 px-4 py-3 text-sm text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+                                            className="flex items-center gap-3 w-full px-4 py-3 text-sm text-red-400 hover:text-red-500 hover:bg-red-500/10 transition-colors"
                                         >
-                                            <span className="text-white/50">{item.icon}</span>
-                                            {item.name}
+                                            <LogOut size={16} /> Logout
                                         </Link>
                                     </li>
-                                ))}
-
-                                {/* divider */}
-                                <li role="separator" className="border-t border-white/10 my-1" />
-
-                                <li role="menuitem">
-                                    <Link
-                                        href={route("logout")}
-                                        method="POST"
-                                        as="button"
-                                        onClick={() => setMenuOpen(false)}
-                                        className="flex items-center gap-3 w-full px-4 py-3 text-sm text-red-400 hover:text-red-500 hover:bg-red-500/10 transition-colors"
-                                    >
-                                        <LogOut size={16} /> Logout
-                                    </Link>
-                                </li>
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     ) : (
                         <Link
                             href={route("login")}
-                            className="flex justify-center items-center gap-2 px-4 py-2 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary/85 transition-colors"
+                            className="flex justify-center items-center gap-2 rounded-full font-semibold disabled:pointer-events-none disabled:opacity-50 bg-white/20 border border-white/20 text-white hover:bg-white/30 text-sm px-4 py-2"
                         >
                             <LogIn size={18} />
                             <span>Login</span>

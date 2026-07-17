@@ -1,6 +1,6 @@
 import { useForm, Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/Button";
-import { Label } from "@/components/ui/Label";
+import Label from "@/components/ui/Label";
 import GuestLayout from "@/layouts/GuestLayout";
 import InputError from "@/components/ui/InputError";
 import Input from "@/components/ui/Input";
@@ -30,7 +30,7 @@ export default function Register() {
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam sit quod aspernatur dolorem aut sunt. Laudantium repellat ipsa asperiores temporibus!
                     </p>
                 </div>
-                <div className="w-2/5 flex flex-col justify-center items-center p-8 rounded-md bg-foreground text-white border border-primary bg-background">
+                <div className="w-2/5 flex flex-col justify-center items-center p-8 rounded-md text-white border border-primary bg-background">
                     <div className="w-full">
                         <p className="text-2xl text-center">Create new account</p>
                         <form onSubmit={submit}>

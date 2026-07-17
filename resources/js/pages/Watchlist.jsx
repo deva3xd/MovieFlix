@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Trash2, Star, Calendar } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import MainLayout from "@/layouts/MainLayout";
-import DeleteModal from "@/components/ui/DeleteModal";
+import ModalDeleteData from "@/components/ModalDeleteData";
 
 const Watchlist = ({ watchlist }) => {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -81,11 +81,7 @@ const Watchlist = ({ watchlist }) => {
                     </div>
                 )}
             </div>
-            <DeleteModal
-                isOpen={isModalOpen}
-                onClose={() => setModalOpen(false)}
-                onConfirm={confirmDelete}
-            />
+            <ModalDeleteData isOpen={isModalOpen} onClose={() => setModalOpen(false)} onConfirm={confirmDelete} />
         </MainLayout>
     )
 }
